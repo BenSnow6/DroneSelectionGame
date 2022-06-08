@@ -78,7 +78,9 @@ private float maxRisk;
     {
      if (Input.GetMouseButtonDown(0))
         {
-            selectionGrid.SetTile(mousePosition, selectionTile);
+            ICommand select = new Selection(mousePosition);
+            select.Execute();
+            // selectionGrid.SetTile(mousePosition, selectionTile);
         }
     }
     
