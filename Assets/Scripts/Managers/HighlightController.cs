@@ -18,6 +18,7 @@ private Vector3Int previousMousePos = new Vector3Int();
 private Vector3Int[] nearestNeighbours = new Vector3Int[4];
 private Vector3Int[] previousNearestNeighbours = new Vector3Int[4];
 private float maxRisk;
+private SelectionManager _selectionManager = null;
 
 
 
@@ -27,6 +28,7 @@ private float maxRisk;
         grid = gameObject.GetComponent<Grid>();
         gridInfo = backgroundGrid.GetComponent<GridInformation>();
         maxRisk = 0.000377f;
+        _selectionManager = gameObject.GetComponent<SelectionManager>();
     }
 
     // Update is called once per frame
@@ -79,7 +81,7 @@ private float maxRisk;
      if (Input.GetMouseButtonDown(0))
         {
             ICommand select = new Selection(mousePosition);
-            select.Execute();
+            _selectionManager.commandHandler.AddCommand(select as Selection);
             // selectionGrid.SetTile(mousePosition, selectionTile);
         }
     }

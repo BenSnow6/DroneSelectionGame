@@ -5,6 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class Selection : ICommand
 {
+
+    //// Need to find a way of either passing these to the function when calling it or finding a way to get references to them! Then should work...
     [SerializeField] private Tilemap surroundingMap = null;
     [SerializeField] private Tile selectionTile = null;
     [SerializeField] private Tile surroundingTile = null;
@@ -24,7 +26,7 @@ public class Selection : ICommand
 
     public void Undo()
     {
-        
+
     }
 
 

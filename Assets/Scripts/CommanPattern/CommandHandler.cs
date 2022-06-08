@@ -13,6 +13,7 @@ public class CommandHandler
             commandList.RemoveRange(index, commandList.Count - index);
 
         commandList.Add(command);
+        Debug.Log("Command added");
         command.Execute();
         index++;
     }
