@@ -53,11 +53,7 @@ public class TileMapManager : MonoBehaviour
                     GridInfo.SetPositionProperty(localPlace,"y", y);
                     int riskIndex = numCols*(numRows-1-y)+x; // transformation from x,y index to corresponding position in csv file
                     GridInfo.SetPositionProperty(localPlace, "Risk", float.Parse(riskData[riskIndex])); // save risk value to grid
-                    if(x==3 && y==4){
-                        // SetSelectedColour(localPlace);
-                        // Debug.Log("set colour");
-                    }
-                
+ 
                 }
                 else
                 {
