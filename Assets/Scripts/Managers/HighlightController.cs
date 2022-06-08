@@ -39,7 +39,6 @@ private float maxRisk;
         Vector3Int mousePos = GetMousePosition();
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3Int tileLocalPos = new Vector3Int((int) Mathf.Floor(mousePos.x), (int) Mathf.Floor(mousePos.y), 0);
-        Debug.Log(mousePos);
         if(inGridBounds(mousePos)){
             
             addTile(tileLocalPos);
@@ -72,7 +71,6 @@ private float maxRisk;
 
     Vector3Int GetMousePosition(){
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Debug.Log(Input.mousePosition);
         return grid.WorldToCell(mouseWorldPos);
     }
 
