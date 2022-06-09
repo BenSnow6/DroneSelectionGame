@@ -83,8 +83,9 @@ private SelectionManager _selectionManager = null;
     {
      if (Input.GetMouseButtonDown(0))
         {
-            ICommand select = new Selection(mousePosition, surroundingGrid, selectionGrid, selectionTile, surroundingTile);
+            ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile);
             _selectionManager.commandHandler.AddCommand(select as Selection);
+            previousMousePos = mousePosition;
             // selectionGrid.SetTile(mousePosition, selectionTile);
         }
     }
