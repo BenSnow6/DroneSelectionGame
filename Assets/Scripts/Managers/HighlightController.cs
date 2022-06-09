@@ -9,11 +9,13 @@ public class HighlightController : MonoBehaviour
     // Start is called before the first frame update
 private Grid grid;
 private GridInformation gridInfo;
-[SerializeField] private Tilemap interactiveMap = null;
+[SerializeField] private Tilemap interactiveGrid = null;
 [SerializeField] private Tilemap selectionGrid = null;
 [SerializeField] private Tilemap backgroundGrid = null;
+[SerializeField] private Tilemap surroundingGrid = null;
 [SerializeField] private Tile hoverTile = null;
 [SerializeField] private Tile selectionTile = null;
+[SerializeField] private Tile surroundingTile = null;
 private Vector3Int previousMousePos = new Vector3Int();
 private Vector3Int[] nearestNeighbours = new Vector3Int[4];
 private Vector3Int[] previousNearestNeighbours = new Vector3Int[4];
@@ -80,7 +82,7 @@ private SelectionManager _selectionManager = null;
     {
      if (Input.GetMouseButtonDown(0))
         {
-            ICommand select = new Selection(mousePosition);
+            ICommand select = new Selection(mousePosition, surroundingGrid, selectionGrid, selectionTile, surroundingTile);
             _selectionManager.commandHandler.AddCommand(select as Selection);
             // selectionGrid.SetTile(mousePosition, selectionTile);
         }
@@ -116,8 +118,8 @@ private SelectionManager _selectionManager = null;
 
     void showHighlight(Vector3Int mousePosition, Vector3Int previousMousePosition){
         if (!mousePosition.Equals(previousMousePos)){
-            interactiveMap.SetTile(previousMousePos,null); // remove old highlight tile
-            interactiveMap.SetTile(mousePosition, hoverTile); // place highlight tile at current mouse position
+            interactiveGrid.SetTile(previousMousePos,null); // remove old highlight tile
+            interactiveGrid.SetTile(mousePosition, hoverTile); // place highlight tile at current mouse position
             previousMousePos = mousePosition;
         }
     }

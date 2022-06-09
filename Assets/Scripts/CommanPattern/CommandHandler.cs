@@ -13,7 +13,6 @@ public class CommandHandler
             commandList.RemoveRange(index, commandList.Count - index);
 
         commandList.Add(command);
-        Debug.Log("Command added");
         command.Execute();
         index++;
     }
@@ -27,6 +26,7 @@ public class CommandHandler
             commandList[index - 1].Undo();
             index--;
         }
+        Debug.Log("Command removed");
     }
 
     public void RedoCommand()
