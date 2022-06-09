@@ -31,6 +31,7 @@ private SelectionManager _selectionManager = null;
         gridInfo = backgroundGrid.GetComponent<GridInformation>();
         maxRisk = 0.000377f;
         _selectionManager = gameObject.GetComponent<SelectionManager>();
+
     }
 
     // Update is called once per frame
@@ -92,6 +93,7 @@ private SelectionManager _selectionManager = null;
     {
      if (Input.GetMouseButtonDown(1))
         {
+            _selectionManager.commandHandler.UndoCommand();
             selectionGrid.SetTile(mousePosition, null);
 
         }

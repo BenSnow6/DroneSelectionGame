@@ -34,7 +34,11 @@ public class Selection : ICommand
 
     public void Undo()
     {
-
+        selectionGrid.SetTile(tileLocalPos, null);
+        surroundingGrid.SetTile(tileLocalPos + new Vector3Int(1,0,0), null);
+        surroundingGrid.SetTile(tileLocalPos + new Vector3Int(0,1,0), null);
+        surroundingGrid.SetTile(tileLocalPos - new Vector3Int(1,0,0), null);
+        surroundingGrid.SetTile(tileLocalPos - new Vector3Int(0,1,0), null);
     }
 
 
