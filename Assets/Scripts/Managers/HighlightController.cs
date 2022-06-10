@@ -131,6 +131,9 @@ void selectTile(Vector3Int mousePosition)
             Check against the list of clickedLocations and see if the current mousePosition is in that list anywhere.
             Then need to check if the clicked location is one of the surrounding tiles.
             E.g. the mousePosition is one of the surrounding tiles of the last in the list of clickedLocations
+
+
+            /// Need to 
             
 
             */
