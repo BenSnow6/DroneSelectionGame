@@ -125,6 +125,12 @@ void selectTile(Vector3Int mousePosition)
             Need to check if the mousePosition is one of the surrounding tiles
             To do this, need to know the location of the last selected tile
             To access this, need the commandList.Last().clickedPosition
+
+
+            /// needs to be "Can't click on tiles that have already been selected.
+            Check against the list of clickedLocations and see if the current mousePosition is in that list anywhere.
+            Then need to check if the clicked location is one of the surrounding tiles.
+            E.g. the mousePosition is one of the surrounding tiles of the last in the list of clickedLocations
             
 
             */
