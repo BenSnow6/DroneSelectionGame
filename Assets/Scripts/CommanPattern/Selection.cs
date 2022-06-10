@@ -5,13 +5,17 @@ using UnityEngine.Tilemaps;
 
 public class Selection : ICommand
 {
+    public Vector3Int clickedLocation
+    {
+        get;
+        set;
+    }
 
-    //// Need to find a way of either passing these to the function when calling it or finding a way to get references to them! Then should work...
     private Tilemap surroundingGrid = null;
     private Tilemap selectionGrid = null;
     private Tile selectionTile = null;
     private Tile surroundingTile = null;
-    private Vector3Int tileLocalPos = Vector3Int.zero;
+    public Vector3Int tileLocalPos = Vector3Int.zero;
     private Vector3Int prevTileLocalPos = Vector3Int.zero;
 
     public Selection(Vector3Int tileLocalPos, Vector3Int prevTileLocalPos, Tilemap surroundingGrid, Tilemap selectionGrid, Tile selectionTile, Tile surroundingTile)

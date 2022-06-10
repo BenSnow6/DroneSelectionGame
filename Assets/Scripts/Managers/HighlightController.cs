@@ -85,6 +85,7 @@ private SelectionManager _selectionManager = null;
         {
             ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile);
             _selectionManager.commandHandler.AddCommand(select as Selection);
+            //select.clickedLocation = mousePosition;
             previousMousePos = mousePosition;
             // selectionGrid.SetTile(mousePosition, selectionTile);
         }

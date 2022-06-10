@@ -1,0 +1,32 @@
+Check command hasn't already been registered
+Store the previously clicked tile's location
+
+
+Start condition:
+Start with surroudning tiles placed around the start position
+On click of tile
+	If(clicked tile is one of the surrounding tiles)
+		Record command
+	else
+		Show UI to user explaining to click one of the surrounding tiles
+
+Command recording:
+
+	Remove surrounding tiles from previous position
+	Add selection tile at clicked position
+	Add surrounding tiles at clicked position
+
+Undo:
+	Remove surrounding tiles from last clicked position
+	Remove selection tile from last clicked position
+	Add selection tiles to 2nd last clicked position
+
+
+
+When placing surrounding tiles:
+	Check the location to be set is within the grid bounds
+
+How to not record same click multiple times?
+	If (current click position is not equal to the previous click position)
+		Allow command to be recorded)
+	
