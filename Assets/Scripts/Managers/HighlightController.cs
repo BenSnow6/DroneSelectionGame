@@ -86,6 +86,8 @@ private SelectionManager _selectionManager = null;
      if (Input.GetMouseButtonDown(1))
         {
             _selectionManager.commandHandler.UndoCommand();
+            var lastSelectedPosition = _selectionManager.commandHandler.commandList.LastOrDefault();
+            Debug.Log($"Clicked location is undone {lastSelectedPosition.clickedLocation}");
             selectionGrid.SetTile(mousePosition, null);
 
         }
@@ -123,25 +125,38 @@ void selectTile(Vector3Int mousePosition)
             Need to check if the mousePosition is one of the surrounding tiles
             To do this, need to know the location of the last selected tile
             To access this, need the commandList.Last().clickedPosition
-
-
-
-
-
-
+            
 
             */
 
-
-            ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile);
-
-            select.clickedLocation = mousePosition;
-            _selectionManager.commandHandler.AddCommand(select as Selection);
+            if(_selectionManager.commandHandler.commandList.Count.Equals(0))
+            {
             
-            //select.clickedLocation = mousePosition;
-            var lastSelectedPosition = _selectionManager.commandHandler.commandList.LastOrDefault();
-            Debug.Log($"Clicked location is {lastSelectedPosition.clickedLocation}");
-            // selectionGrid.SetTile(mousePosition, selectionTile);
+                ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile);
+
+                select.clickedLocation = mousePosition;
+                
+                _selectionManager.commandHandler.AddCommand(select as Selection);
+            
+            }
+
+            if(_selectionManager.commandHandler.commandList.Count > 0){
+                var lastSelectedPosition = _selectionManager.commandHandler.commandList.LastOrDefault();
+                if(lastSelectedPosition.clickedLocation.Equals(mousePosition))
+                {
+                    Debug.Log("Can't click here");
+                }
+                else
+                {
+                    ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile);
+
+                    select.clickedLocation = mousePosition;
+                    
+                    _selectionManager.commandHandler.AddCommand(select as Selection);
+                }
+            }
+
+            
         }
     }
 
