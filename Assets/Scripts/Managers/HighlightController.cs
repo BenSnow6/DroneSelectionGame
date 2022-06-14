@@ -8,7 +8,6 @@ using System.Linq;
 
 public class HighlightController : MonoBehaviour
 {
-    // Start is called before the first frame update
 private Grid grid;
 private GridInformation gridInfo;
 [SerializeField] private Tilemap interactiveGrid = null;
@@ -19,28 +18,27 @@ private GridInformation gridInfo;
 [SerializeField] private Tile selectionTile = null;
 [SerializeField] private Tile surroundingTile = null;
 private Vector3Int previousMousePos = new Vector3Int();
-private Vector3Int[] nearestNeighbours = new Vector3Int[4];
-private Vector3Int[] previousNearestNeighbours = new Vector3Int[4];
-private float maxRisk;
-private SelectionManager _selectionManager = null;
+private Vector3Int[] nearestNeighbours = new Vector3Int[4]; // Depricated
+private Vector3Int[] previousNearestNeighbours = new Vector3Int[4]; // Depricated
+private float maxRisk; // Max risk, used to normalise the risk map
+private SelectionManager _selectionManager = null; // Instance of the selectionManager
 
 
 
     void Start()
     {
-        // Store the grid component
-        grid = gameObject.GetComponent<Grid>();
-        gridInfo = backgroundGrid.GetComponent<GridInformation>();
-        maxRisk = 0.000377f;
-        _selectionManager = gameObject.GetComponent<SelectionManager>();
-
+        grid = gameObject.GetComponent<Grid>(); // Reference to grid component
+        gridInfo = backgroundGrid.GetComponent<GridInformation>(); // Reference to gridInformation
+        _selectionManager = gameObject.GetComponent<SelectionManager>(); // Reference to selectionManager
+        maxRisk = 0.000377f; // To be changed to the risk associated with driving a car this distance
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        // Show highlight tile on the interactive map when the mouse is over it and is within the selection grid bounds
+        // Show highlight tile on the interactive map when the mouse or stylus is
+        // over it and it is within the selection grid bounds
 
         // Get the mouse position
         Vector3Int mousePos = GetMousePosition();
@@ -57,7 +55,7 @@ private SelectionManager _selectionManager = null;
         }
         else
         {
-            TooltipManager._instance.HideToolTip();
+            TooltipManager._instance.HideToolTip(); // Show interactive tooltip
         }
 
 

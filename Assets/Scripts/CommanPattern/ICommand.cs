@@ -6,11 +6,13 @@ public interface ICommand
 {
     public Vector3Int clickedLocation
     {
+        /// To be changed to List<Vector3Int> selectedLocations which will hold all locations
+
         get;
         set;
     }
-    void Execute();
+    void Execute(); // Inherited members must have execute function
 
-    void Undo();
+    void Undo(); // Inherited members must have execute function
 
 }

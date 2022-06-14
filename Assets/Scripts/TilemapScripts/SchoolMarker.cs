@@ -7,8 +7,8 @@ public class SchoolMarker : MonoBehaviour
 
 {
     [SerializeField] GameObject schoolMarker;
-    private Vector3 offset;
-    public TextAsset SchoolNameData;
+    private Vector3 offset; // offset position of the tip of the marker prefab
+    public TextAsset SchoolNameData; // csv file with location data
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +17,7 @@ public class SchoolMarker : MonoBehaviour
         Vector3 offset = new Vector3(0, tipPosition_y, 2.73958f); // location offset of the marker's tip
 
 
-        string[] data = SchoolNameData.text.Split(new string[] {",", "\n"}, System.StringSplitOptions.None);
+        string[] data = SchoolNameData.text.Split(new string[] {",", "\n"}, System.StringSplitOptions.None); //read the csv file
         for (int i = 0; i < data.Length; i++)
         {
             float x_f = 0.0f;
@@ -29,12 +29,12 @@ public class SchoolMarker : MonoBehaviour
             float y_d = 50.863096f;
             float y_e = 51.02f;
 
-
+            // Scale the data to the grid bounds
             float x_pos = (x_f-x_g)/(x_d-x_e)*(float.Parse(data[3*i+1])-x_d)+x_f;
 
             float y_pos = (y_f-y_g)/(y_d-y_e)*(float.Parse(data[3*i+2])-y_d)+y_f;
 
-            spawnSchool(new Vector3(x_pos, y_pos, 0), data[i*3]);
+            spawnSchool(new Vector3(x_pos, y_pos, 0), data[i*3]); // instantiate prefabs at each of the locations
         }
         /*
         read in csv
@@ -46,16 +46,11 @@ public class SchoolMarker : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     void spawnSchool(Vector3 position, string schoolName)
     {
         GameObject schoolObject = Instantiate(schoolMarker, offset+position, Quaternion.identity) as GameObject;  // instatiate the object
-        schoolObject.transform.localScale = new Vector3(0.2f, 0.2f, 1.0f);
+        schoolObject.transform.localScale = new Vector3(0.2f, 0.2f, 1.0f); // set size of the prefabs
         //LeanTween.moveX(schoolObject, schoolObject.transform.position.x, 5f).setEase(LeanTweenType.easeOutBounce);
         //LeanTween.scale(schoolObject, new Vector3(0.125f, 0.125f, 1.0f), 2.0f).setEase(LeanTweenType.easeInBounce);
         

@@ -30,11 +30,6 @@ public class TileMapManager : MonoBehaviour
         setTileData();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        clickTile();
-    }
 
     void setTileData()
     {
@@ -63,16 +58,6 @@ public class TileMapManager : MonoBehaviour
         }
     }
 
-    void clickTile()
-    {
-     if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int tileLocalPos = new Vector3Int((int) Mathf.Floor(pos.x), (int) Mathf.Floor(pos.y), 0);;
-            // Debug.Log(string.Format($"Co-ords of mouse are [X: {(int) pos.x} Y: {(int) pos.y} Risk: {GridInfo.GetPositionProperty(tileLocalPos, "Risk", 0.0f)}]"));
-
-        }
-    }
 
     string[] ReadCSV()
     {
@@ -82,19 +67,8 @@ public class TileMapManager : MonoBehaviour
         numCols = (data.Length-1)/(numRows);
         return data;
     }
-
-    void SetSelectedColour(Vector3Int tilePosition)
-    {
-        Color currentColour = _tilemap.GetColor(tilePosition);
-        Color newColour = new Color (currentColour.r, currentColour.g, currentColour.b, 0.2f);
-        Debug.Log(newColour);
-        _tilemap.SetTileFlags(tilePosition, TileFlags.None);
-        _tilemap.SetColor(tilePosition, Color.black);
-
-
-
-    }
 }
+ 
 
 /* Helper:
 
@@ -104,6 +78,23 @@ How to get a grid position property:
     GridInfo.GetPositionProperty(new Vector3Int(0,0,0), "pos", 0);
 
 where the Vector3Int is the local tile position, "pos" is the name of the property stored, and 0 is the default to be returned if there is no value stored. (0 for int, "No value" for string etc...)
+
+
+
+Old method for changing the colour of a given tile at a location with a colour instance
+
+void SetSelectedColour(Vector3Int tilePosition)
+{
+    Color currentColour = _tilemap.GetColor(tilePosition);
+    Color newColour = new Color (currentColour.r, currentColour.g, currentColour.b, 0.2f);
+    Debug.Log(newColour);
+    _tilemap.SetTileFlags(tilePosition, TileFlags.None);
+    _tilemap.SetColor(tilePosition, Color.black);
+
+
+
+}
+
 
 
 */
