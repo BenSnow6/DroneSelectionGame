@@ -19,6 +19,8 @@
          if (scroll != 0.0f) {
              targetOrtho -= scroll * zoomSpeed;
              targetOrtho = Mathf.Clamp (targetOrtho, minOrtho, maxOrtho);
+             
+            //  Camera.main.transform.position = Input.mousePosition;
          }
          
          Camera.main.orthographicSize = Mathf.MoveTowards (Camera.main.orthographicSize, targetOrtho, smoothSpeed * Time.deltaTime);
