@@ -10,56 +10,44 @@ public class HighlightController : MonoBehaviour
 {
 private Grid grid;
 private GridInformation gridInfo;
-[SerializeField] private Tilemap interactiveGrid = null;
 [SerializeField] private Tilemap selectionGrid = null;
 [SerializeField] private Tilemap backgroundGrid = null;
 [SerializeField] private Tilemap surroundingGrid = null;
-[SerializeField] private Tile hoverTile = null;
 [SerializeField] private Tile selectionTile = null;
 [SerializeField] private Tile surroundingTile = null;
 private Vector3Int previousMousePos = new Vector3Int();
-private Vector3Int[] nearestNeighbours = new Vector3Int[4]; // Depricated
-private Vector3Int[] previousNearestNeighbours = new Vector3Int[4]; // Depricated
-private float maxRisk; // Max risk, used to normalise the risk map
 private SelectionManager _selectionManager = null; // Instance of the selectionManager
 
 
 
     void Start()
     {
-        grid = gameObject.GetComponent<Grid>(); // Reference to grid component
-        gridInfo = backgroundGrid.GetComponent<GridInformation>(); // Reference to gridInformation
-        _selectionManager = gameObject.GetComponent<SelectionManager>(); // Reference to selectionManager
-        maxRisk = 0.000377f; // To be changed to the risk associated with driving a car this distance
+        /// <summary>
+        /// Initialise the grid and game objects
+        /// </summary>
+
+        grid = gameObject.GetComponent<Grid>();
+        gridInfo = backgroundGrid.GetComponent<GridInformation>();
+        _selectionManager = gameObject.GetComponent<SelectionManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        // Show highlight tile on the interactive map when the mouse or stylus is
-        // over it and it is within the selection grid bounds
+        /// <summary>
+        /// Update the current mouse position and convert to grid coordinates
+        /// Check if the mouse is in the gridBounds
+        /// Check if left mouse has been clicked
+        /// </summary>
 
         // Get the mouse position
         Vector3Int mousePos = GetMousePosition();
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3Int tileLocalPos = new Vector3Int((int) Mathf.Floor(mousePos.x), (int) Mathf.Floor(mousePos.y), 0);
         if(inGridBounds(mousePos)){
-            
             selectTile(tileLocalPos);
             removeTile(tileLocalPos);
-            showHighlight(tileLocalPos, previousMousePos);
-            showToolTip(tileLocalPos);
-
-
         }
-        else
-        {
-            TooltipManager._instance.HideToolTip(); // Show interactive tooltip
-        }
-
-
-
     }
 
     Vector3Int GetMousePosition(){
@@ -91,26 +79,11 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
         }
     }
 
-    void showHighlight(Vector3Int mousePosition, Vector3Int previousMousePosition){
-        if (!mousePosition.Equals(previousMousePos)){
-            interactiveGrid.SetTile(previousMousePos,null); // remove old highlight tile
-            interactiveGrid.SetTile(mousePosition, hoverTile); // place highlight tile at current mouse position
-            previousMousePos = mousePosition;
-        }
-    }
 
-    bool inGridBounds(Vector3Int mousePosition){
+    bool inGridBounds(Vector3Int mousePosition)
+    {
         return 0 <= mousePosition.x && mousePosition.x <= 9 && 0 <= mousePosition.y && mousePosition.y <= 7;
     }
-
-void showToolTip(Vector3Int tileLocalPos)
-{
-    float riskVar = gridInfo.GetPositionProperty(tileLocalPos, "Risk", 1.0f);
-    float riskCol = maxRisk/(riskVar*255);
-    float riskNorm = riskVar/maxRisk;
-    float tuningFactor =  riskNorm; // we wanna map the colour space more evenly. It goes straight to red too early
-    TooltipManager._instance.SetAndShowToolTip("Risk rating", riskNorm.ToString("F2"), new Color(255, 1-tuningFactor, 0,255));
-}
 
 void selectTile(Vector3Int mousePosition)
     {

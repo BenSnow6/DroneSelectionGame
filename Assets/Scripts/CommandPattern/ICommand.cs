@@ -11,6 +11,15 @@ public interface ICommand
         get;
         set;
     }
+
+    public List<Vector3Int> clickedLocations
+    {
+        /// List<Vector3Int> of selectedLocations
+        get;
+        set;
+    }
+
+
     void Execute(); // Inherited members must have execute function
 
     void Undo(); // Inherited members must have execute function
