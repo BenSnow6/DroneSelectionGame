@@ -36,6 +36,7 @@ public class Selection : ICommand
         this.selectionGrid = selectionGrid;
         this.selectionTile = selectionTile;
         this.surroundingTile = surroundingTile;
+        //clickedLocations.Add(tileLocalPos);
     }
 
 
@@ -50,16 +51,10 @@ public class Selection : ICommand
         /// surrounding tiles to the new selection tile location.
 
         // Debug.Log($"mousPos: {tileLocalPos}, prevPos: {prevTileLocalPos}");
-        // surroundingGrid.SetTile(prevTileLocalPos - new Vector3Int(0,1,0), null);
-        // surroundingGrid.SetTile(prevTileLocalPos + new Vector3Int(0,1,0), null);
-        // surroundingGrid.SetTile(prevTileLocalPos - new Vector3Int(1,0,0), null);
-        // surroundingGrid.SetTile(prevTileLocalPos - new Vector3Int(0,1,0), null);
-        // Debug.Log($"tileLocalPos: {tileLocalPos}, clickedLocations last: {clickedLocations[clickedLocations.Count]}");
+        //Debug.Log($"tileLocalPos: {tileLocalPos}"); // , clickedLocations last: {clickedLocations}");
+        removeSurroundingTiles(prevTileLocalPos);
         selectionGrid.SetTile(tileLocalPos, selectionTile);
-        surroundingGrid.SetTile(tileLocalPos + new Vector3Int(1,0,0), surroundingTile);
-        surroundingGrid.SetTile(tileLocalPos + new Vector3Int(0,1,0), surroundingTile);
-        surroundingGrid.SetTile(tileLocalPos - new Vector3Int(1,0,0), surroundingTile);
-        surroundingGrid.SetTile(tileLocalPos - new Vector3Int(0,1,0), surroundingTile);
+        placeSurroundingTiles(tileLocalPos);
     }
 
     public void Undo()
@@ -67,15 +62,39 @@ public class Selection : ICommand
         /// The undo function is called when the user performs the undo command.
         /// This function removes the selection tile from the last selected position,
         /// removes the surrounding tiles fro  the last selected position,
-        /// and then adds surroundoing tiles to the last - 1 selected position.
+        /// and then adds surrounding tiles to the last - 1 selected position.
 
         selectionGrid.SetTile(tileLocalPos, null);
+        removeSurroundingTiles(tileLocalPos);
+    }
+
+
+
+
+    private void placeSurroundingTiles(Vector3Int tileLocalPos)
+    {
+        /// <summary>
+        /// This function places the surrounding tiles around the selected tile.
+        /// It is called when the user selects a tile from the surrounding tiles.
+        /// </summary>
+        /// <param name="tileLocalPos">The position of the selected tile</param>
+
+        surroundingGrid.SetTile(tileLocalPos + new Vector3Int(1,0,0), surroundingTile);
+        surroundingGrid.SetTile(tileLocalPos + new Vector3Int(0,1,0), surroundingTile);
+        surroundingGrid.SetTile(tileLocalPos - new Vector3Int(1,0,0), surroundingTile);
+        surroundingGrid.SetTile(tileLocalPos - new Vector3Int(0,1,0), surroundingTile);
+    }
+
+    private void removeSurroundingTiles(Vector3Int tileLocalPos)
+    {
+        /// <summary>
+        /// This function removes the surrounding tiles around the selected tile.
+        /// </summary>
+        /// <param name="tileLocalPos">The position of the tile around which the surrounding tiles lie </param>
+
         surroundingGrid.SetTile(tileLocalPos + new Vector3Int(1,0,0), null);
         surroundingGrid.SetTile(tileLocalPos + new Vector3Int(0,1,0), null);
         surroundingGrid.SetTile(tileLocalPos - new Vector3Int(1,0,0), null);
         surroundingGrid.SetTile(tileLocalPos - new Vector3Int(0,1,0), null);
     }
-
-
-
 }

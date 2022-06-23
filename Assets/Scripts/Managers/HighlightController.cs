@@ -80,8 +80,7 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
     }
 
 
-    bool inGridBounds(Vector3Int mousePosition)
-    {
+    bool inGridBounds(Vector3Int mousePosition){
         return 0 <= mousePosition.x && mousePosition.x <= 9 && 0 <= mousePosition.y && mousePosition.y <= 7;
     }
 
