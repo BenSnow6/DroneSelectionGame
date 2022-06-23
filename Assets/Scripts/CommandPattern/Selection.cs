@@ -13,13 +13,6 @@ public class Selection : ICommand
         set;
     }
 
-    public List<Vector3Int> clickedLocations
-    {
-        /// List of selectedLocations
-        get;
-        set;
-    }
-
     private Tilemap surroundingGrid = null;
     private Tilemap selectionGrid = null;
     private Tile selectionTile = null;
@@ -36,7 +29,7 @@ public class Selection : ICommand
         this.selectionGrid = selectionGrid;
         this.selectionTile = selectionTile;
         this.surroundingTile = surroundingTile;
-        //clickedLocations.Add(tileLocalPos);
+        clickedLocation = tileLocalPos;
     }
 
 
