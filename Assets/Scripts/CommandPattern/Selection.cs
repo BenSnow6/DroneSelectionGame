@@ -67,6 +67,7 @@ public class Selection : ICommand
 
         selectionGrid.SetTile(tileLocalPos, null);
         removeSurroundingTiles(tileLocalPos);
+        placeSurroundingTiles(_selectionManager.commandHandler.selectedLocations[_selectionManager.commandHandler.index - 2]);
     }
 
 

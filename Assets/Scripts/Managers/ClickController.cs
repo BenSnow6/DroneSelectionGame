@@ -106,38 +106,32 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
             if(_selectionManager.commandHandler.commandList.Count.Equals(0))
             {
             
-                ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile, _selectionManager);
-
-                select.clickedLocation = mousePosition;
-                
-                _selectionManager.commandHandler.AddCommand(select as Selection);
+                addSelectionCommand(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile, _selectionManager);
             
             }
 
             if(_selectionManager.commandHandler.commandList.Count > 0){
-                var lastSelectedPosition = _selectionManager.commandHandler.commandList.LastOrDefault();
                 if (_selectionManager.commandHandler.index > 0)
                 {
-                    if(lastSelectedPosition.clickedLocation.Equals(mousePosition))
+                    if(compareLastSelected(mousePosition))
                     {
-                        Debug.Log("Can't click here");
+                        Debug.Log("Can't click here because the mouse is in the same as last selected");
                     }
                     else
                     {
-                        ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile, _selectionManager);
-
-                        select.clickedLocation = mousePosition;
-                        
-                        _selectionManager.commandHandler.AddCommand(select as Selection);
+                        if(compareSurrounding(mousePosition))
+                        {
+                            addSelectionCommand(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile, _selectionManager);
+                        }
+                        else
+                        {
+                            Debug.Log("Can't click here cuz it's not a surrounding");
+                        }
                     }
                 }
                 else
                 {
-                        ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile, _selectionManager);
-
-                        select.clickedLocation = mousePosition;
-                        
-                        _selectionManager.commandHandler.AddCommand(select as Selection);
+                    addSelectionCommand(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile, _selectionManager);
                 }
             }
 
@@ -155,4 +149,46 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
 
             }
         }
+    void addSelectionCommand(Vector3Int mousePosition, Vector3Int previousMousePos, Tilemap surroundingGrid, Tilemap selectionGrid, Tile selectionTile, Tile surroundingTile, SelectionManager _selectionManager)
+    { 
+        ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile, _selectionManager);
+
+        select.clickedLocation = mousePosition;
+
+        _selectionManager.commandHandler.AddCommand(select as Selection);
+    }
+
+
+    bool compareLastSelected(Vector3Int tileLocalPos)
+    {
+        /// <summary>
+        /// Compare the last selected tile with the current tile
+        /// </summary>
+
+        var lastSelectedPosition = _selectionManager.commandHandler.commandList.LastOrDefault();
+        if(lastSelectedPosition.clickedLocation.Equals(tileLocalPos))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    bool compareSurrounding(Vector3Int tileLocalPos)
+    {
+        /// <summary>
+        /// Compare the surrounding tiles with the current tile
+        /// Only return true if the current tile is one of the surrounding tiles
+        /// </summary>
+
+        Vector3Int previousClickedLocation = _selectionManager.commandHandler.selectedLocations[_selectionManager.commandHandler.index - 1];
+        bool up = tileLocalPos.Equals(previousClickedLocation + new Vector3Int(1,0,0));
+        bool down = tileLocalPos.Equals(previousClickedLocation + new Vector3Int(-1,0,0));
+        bool left = tileLocalPos.Equals(previousClickedLocation + new Vector3Int(0,-1,0));
+        bool right = tileLocalPos.Equals(previousClickedLocation + new Vector3Int(0,1,0));
+        Debug.Log($"Up: {up} Down: {down} Left: {left} Right: {right}, Returns{up || down || left || right}");
+        return up || down || left || right;
+
+    }
 }

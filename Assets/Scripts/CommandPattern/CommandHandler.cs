@@ -9,14 +9,7 @@ public class CommandHandler
     public int index;
 
     public void AddCommand(ICommand command)
-    {
-
-        // if(!command.clickedLocation.Equals(commandList[0].clickedLocation))
-        // {
-        //     Debug.Log(command.clickedLocation);
-        // }
-    
-        
+    {       
         {if (index < commandList.Count)
             commandList.RemoveRange(index, commandList.Count - index);
             selectedLocations.RemoveRange(index, selectedLocations.Count - index);
@@ -33,7 +26,7 @@ public class CommandHandler
         if (commandList.Count == 0)
             return;
         if (index > 0)
-        {
+        {   
             commandList[index - 1].Undo();
             selectedLocations.RemoveAt(index - 1);
             index--;
