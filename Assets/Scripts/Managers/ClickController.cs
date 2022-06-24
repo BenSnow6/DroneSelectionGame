@@ -187,7 +187,6 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
         bool down = tileLocalPos.Equals(previousClickedLocation + new Vector3Int(-1,0,0));
         bool left = tileLocalPos.Equals(previousClickedLocation + new Vector3Int(0,-1,0));
         bool right = tileLocalPos.Equals(previousClickedLocation + new Vector3Int(0,1,0));
-        Debug.Log($"Up: {up} Down: {down} Left: {left} Right: {right}, Returns{up || down || left || right}");
         return up || down || left || right;
 
     }

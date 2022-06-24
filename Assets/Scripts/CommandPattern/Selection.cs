@@ -45,12 +45,10 @@ public class Selection : ICommand
         /// adds a selection tile to the selected location, and then adds the new
         /// surrounding tiles to the new selection tile location.
 
-        // Debug.Log($"mousPos: {tileLocalPos}, prevPos: {prevTileLocalPos}");
-        //Debug.Log($"tileLocalPos: {tileLocalPos}"); // , clickedLocations last: {clickedLocations}");
         if (_selectionManager.commandHandler.index > 0)
         {
             removeSurroundingTiles(_selectionManager.commandHandler.selectedLocations[_selectionManager.commandHandler.index - 1]);
-            Debug.Log($"Current index is {_selectionManager.commandHandler.index} and the current last selected location is {_selectionManager.commandHandler.selectedLocations[_selectionManager.commandHandler.index - 1]}");
+            // Debug.Log($"Current index is {_selectionManager.commandHandler.index} and the current last selected location is {_selectionManager.commandHandler.selectedLocations[_selectionManager.commandHandler.index - 1]}");
         }
         
         
