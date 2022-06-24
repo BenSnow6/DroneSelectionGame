@@ -19,8 +19,9 @@ public class Selection : ICommand
     private Tile surroundingTile = null;
     public Vector3Int tileLocalPos = Vector3Int.zero; // Depricated, this will be replaced with a list of selectedLocations
     private Vector3Int prevTileLocalPos = Vector3Int.zero; // Depricated, this will be replaced with a list of selectedLocations
+    public SelectionManager _selectionManager = null;
 
-    public Selection(Vector3Int tileLocalPos, Vector3Int prevTileLocalPos, Tilemap surroundingGrid, Tilemap selectionGrid, Tile selectionTile, Tile surroundingTile)
+    public Selection(Vector3Int tileLocalPos, Vector3Int prevTileLocalPos, Tilemap surroundingGrid, Tilemap selectionGrid, Tile selectionTile, Tile surroundingTile, SelectionManager _selectionManager)
     {
     /// Set the arguemnts of the call to be local variables
         this.tileLocalPos = tileLocalPos;
@@ -30,6 +31,7 @@ public class Selection : ICommand
         this.selectionTile = selectionTile;
         this.surroundingTile = surroundingTile;
         clickedLocation = tileLocalPos;
+        this._selectionManager = _selectionManager;
     }
 
 
@@ -45,7 +47,13 @@ public class Selection : ICommand
 
         // Debug.Log($"mousPos: {tileLocalPos}, prevPos: {prevTileLocalPos}");
         //Debug.Log($"tileLocalPos: {tileLocalPos}"); // , clickedLocations last: {clickedLocations}");
-        removeSurroundingTiles(prevTileLocalPos);
+        if (_selectionManager.commandHandler.index > 0)
+        {
+            removeSurroundingTiles(_selectionManager.commandHandler.selectedLocations[_selectionManager.commandHandler.index - 1]);
+            Debug.Log($"Current index is {_selectionManager.commandHandler.index} and the current last selected location is {_selectionManager.commandHandler.selectedLocations[_selectionManager.commandHandler.index - 1]}");
+        }
+        
+        
         selectionGrid.SetTile(tileLocalPos, selectionTile);
         placeSurroundingTiles(tileLocalPos);
     }

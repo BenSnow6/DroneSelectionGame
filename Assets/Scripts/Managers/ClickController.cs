@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 using System.Linq;
 
 
-public class HighlightController : MonoBehaviour
+public class ClickController : MonoBehaviour
 {
 private Grid grid;
 private GridInformation gridInfo;
@@ -42,6 +42,7 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
         /// </summary>
 
         // Get the mouse position
+        
         Vector3Int mousePos = GetMousePosition();
         Vector3Int tileLocalPos = new Vector3Int((int) Mathf.Floor(mousePos.x), (int) Mathf.Floor(mousePos.y), 0);
         if(inGridBounds(mousePos)){
@@ -50,7 +51,8 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
         }
     }
 
-    Vector3Int GetMousePosition(){
+    Vector3Int GetMousePosition()
+    {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         return grid.WorldToCell(mouseWorldPos);
     }
@@ -59,62 +61,52 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
     {
      if (Input.GetMouseButtonDown(0))
         {
-            ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile);
+            ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile, _selectionManager);
             _selectionManager.commandHandler.AddCommand(select as Selection);
             //select.clickedLocation = mousePosition;
             previousMousePos = mousePosition;
             // selectionGrid.SetTile(mousePosition, selectionTile);
         }
     }
-    
-    void removeTile(Vector3Int mousePosition)
+    bool inGridBounds(Vector3Int mousePosition)
     {
-     if (Input.GetMouseButtonDown(1))
-        {
-            _selectionManager.commandHandler.UndoCommand();
-            var lastSelectedPosition = _selectionManager.commandHandler.commandList.LastOrDefault();
-            Debug.Log($"Clicked location is undone {lastSelectedPosition.clickedLocation}");
-            selectionGrid.SetTile(mousePosition, null);
-
-        }
-    }
-
-
-    bool inGridBounds(Vector3Int mousePosition){
         return 0 <= mousePosition.x && mousePosition.x <= 9 && 0 <= mousePosition.y && mousePosition.y <= 7;
     }
+    
 
-void selectTile(Vector3Int mousePosition)
+
+   
+    void selectTile(Vector3Int mousePosition)
     {
      if (Input.GetMouseButtonDown(0))
         {
-            /* Create a new instance of the selection command called select and call with all required variables
-            Use the selection manager to access the commandHandler and add the new command, select, to the list of commands
+            /// <summary>
+            /// Create a new instance of the selection command called select and call with all required variables
+            /// Use the selection manager to access the commandHandler and add the new command, select, to the list of commands
             
 
-            Need to check if the mousePosition is one of the surrounding tiles
-            To do this, need to know the location of the last selected tile
-            To access this, need the commandList.Last().clickedPosition
+            /// Need to check if the mousePosition is one of the surrounding tiles
+            /// To do this, need to know the location of the last selected tile
+            /// To access this, need the commandList.Last().clickedPosition
 
 
             /// needs to be "Can't click on tiles that have already been selected.
-            Check against the list of clickedLocations and see if the current mousePosition is in that list anywhere.
-            Then need to check if the clicked location is one of the surrounding tiles.
-            E.g. the mousePosition is one of the surrounding tiles of the last in the list of clickedLocations
+            /// Check against the list of clickedLocations and see if the current mousePosition is in that list anywhere.
+            /// Then need to check if the clicked location is one of the surrounding tiles.
+            /// E.g. the mousePosition is one of the surrounding tiles of the last in the list of clickedLocations
 
 
             /// Need to get the list of the last location of the tiles
-
+            /// </summary>
 
 
             
 
-            */
-
+            
             if(_selectionManager.commandHandler.commandList.Count.Equals(0))
             {
             
-                ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile);
+                ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile, _selectionManager);
 
                 select.clickedLocation = mousePosition;
                 
@@ -124,22 +116,43 @@ void selectTile(Vector3Int mousePosition)
 
             if(_selectionManager.commandHandler.commandList.Count > 0){
                 var lastSelectedPosition = _selectionManager.commandHandler.commandList.LastOrDefault();
-                if(lastSelectedPosition.clickedLocation.Equals(mousePosition))
+                if (_selectionManager.commandHandler.index > 0)
                 {
-                    Debug.Log("Can't click here");
+                    if(lastSelectedPosition.clickedLocation.Equals(mousePosition))
+                    {
+                        Debug.Log("Can't click here");
+                    }
+                    else
+                    {
+                        ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile, _selectionManager);
+
+                        select.clickedLocation = mousePosition;
+                        
+                        _selectionManager.commandHandler.AddCommand(select as Selection);
+                    }
                 }
                 else
                 {
-                    ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile);
+                        ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile, _selectionManager);
 
-                    select.clickedLocation = mousePosition;
-                    
-                    _selectionManager.commandHandler.AddCommand(select as Selection);
+                        select.clickedLocation = mousePosition;
+                        
+                        _selectionManager.commandHandler.AddCommand(select as Selection);
                 }
             }
 
             
         }
     }
+    void removeTile(Vector3Int mousePosition)
+        {
+        if (Input.GetMouseButtonDown(1))
+            {
+                _selectionManager.commandHandler.UndoCommand();
+                var lastSelectedPosition = _selectionManager.commandHandler.commandList.LastOrDefault();
+                Debug.Log($"Clicked location is undone {lastSelectedPosition.clickedLocation}");
+                selectionGrid.SetTile(mousePosition, null);
 
+            }
+        }
 }

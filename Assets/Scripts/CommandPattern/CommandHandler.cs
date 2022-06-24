@@ -6,7 +6,7 @@ public class CommandHandler
 {
     public List<ICommand> commandList = new List<ICommand>();
     public List<Vector3Int> selectedLocations = new List<Vector3Int>();
-    private int index;
+    public int index;
 
     public void AddCommand(ICommand command)
     {

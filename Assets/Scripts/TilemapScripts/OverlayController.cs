@@ -18,7 +18,6 @@ public class OverlayController : MonoBehaviour
         for (int x = riskMap.cellBounds.xMin; x < riskMap.cellBounds.xMax; x++)
             {for (int y = riskMap.cellBounds.yMin; y < riskMap.cellBounds.yMax; y++)
                 {
-                    Debug.Log($"x: {x} y: {y}");
                     // Assign local position as index
                     Vector3Int localPlace = (new Vector3Int(x, y, 0));
                     Color currentColour = riskMap.GetColor(localPlace);
