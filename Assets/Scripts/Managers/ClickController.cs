@@ -61,7 +61,7 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
     {
      if (Input.GetMouseButtonDown(0))
         {
-            ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile, _selectionManager);
+            ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile, _selectionManager, gridInfo);
             _selectionManager.commandHandler.AddCommand(select as Selection);
             //select.clickedLocation = mousePosition;
             previousMousePos = mousePosition;
@@ -115,7 +115,7 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
                 {
                     if(compareLastSelected(mousePosition))
                     {
-                        Debug.Log("Can't click here because the mouse is in the same as last selected");
+                        Debug.Log("Can't click here, that's the same as the last selected");
                     }
                     else
                     {
@@ -125,7 +125,7 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
                         }
                         else
                         {
-                            Debug.Log("Can't click here cuz it's not a surrounding");
+                            Debug.Log("Can't click here, it's not a surrounding");
                         }
                     }
                 }
@@ -151,7 +151,7 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
         }
     void addSelectionCommand(Vector3Int mousePosition, Vector3Int previousMousePos, Tilemap surroundingGrid, Tilemap selectionGrid, Tile selectionTile, Tile surroundingTile, SelectionManager _selectionManager)
     { 
-        ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile, _selectionManager);
+        ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile, _selectionManager, gridInfo);
 
         select.clickedLocation = mousePosition;
 

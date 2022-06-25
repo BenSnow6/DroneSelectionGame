@@ -7,8 +7,18 @@ public interface ICommand
 {
     public Vector3Int clickedLocation
     {
-        /// To be changed to List<Vector3Int> selectedLocations which will hold all locations
+        /// <summary>
+        /// Holds the current selected tile location
+        /// </summary>
 
+        get;
+        set;
+    }
+    public GridInformation gridInfo
+    {
+        /// <summary>
+        /// Holds the grid information contatining the risk of each tile
+        /// </summary>
         get;
         set;
     }

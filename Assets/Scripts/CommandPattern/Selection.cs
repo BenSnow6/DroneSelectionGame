@@ -7,8 +7,17 @@ public class Selection : ICommand
 {
     public Vector3Int clickedLocation
     {
-        /// Should be a list of selectedLocations
-        /// Stores a contiguous list of the selected tile locations
+        /// <summary>
+        /// Holds the current selected tile location
+        /// </summary>
+        get;
+        set;
+    }
+    public GridInformation gridInfo
+    {
+        /// <summary>
+        /// Holds the grid information contatining the risk of each tile
+        /// </summary>
         get;
         set;
     }
@@ -17,11 +26,11 @@ public class Selection : ICommand
     private Tilemap selectionGrid = null;
     private Tile selectionTile = null;
     private Tile surroundingTile = null;
-    public Vector3Int tileLocalPos = Vector3Int.zero; // Depricated, this will be replaced with a list of selectedLocations
-    private Vector3Int prevTileLocalPos = Vector3Int.zero; // Depricated, this will be replaced with a list of selectedLocations
+    public Vector3Int tileLocalPos = Vector3Int.zero;
+    private Vector3Int prevTileLocalPos = Vector3Int.zero;
     public SelectionManager _selectionManager = null;
 
-    public Selection(Vector3Int tileLocalPos, Vector3Int prevTileLocalPos, Tilemap surroundingGrid, Tilemap selectionGrid, Tile selectionTile, Tile surroundingTile, SelectionManager _selectionManager)
+    public Selection(Vector3Int tileLocalPos, Vector3Int prevTileLocalPos, Tilemap surroundingGrid, Tilemap selectionGrid, Tile selectionTile, Tile surroundingTile, SelectionManager _selectionManager, GridInformation gridInformation)
     {
     /// Set the arguemnts of the call to be local variables
         this.tileLocalPos = tileLocalPos;
@@ -32,6 +41,7 @@ public class Selection : ICommand
         this.surroundingTile = surroundingTile;
         clickedLocation = tileLocalPos;
         this._selectionManager = _selectionManager;
+        gridInfo = gridInformation;
     }
 
 
@@ -50,8 +60,6 @@ public class Selection : ICommand
             removeSurroundingTiles(_selectionManager.commandHandler.selectedLocations[_selectionManager.commandHandler.index - 1]);
             // Debug.Log($"Current index is {_selectionManager.commandHandler.index} and the current last selected location is {_selectionManager.commandHandler.selectedLocations[_selectionManager.commandHandler.index - 1]}");
         }
-        
-        
         selectionGrid.SetTile(tileLocalPos, selectionTile);
         placeSurroundingTiles(tileLocalPos);
     }
