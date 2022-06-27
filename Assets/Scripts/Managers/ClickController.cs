@@ -49,6 +49,7 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
             selectTile(tileLocalPos);
             removeTile(tileLocalPos);
         }
+        submitRoute();
     }
 
     Vector3Int GetMousePosition()
@@ -189,5 +190,14 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
         bool right = tileLocalPos.Equals(previousClickedLocation + new Vector3Int(0,1,0));
         return up || down || left || right;
 
+    }
+
+    void submitRoute()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Debug.Log("Route submitted");
+            MainManager.Instance.clickedLocations = _selectionManager.commandHandler.selectedLocations;
+        }
     }
 }

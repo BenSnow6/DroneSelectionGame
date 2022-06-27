@@ -40,13 +40,13 @@ public class CommandHandler
     void addRisk(Vector3Int tileLocalPos)
     {
         accumulatedRisk += commandList[index].gridInfo.GetPositionProperty(tileLocalPos, "Risk", 1.0f);
-        Debug.Log($"Accumulated risk is {accumulatedRisk}");
+        // Debug.Log($"Accumulated risk is {accumulatedRisk}");
     }
 
     void removeRisk(Vector3Int tileLocalPos)
     {
         accumulatedRisk -= commandList[index-1].gridInfo.GetPositionProperty(tileLocalPos, "Risk", 1.0f);
-        Debug.Log($"Accumulated risk is {accumulatedRisk}");
+        // Debug.Log($"Accumulated risk is {accumulatedRisk}");
     }
 }
 

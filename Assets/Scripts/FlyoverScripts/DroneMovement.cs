@@ -22,6 +22,10 @@ public class DroneMovement : MonoBehaviour
 
     void Move()
     {
+        /// <summary>
+        /// Moves the drone along the path from one waypoint to the next.
+        /// </summary>
+
         transform.position = Vector3.MoveTowards(transform.position, path[pathIndex], moveSpeed * Time.deltaTime);
 
         if (transform.position == path[pathIndex])
@@ -30,7 +34,7 @@ public class DroneMovement : MonoBehaviour
         }
         if (pathIndex == path.Length)
         {
-            pathIndex = 0;
+            return;
         }
     }
 }
