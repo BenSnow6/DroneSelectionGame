@@ -23,7 +23,7 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
     void Start()
     {
         /// <summary>
-        /// Initialise the grid and game objects
+        /// Initialise the grid and component references.
         /// </summary>
 
         grid = gameObject.GetComponent<Grid>();
@@ -47,7 +47,7 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
         Vector3Int tileLocalPos = new Vector3Int((int) Mathf.Floor(mousePos.x), (int) Mathf.Floor(mousePos.y), 0);
         if(inGridBounds(mousePos)){
             selectTile(tileLocalPos);
-            removeTile(tileLocalPos);
+            removeTile(tileLocalPos, false);
         }
         submitRoute();
     }
@@ -139,9 +139,9 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
             
         }
     }
-    void removeTile(Vector3Int mousePosition)
+    public void removeTile(Vector3Int mousePosition, bool buttonPressed)
         {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) || buttonPressed)
             {
                 _selectionManager.commandHandler.UndoCommand();
                 var lastSelectedPosition = _selectionManager.commandHandler.commandList.LastOrDefault();
@@ -158,8 +158,6 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
 
         _selectionManager.commandHandler.AddCommand(select as Selection);
     }
-
-
     bool compareLastSelected(Vector3Int tileLocalPos)
     {
         /// <summary>

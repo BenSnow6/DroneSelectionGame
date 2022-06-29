@@ -86,11 +86,14 @@ public class Selection : ICommand
         /// It is called when the user selects a tile from the surrounding tiles.
         /// </summary>
         /// <param name="tileLocalPos">The position of the selected tile</param>
-
-        surroundingGrid.SetTile(tileLocalPos + new Vector3Int(1,0,0), surroundingTile);
-        surroundingGrid.SetTile(tileLocalPos + new Vector3Int(0,1,0), surroundingTile);
-        surroundingGrid.SetTile(tileLocalPos - new Vector3Int(1,0,0), surroundingTile);
-        surroundingGrid.SetTile(tileLocalPos - new Vector3Int(0,1,0), surroundingTile);
+        Vector3Int[] surroundingLocations = new Vector3Int[] {new Vector3Int(1,0,0), new Vector3Int(0,1,0), new Vector3Int(-1,0,0), new Vector3Int(0,-1,0)};
+        foreach (Vector3Int location in surroundingLocations)
+        {
+            if (inGridBounds(tileLocalPos + location))
+            {
+                surroundingGrid.SetTile(tileLocalPos + location, surroundingTile);
+            }
+        }
     }
 
     private void removeSurroundingTiles(Vector3Int tileLocalPos)
@@ -99,10 +102,21 @@ public class Selection : ICommand
         /// This function removes the surrounding tiles around the selected tile.
         /// </summary>
         /// <param name="tileLocalPos">The position of the tile around which the surrounding tiles lie </param>
-
-        surroundingGrid.SetTile(tileLocalPos + new Vector3Int(1,0,0), null);
-        surroundingGrid.SetTile(tileLocalPos + new Vector3Int(0,1,0), null);
-        surroundingGrid.SetTile(tileLocalPos - new Vector3Int(1,0,0), null);
-        surroundingGrid.SetTile(tileLocalPos - new Vector3Int(0,1,0), null);
+        Vector3Int[] surroundingLocations = new Vector3Int[] {new Vector3Int(1,0,0), new Vector3Int(0,1,0), new Vector3Int(-1,0,0), new Vector3Int(0,-1,0)};
+        foreach (Vector3Int location in surroundingLocations)
+        {
+                surroundingGrid.SetTile(tileLocalPos + location, null);
+        }
     }
+    private bool inGridBounds(Vector3Int mousePos)
+    {
+        /// <summary>
+        /// Input: mousePosition
+        /// Checks if mousePosition is between the height and width of the grid
+        /// Outputs true/false
+        /// Hardcoded grid bounds need to be changed for different sized grid
+        /// </summary>
+        return 0 <= mousePos.x && mousePos.x <= 9 && 0 <= mousePos.y && mousePos.y <= 7;
+    }
+
 }
