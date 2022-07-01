@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
             // Use a coroutine to load the Scene in the background
             StartCoroutine(LoadYourAsyncScene());
         }
+
     }
 
     IEnumerator LoadYourAsyncScene()
