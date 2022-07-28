@@ -16,6 +16,7 @@ private GridInformation gridInfo;
 [SerializeField] private Tile selectionTile = null;
 [SerializeField] private Tile surroundingTile = null;
 private Vector3Int previousMousePos = new Vector3Int();
+public bool clickedNewInput = false;
 private SelectionManager _selectionManager = null; // Instance of the selectionManager
 
 
@@ -34,7 +35,6 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
     // Update is called once per frame
     void Update()
     {
-
         /// <summary>
         /// Update the current mouse position and convert to grid coordinates
         /// Check if the mouse is in the gridBounds
@@ -57,7 +57,6 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         return grid.WorldToCell(mouseWorldPos);
     }
-
     void addTile(Vector3Int mousePosition)
     {
      if (Input.GetMouseButtonDown(0))
@@ -73,10 +72,6 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
     {
         return 0 <= mousePosition.x && mousePosition.x <= 9 && 0 <= mousePosition.y && mousePosition.y <= 7;
     }
-    
-
-
-   
     void selectTile(Vector3Int mousePosition)
     {
      if (Input.GetMouseButtonDown(0))
@@ -197,5 +192,11 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
             Debug.Log("Route submitted");
             MainManager.Instance.clickedLocations = _selectionManager.commandHandler.selectedLocations;
         }
+    }
+
+
+    public void setInputTrue()
+    {
+        clickedNewInput = true;
     }
 }

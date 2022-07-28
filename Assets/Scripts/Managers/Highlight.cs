@@ -21,6 +21,7 @@ public class Highlight : MonoBehaviour
 
 
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +38,7 @@ public class Highlight : MonoBehaviour
     void Update()
     {
 
-        Vector3Int mousePos = GetMousePosition();
+        Vector3 mousePos = GetMousePosition();
         Vector3Int tileLocalPos = TilePosition(mousePos);
         
         if(inGridBounds(mousePos))
@@ -55,18 +56,18 @@ public class Highlight : MonoBehaviour
     /// Functions used to show highlight and tooltip
     /// </summary>
 
-    Vector3Int GetMousePosition()
+    Vector3 GetMousePosition()
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         return grid.WorldToCell(mouseWorldPos);
     }
 
-    Vector3Int TilePosition(Vector3Int mousePos)
+    Vector3Int TilePosition(Vector3 mousePos)
     {
         return new Vector3Int((int) Mathf.Floor(mousePos.x), (int) Mathf.Floor(mousePos.y), 0);
     }
 
-    bool inGridBounds(Vector3Int mousePos)
+    bool inGridBounds(Vector3 mousePos)
     {
         /// <summary>
         /// Input: mousePosition
@@ -92,5 +93,14 @@ public class Highlight : MonoBehaviour
         float riskNorm = riskVar/maxRisk;
         float tuningFactor =  riskNorm; // we wanna map the colour space more evenly. It goes straight to red too early
         TooltipManager._instance.SetAndShowToolTip("Risk rating", riskNorm.ToString("F2"), new Color(255, 1-tuningFactor, 0,255));
+    }
+
+    public void HoverLocation(InputAction.CallbackContext context)
+    {
+        Vector2 movementInput = context.ReadValue<Vector2>();
+        Vector3 mousePos = new Vector3(movementInput.x, movementInput.y, 0);
+        Vector3 mousLocation = Camera.main.ScreenToWorldPoint(mousePos);
+        if (inGridBounds(TilePosition(mousLocation)))
+            Debug.Log(mousLocation);
     }
 }
