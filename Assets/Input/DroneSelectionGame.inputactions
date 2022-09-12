@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Click",
+                    "name": "ClickSelect",
                     "type": "Button",
                     "id": "ca0576e6-e4e3-40dc-8e27-b578edf41f07",
                     "expectedControlType": "Button",
@@ -24,9 +24,27 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "ClickUndo",
+                    "type": "Button",
+                    "id": "e1e904cf-ff9a-4633-bf5f-1ad9fc9c0a19",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "SubmitRoute",
                     "type": "Button",
                     "id": "93421b30-5223-4b0e-a04f-35194616316a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "StartFlyover",
+                    "type": "Button",
+                    "id": "87a52d85-ad29-412d-a1f8-cc36d7aa9b74",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -63,7 +81,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Click",
+                    "action": "ClickSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -74,7 +92,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Touch",
-                    "action": "Click",
+                    "action": "ClickSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -85,7 +103,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Touch",
-                    "action": "Click",
+                    "action": "ClickSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -97,6 +115,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "SubmitRoute",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d315ed5b-0651-4f54-980a-172529e6d8d2",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ClickUndo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dc984f13-a65f-4f95-9891-f1fb87149eaf",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "StartFlyover",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

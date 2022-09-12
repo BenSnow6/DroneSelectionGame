@@ -9,20 +9,24 @@
      public float minOrtho = 1.0f;
      public float maxOrtho = 20.0f;
      
-     void Start() {
-         targetOrtho = Camera.main.orthographicSize;
-     }
+
+    // Commented out to ignore error, this seems to be used
+
+
+    //  void Start() {
+    //      targetOrtho = Camera.main.orthographicSize;
+    //  }
      
-     void Update () {
+    //  void Update () {
          
-         float scroll = Input.GetAxis ("Mouse ScrollWheel");
-         if (scroll != 0.0f) {
-             targetOrtho -= scroll * zoomSpeed;
-             targetOrtho = Mathf.Clamp (targetOrtho, minOrtho, maxOrtho);
-             
-            //  Camera.main.transform.position = Input.mousePosition;
-         }
+    //     float scroll = Input.GetAxis ("Mouse ScrollWheel");
+    //     if (scroll != 0.0f) {
+    //         targetOrtho -= scroll * zoomSpeed;
+    //         targetOrtho = Mathf.Clamp (targetOrtho, minOrtho, maxOrtho);
+            
+    //         //  Camera.main.transform.position = Input.mousePosition;
+    //     }
          
-         Camera.main.orthographicSize = Mathf.MoveTowards (Camera.main.orthographicSize, targetOrtho, smoothSpeed * Time.deltaTime);
-     }
+    //     Camera.main.orthographicSize = Mathf.MoveTowards (Camera.main.orthographicSize, targetOrtho, smoothSpeed * Time.deltaTime);
+    //  }
  }

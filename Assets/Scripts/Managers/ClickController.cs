@@ -15,7 +15,9 @@ public Vector2 movementInput;
 public Vector3 mousePos;
 public Vector3 mouseLocation;
 public Vector3Int tileLocalPos;
-public bool clickPressed = false;
+public bool clickSelect = false;
+public bool clickUndo = false;
+private bool startingCondition = true;
 private Grid grid;
 private GridInformation gridInfo;
 [SerializeField] private Tilemap selectionGrid = null;
@@ -38,6 +40,8 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
         grid = gameObject.GetComponent<Grid>();
         gridInfo = backgroundGrid.GetComponent<GridInformation>();
         _selectionManager = gameObject.GetComponent<SelectionManager>();
+        selectTile(new Vector3Int(1,1,0));
+        startingCondition = false;
     }
 
     // Update is called once per frame
@@ -56,7 +60,7 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
 
         // Mouse position is mouseLocation
         // tileLocalPos is the tile position on the grid
-
+        
 
         if(inGridBounds(tileLocalPos)){
             selectTile(tileLocalPos);
@@ -65,29 +69,13 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
         submitRoute();
     }
 
-    // Vector3Int GetMousePosition()
-    // {
-    //     Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    //     return grid.WorldToCell(mouseWorldPos);
-    // }
-    // void addTile(Vector3Int mousePosition)
-    // {
-    //  if (Input.GetMouseButtonDown(0))
-    //     {
-    //         ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile, _selectionManager, gridInfo);
-    //         _selectionManager.commandHandler.AddCommand(select as Selection);
-    //         //select.clickedLocation = mousePosition;
-    //         previousMousePos = mousePosition;
-    //         // selectionGrid.SetTile(mousePosition, selectionTile);
-    //     }
-    // }
     bool inGridBounds(Vector3Int mousePosition)
     {
         return 0 <= mousePosition.x && mousePosition.x <= 9 && 0 <= mousePosition.y && mousePosition.y <= 7;
     }
     void selectTile(Vector3Int mousePosition)
     {
-     if (Input.GetMouseButtonDown(0))
+     if (clickSelect || startingCondition)
         {
             /// <summary>
             /// Create a new instance of the selection command called select and call with all required variables
@@ -146,10 +134,11 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
 
             
         }
+        clickSelect = false;
     }
     public void removeTile(Vector3Int mousePosition, bool buttonPressed)
         {
-        if (Input.GetMouseButtonDown(1) || buttonPressed)
+        if ((clickUndo || buttonPressed) && _selectionManager.commandHandler.commandList.Count > 1)
             {
                 _selectionManager.commandHandler.UndoCommand();
                 var lastSelectedPosition = _selectionManager.commandHandler.commandList.LastOrDefault();
@@ -157,6 +146,7 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
                 selectionGrid.SetTile(mousePosition, null);
 
             }
+            clickUndo = false;
         }
     void addSelectionCommand(Vector3Int mousePosition, Vector3Int previousMousePos, Tilemap surroundingGrid, Tilemap selectionGrid, Tile selectionTile, Tile surroundingTile, SelectionManager _selectionManager)
     { 
@@ -229,11 +219,27 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
         // Debug.Log($"Mouse position is {mouseLocation}");
     }
 
-    public void ClickedGrid(InputAction.CallbackContext context)
+    public void SelectClick(InputAction.CallbackContext context)
     {
         if (context.started)
-            clickPressed = !clickPressed;
-            Debug.Log($"Click pressed is {clickPressed}"); // still sets true 3 times!!
+        {
+            // clickSelect = !clickSelect;
+        }
+        else if (context.canceled)
+            {
+                clickSelect = !clickSelect;
+            }
+    }
+    public void UndoClick(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            // clickUndo = !clickUndo;
+        }
+        else if (context.canceled)
+            {
+                clickUndo = !clickUndo;
+            }
     }
     
 }
