@@ -3644,6 +3644,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 660968055}
+        m_TargetAssemblyTypeName: TooltipManager, Assembly-CSharp
+        m_MethodName: HoverLocation
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 653643319}
+        m_TargetAssemblyTypeName: ClickController, Assembly-CSharp
+        m_MethodName: HoverLocation
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2b5fbd25-21fa-45b2-b93b-b26590b6c653
     m_ActionName: MouseInputs/Hover[/Mouse/position]
   - m_PersistentCalls:
@@ -3920,6 +3944,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba3082bf26b29b46b2b6e5c302b9c6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementInput: {x: 0, y: 0}
+  mousePos: {x: 0, y: 0, z: 0}
+  mouseLocation: {x: 0, y: 0, z: 0}
+  tileLocalPos: {x: 0, y: 0, z: 0}
   selectionGrid: {fileID: 319238413}
   backgroundGrid: {fileID: 1735222841}
   surroundingGrid: {fileID: 2053761528}
@@ -4039,6 +4067,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9745bced4673ab4f8471dee14c4149a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementInput: {x: 0, y: 0}
+  mousePos: {x: 0, y: 0, z: 0}
+  mouseLocation: {x: 0, y: 0, z: 0}
+  tileLocalPos: {x: 0, y: 0, z: 0}
   interactiveGrid: {fileID: 422154590}
   backgroundGrid: {fileID: 1735222841}
   hoverTile: {fileID: 11400000, guid: feca25a2f53dc8644a70f8f389362613, type: 2}
@@ -4238,6 +4270,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 062e4b1871dd80b4f9336865fc165058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementInput: {x: 0, y: 0}
+  mousePos: {x: 0, y: 0, z: 0}
+  mouseLocation: {x: 0, y: 0, z: 0}
   textHeader: {fileID: 167860984}
   textContent: {fileID: 1570096983}
 --- !u!1 &705507993
@@ -6036,57 +6071,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b5586f4800adf489760ad379296c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickAction:
-    m_Name: Click
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: ad288736-564b-4fc1-aefc-cde0144c2af3
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 04d9e950-ea43-46c3-861a-23020c88c277
-      m_Path: <Mouse>/leftButton
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Click
-      m_Flags: 0
-    - m_Name: 
-      m_Id: 104e5064-1401-4b5b-8fcd-0348af23bd81
-      m_Path: <Pen>/press
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Click
-      m_Flags: 0
-    - m_Name: 
-      m_Id: 1b7c85c6-cbf2-4a80-bea6-83408a47705d
-      m_Path: <Touchscreen>/Press
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Click
-      m_Flags: 0
-    m_Flags: 0
-  hoverAction:
-    m_Name: Hover
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 4c5db98f-0d70-4a3a-92a2-dee54f3333e8
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  undoAction:
-    m_Name: Undo
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 1f373006-fff1-47ff-8487-a5303c2fe0b7
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
 --- !u!1 &1026784945
 GameObject:
   m_ObjectHideFlags: 0

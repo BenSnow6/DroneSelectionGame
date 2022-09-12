@@ -53,30 +53,8 @@ public class Highlight : MonoBehaviour
         {
             TooltipManager._instance.HideToolTip();
         }
-
-        // Vector3 mousePos = GetMousePosition();
-        // Vector3Int tileLocalPos = TilePosition(mousePos);
-        
-        // if(inGridBounds(mousePos))
-        // {
-        //     showHighlight(tileLocalPos, previousMousePos);
-        //     showToolTip(tileLocalPos);
-        // }
-        // else
-        // {
-        //     TooltipManager._instance.HideToolTip(); // Remove tooltip
-        // }
     }
 
-    /// <summary>
-    /// Functions used to show highlight and tooltip
-    /// </summary>
-
-    // Vector3 GetMousePosition()
-    // {
-    //     Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    //     return grid.WorldToCell(mouseWorldPos);
-    // }
 
     Vector3Int TilePosition(Vector3 mousePos)
     {

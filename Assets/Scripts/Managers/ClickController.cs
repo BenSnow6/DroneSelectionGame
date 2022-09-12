@@ -4,10 +4,18 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 using System.Linq;
+using UnityEngine.InputSystem;
 
 
 public class ClickController : MonoBehaviour
 {
+
+
+public Vector2 movementInput;
+public Vector3 mousePos;
+public Vector3 mouseLocation;
+public Vector3Int tileLocalPos;
+public bool clickPressed = false;
 private Grid grid;
 private GridInformation gridInfo;
 [SerializeField] private Tilemap selectionGrid = null;
@@ -43,31 +51,36 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
 
         // Get the mouse position
         
-        Vector3Int mousePos = GetMousePosition();
-        Vector3Int tileLocalPos = new Vector3Int((int) Mathf.Floor(mousePos.x), (int) Mathf.Floor(mousePos.y), 0);
-        if(inGridBounds(mousePos)){
+        // Vector3Int mousePos = GetMousePosition();
+        // Vector3Int tileLocalPos = TilePosition(mousePos);
+
+        // Mouse position is mouseLocation
+        // tileLocalPos is the tile position on the grid
+
+
+        if(inGridBounds(tileLocalPos)){
             selectTile(tileLocalPos);
             removeTile(tileLocalPos, false);
         }
         submitRoute();
     }
 
-    Vector3Int GetMousePosition()
-    {
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        return grid.WorldToCell(mouseWorldPos);
-    }
-    void addTile(Vector3Int mousePosition)
-    {
-     if (Input.GetMouseButtonDown(0))
-        {
-            ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile, _selectionManager, gridInfo);
-            _selectionManager.commandHandler.AddCommand(select as Selection);
-            //select.clickedLocation = mousePosition;
-            previousMousePos = mousePosition;
-            // selectionGrid.SetTile(mousePosition, selectionTile);
-        }
-    }
+    // Vector3Int GetMousePosition()
+    // {
+    //     Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //     return grid.WorldToCell(mouseWorldPos);
+    // }
+    // void addTile(Vector3Int mousePosition)
+    // {
+    //  if (Input.GetMouseButtonDown(0))
+    //     {
+    //         ICommand select = new Selection(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile, _selectionManager, gridInfo);
+    //         _selectionManager.commandHandler.AddCommand(select as Selection);
+    //         //select.clickedLocation = mousePosition;
+    //         previousMousePos = mousePosition;
+    //         // selectionGrid.SetTile(mousePosition, selectionTile);
+    //     }
+    // }
     bool inGridBounds(Vector3Int mousePosition)
     {
         return 0 <= mousePosition.x && mousePosition.x <= 9 && 0 <= mousePosition.y && mousePosition.y <= 7;
@@ -187,10 +200,11 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
 
     void submitRoute()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (clickedNewInput)
         {
             Debug.Log("Route submitted");
             MainManager.Instance.clickedLocations = _selectionManager.commandHandler.selectedLocations;
+            clickedNewInput = false;
         }
     }
 
@@ -198,5 +212,28 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
     public void setInputTrue()
     {
         clickedNewInput = true;
+        Debug.Log("Clicked new input");
     }
+
+    Vector3Int TilePosition(Vector3 mousePos)
+    {
+        return new Vector3Int((int) Mathf.Floor(mousePos.x), (int) Mathf.Floor(mousePos.y), 0);
+    }
+
+    public void HoverLocation(InputAction.CallbackContext context)
+    {
+        movementInput = context.ReadValue<Vector2>();
+        mousePos = new Vector3(movementInput.x, movementInput.y, 0);
+        mouseLocation = Camera.main.ScreenToWorldPoint(mousePos);
+        tileLocalPos = TilePosition(mouseLocation);
+        // Debug.Log($"Mouse position is {mouseLocation}");
+    }
+
+    public void ClickedGrid(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            clickPressed = !clickPressed;
+            Debug.Log($"Click pressed is {clickPressed}"); // still sets true 3 times!!
+    }
+    
 }
