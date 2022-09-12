@@ -10,6 +10,11 @@ public class Highlight : MonoBehaviour
     /// at the grid location it is hovering over.
     /// Shows a tooltip with the risk value for the highlighted tile at the same location.
 
+    public Vector2 movementInput;
+    public Vector3 mousePos;
+    public Vector3 mouseLocation;
+    public Vector3Int tileLocalPos;
+
 
     private Grid grid;
     private GridInformation gridInfo;
@@ -38,29 +43,40 @@ public class Highlight : MonoBehaviour
     void Update()
     {
 
-        Vector3 mousePos = GetMousePosition();
-        Vector3Int tileLocalPos = TilePosition(mousePos);
-        
-        if(inGridBounds(mousePos))
+        if (inGridBounds(TilePosition(mouseLocation)))
         {
+            tileLocalPos = TilePosition(mouseLocation);
             showHighlight(tileLocalPos, previousMousePos);
             showToolTip(tileLocalPos);
         }
         else
         {
-            TooltipManager._instance.HideToolTip(); // Remove tooltip
+            TooltipManager._instance.HideToolTip();
         }
+
+        // Vector3 mousePos = GetMousePosition();
+        // Vector3Int tileLocalPos = TilePosition(mousePos);
+        
+        // if(inGridBounds(mousePos))
+        // {
+        //     showHighlight(tileLocalPos, previousMousePos);
+        //     showToolTip(tileLocalPos);
+        // }
+        // else
+        // {
+        //     TooltipManager._instance.HideToolTip(); // Remove tooltip
+        // }
     }
 
     /// <summary>
     /// Functions used to show highlight and tooltip
     /// </summary>
 
-    Vector3 GetMousePosition()
-    {
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        return grid.WorldToCell(mouseWorldPos);
-    }
+    // Vector3 GetMousePosition()
+    // {
+    //     Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //     return grid.WorldToCell(mouseWorldPos);
+    // }
 
     Vector3Int TilePosition(Vector3 mousePos)
     {
@@ -91,16 +107,14 @@ public class Highlight : MonoBehaviour
     {
         float riskVar = gridInfo.GetPositionProperty(tileLocalPos, "Risk", 1.0f);
         float riskNorm = riskVar/maxRisk;
-        float tuningFactor =  riskNorm; // we wanna map the colour space more evenly. It goes straight to red too early
+        float tuningFactor =  riskNorm; // we want to map the colour space more evenly. It goes straight to red too early
         TooltipManager._instance.SetAndShowToolTip("Risk rating", riskNorm.ToString("F2"), new Color(255, 1-tuningFactor, 0,255));
     }
 
     public void HoverLocation(InputAction.CallbackContext context)
     {
-        Vector2 movementInput = context.ReadValue<Vector2>();
-        Vector3 mousePos = new Vector3(movementInput.x, movementInput.y, 0);
-        Vector3 mousLocation = Camera.main.ScreenToWorldPoint(mousePos);
-        if (inGridBounds(TilePosition(mousLocation)))
-            Debug.Log(mousLocation);
+        movementInput = context.ReadValue<Vector2>();
+        mousePos = new Vector3(movementInput.x, movementInput.y, 0);
+        mouseLocation = Camera.main.ScreenToWorldPoint(mousePos);
     }
 }
