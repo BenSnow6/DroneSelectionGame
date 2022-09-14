@@ -51,8 +51,8 @@ public class SchoolMarker : MonoBehaviour
     {
         GameObject schoolObject = Instantiate(schoolMarker, offset+position, Quaternion.identity) as GameObject;  // instatiate the object
         schoolObject.transform.localScale = new Vector3(0.2f, 0.2f, 1.0f); // set size of the prefabs
-        LeanTween.moveX(schoolObject, schoolObject.transform.position.x, 5f).setEase(LeanTweenType.easeOutBounce);
-        LeanTween.scale(schoolObject, new Vector3(0.125f, 0.125f, 1.0f), 2.0f).setEase(LeanTweenType.easeInBounce);
+        // LeanTween.moveX(schoolObject, schoolObject.transform.position.x, 5f).setEase(LeanTweenType.easeOutBounce);
+        LeanTween.scale(schoolObject, new Vector3(0.24f, 0.24f, 2.0f), 2.0f).setEase(LeanTweenType.easeInBounce);
         
         // schoolObject.schoolnamestring = 
     }
