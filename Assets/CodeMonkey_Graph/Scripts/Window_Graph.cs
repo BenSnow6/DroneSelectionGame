@@ -33,13 +33,13 @@ public class Window_Graph : MonoBehaviour {
     private GameObject tooltipGameObject;
 
     // Cached values
-    private List<int> valueList;
+    private List<float> valueList;
     private IGraphVisual graphVisual;
     private int maxVisibleValueAmount;
     private Func<int, string> getAxisLabelX;
     private Func<float, string> getAxisLabelY;
 
-    private void Awake() {
+    void Awake() {
         instance = this;
         // Grab base objects references
         graphContainer = transform.Find("graphContainer").GetComponent<RectTransform>();
@@ -63,26 +63,35 @@ public class Window_Graph : MonoBehaviour {
         HideTooltip();
 
         // Set up base values
-        List<int> valueList = new List<int>() { 5, 98, 56, 45, 30, 22, 17, 15, 13, 17, 25, 37, 40, 36, 33 }; // Value list
-        ShowGraph(valueList, lineGraphVisual, -1, (int _i) => " " + (_i + 1), (float _f) => "$" + Mathf.RoundToInt(_f));  // Set x axis labels
+        List<float> valueList = new List<float>() { 0.1f, 0.40f, 0.55f, 0.59f, 0.75f, 1.00f }; // Value list
+        ShowGraph(valueList, lineGraphVisual, -1, (int _i) => " " + (_i + 1), (float _f) =>  Math.Round(_f, 3).ToString());
 
-        /*
-        // Automatically modify graph values and visual
-        bool useBarChart = true;
-        FunctionPeriodic.Create(() => {
-            for (int i = 0; i < valueList.Count; i++) {
-                valueList[i] = Mathf.RoundToInt(valueList[i] * UnityEngine.Random.Range(0.8f, 1.2f));
-                if (valueList[i] < 0) valueList[i] = 0;
-            }
-            if (useBarChart) {
-                ShowGraph(valueList, barChartVisual, -1, (int _i) => "Day " + (_i + 1), (float _f) => "$" + Mathf.RoundToInt(_f));
-            } else {
-                ShowGraph(valueList, lineGraphVisual, -1, (int _i) => "Day " + (_i + 1), (float _f) => "$" + Mathf.RoundToInt(_f));
-            }
-            useBarChart = !useBarChart;
-        }, .5f);
-        //*/
+
+        
+        // // Automatically modify graph values and visual
+        // bool useBarChart = true;
+        // FunctionPeriodic.Create(() => {
+        //     for (int i = 0; i < valueList.Count; i++) {
+        //         valueList[i] = Mathf.RoundToInt(valueList[i] * UnityEngine.Random.Range(0.8f, 1.2f));
+        //         if (valueList[i] < 0) valueList[i] = 0;
+        //     }
+        //     // if (useBarChart) {
+        //          ShowGraph(valueList, barChartVisual, -1, (int _i) => "Day " + (_i + 1), (float _f) => "$" + Mathf.RoundToInt(_f));
+        //     } else {
+        //     ShowGraph(valueList, lineGraphVisual, -1, (int _i) => "Day " + (_i + 1), (float _f) => "$" + Mathf.RoundToInt(_f));
+            
+        //     useBarChart = !useBarChart;
+        // }, .5f);
+        
     }
+    // void Update()
+    // {
+    //  if(Input.GetKeyDown(KeyCode.R))
+    //     {
+    //         valueList.Add(UnityEngine.Random.Range(0f, 1f));
+    //         ShowGraph(valueList, lineGraphVisual, -1, (int _i) => " " + (_i + 1), (float _f) =>  Math.Round(_f, 3).ToString());
+    //     }
+    // }
 
     public static void ShowTooltip_Static(string tooltipText, Vector2 anchoredPosition) {
         instance.ShowTooltip(tooltipText, anchoredPosition);
@@ -137,7 +146,7 @@ public class Window_Graph : MonoBehaviour {
         ShowGraph(this.valueList, graphVisual, this.maxVisibleValueAmount, this.getAxisLabelX, this.getAxisLabelY);
     }
 
-    private void ShowGraph(List<int> valueList, IGraphVisual graphVisual, int maxVisibleValueAmount = -1, Func<int, string> getAxisLabelX = null, Func<float, string> getAxisLabelY = null) {
+    private void ShowGraph(List<float> valueList, IGraphVisual graphVisual, int maxVisibleValueAmount = -1, Func<int, string> getAxisLabelX = null, Func<float, string> getAxisLabelY = null) {
         this.valueList = valueList;
         this.graphVisual = graphVisual;
         this.getAxisLabelX = getAxisLabelX;
@@ -159,7 +168,7 @@ public class Window_Graph : MonoBehaviour {
             getAxisLabelX = delegate (int _i) { return _i.ToString(); };
         }
         if (getAxisLabelY == null) {
-            getAxisLabelY = delegate (float _f) { return Mathf.RoundToInt(_f).ToString(); };
+            getAxisLabelY = delegate (float _f) { return _f.ToString(); };
         }
 
         // Clean up previous graph
@@ -184,7 +193,7 @@ public class Window_Graph : MonoBehaviour {
         float yMinimum = valueList[0];
         
         for (int i = Mathf.Max(valueList.Count - maxVisibleValueAmount, 0); i < valueList.Count; i++) {
-            int value = valueList[i];
+            float value = valueList[i];
             if (value > yMaximum) {
                 yMaximum = value;
             }
@@ -235,7 +244,7 @@ public class Window_Graph : MonoBehaviour {
         }
 
         // Set up separators on the y axis
-        int separatorCount = 10;
+        int separatorCount = 5;
         for (int i = 0; i <= separatorCount; i++) {
             // Duplicate the label template
             RectTransform labelY = Instantiate(labelTemplateY);
@@ -501,7 +510,11 @@ public class Window_Graph : MonoBehaviour {
             }
 
         }
+        
+        
 
     }
+
+
 
 }
