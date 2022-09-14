@@ -1,4 +1,4 @@
-﻿/* 
+/* 
     ------------------- Code Monkey -------------------
 
     Thank you for downloading this package
@@ -17,7 +17,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using CodeMonkey.Utils;
 
-public class Window_Graph : MonoBehaviour {
+public class Old_window_Graph : MonoBehaviour {
+
+    private static Old_window_Graph instance;
 
     [SerializeField] private Sprite dotSprite;
     private RectTransform graphContainer;
@@ -29,10 +31,6 @@ public class Window_Graph : MonoBehaviour {
     private List<GameObject> gameObjectList;
     private List<IGraphVisualObject> graphVisualObjectList;
     private GameObject tooltipGameObject;
-    private List<RectTransform> yLabelList;
-
-    public IGraphVisual lineGraphVisual;
-    public IGraphVisual barChartVisual;
 
     // Cached values
     private List<float> valueList;
@@ -40,10 +38,9 @@ public class Window_Graph : MonoBehaviour {
     private int maxVisibleValueAmount;
     private Func<int, string> getAxisLabelX;
     private Func<float, string> getAxisLabelY;
-    private float xSize;
-    private bool startYScaleAtZero;
 
-    private void Awake() {
+    void Awake() {
+        instance = this;
         // Grab base objects references
         graphContainer = transform.Find("graphContainer").GetComponent<RectTransform>();
         labelTemplateX = graphContainer.Find("labelTemplateX").GetComponent<RectTransform>();
@@ -52,24 +49,52 @@ public class Window_Graph : MonoBehaviour {
         dashTemplateX = dashContainer.Find("dashTemplateX").GetComponent<RectTransform>();
         dashTemplateY = dashContainer.Find("dashTemplateY").GetComponent<RectTransform>();
         tooltipGameObject = graphContainer.Find("tooltip").gameObject;
-        
-        labelTemplateX.gameObject.SetActive(false);
-        labelTemplateY.gameObject.SetActive(false);
-        dashTemplateX.gameObject.SetActive(false);
-        dashTemplateY.gameObject.SetActive(false);
 
-        startYScaleAtZero = true;
         gameObjectList = new List<GameObject>();
-        yLabelList = new List<RectTransform>();
         graphVisualObjectList = new List<IGraphVisualObject>();
         
-        lineGraphVisual = new LineGraphVisual(graphContainer, dotSprite, Color.green, new Color(1, 1, 1, .5f), this);
-        barChartVisual = new BarChartVisual(graphContainer, Color.white, .8f, this);
+        IGraphVisual lineGraphVisual = new LineGraphVisual(graphContainer, dotSprite, Color.green, new Color(1, 1, 1, .5f));
+        // IGraphVisual barChartVisual = new BarChartVisual(graphContainer, Color.white, .8f);
 
-        valueList = new List<float> { 0.0011f, 1, 3, 4, 5 };
-        ShowGraph(valueList, lineGraphVisual, 5, (index) => index.ToString(), (float _f) =>  Math.Round(_f, 3).ToString());
+        // Set up buttons
+        
 
+        
         HideTooltip();
+
+        // Set up base values
+        List<float> valueList = new List<float>() { 0.1f, 0.40f, 0.55f, 0.59f, 0.75f, 1.00f }; // Value list
+        ShowGraph(valueList, lineGraphVisual, -1, (int _i) => " " + (_i + 1), (float _f) =>  Math.Round(_f, 3).ToString());
+
+
+        
+        // // Automatically modify graph values and visual
+        // bool useBarChart = true;
+        // FunctionPeriodic.Create(() => {
+        //     for (int i = 0; i < valueList.Count; i++) {
+        //         valueList[i] = Mathf.RoundToInt(valueList[i] * UnityEngine.Random.Range(0.8f, 1.2f));
+        //         if (valueList[i] < 0) valueList[i] = 0;
+        //     }
+        //     // if (useBarChart) {
+        //          ShowGraph(valueList, barChartVisual, -1, (int _i) => "Day " + (_i + 1), (float _f) => "$" + Mathf.RoundToInt(_f));
+        //     } else {
+        //     ShowGraph(valueList, lineGraphVisual, -1, (int _i) => "Day " + (_i + 1), (float _f) => "$" + Mathf.RoundToInt(_f));
+            
+        //     useBarChart = !useBarChart;
+        // }, .5f);
+        
+    }
+    // void Update()
+    // {
+    //  if(Input.GetKeyDown(KeyCode.R))
+    //     {
+    //         valueList.Add(UnityEngine.Random.Range(0f, 1f));
+    //         ShowGraph(valueList, lineGraphVisual, -1, (int _i) => " " + (_i + 1), (float _f) =>  Math.Round(_f, 3).ToString());
+    //     }
+    // }
+
+    public static void ShowTooltip_Static(string tooltipText, Vector2 anchoredPosition) {
+        instance.ShowTooltip(tooltipText, anchoredPosition);
     }
 
     private void ShowTooltip(string tooltipText, Vector2 anchoredPosition) {
@@ -93,23 +118,27 @@ public class Window_Graph : MonoBehaviour {
         tooltipGameObject.transform.SetAsLastSibling();
     }
 
+    public static void HideTooltip_Static() {
+        instance.HideTooltip();
+    }
+
     private void HideTooltip() {
         tooltipGameObject.SetActive(false);
     }
 
-    public void SetGetAxisLabelX(Func<int, string> getAxisLabelX) {
+    private void SetGetAxisLabelX(Func<int, string> getAxisLabelX) {
         ShowGraph(this.valueList, this.graphVisual, this.maxVisibleValueAmount, getAxisLabelX, this.getAxisLabelY);
     }
 
-    public void SetGetAxisLabelY(Func<float, string> getAxisLabelY) {
+    private void SetGetAxisLabelY(Func<float, string> getAxisLabelY) {
         ShowGraph(this.valueList, this.graphVisual, this.maxVisibleValueAmount, this.getAxisLabelX, getAxisLabelY);
     }
 
-    public void IncreaseVisibleAmount() {
+    private void IncreaseVisibleAmount() {
         ShowGraph(this.valueList, this.graphVisual, this.maxVisibleValueAmount + 1, this.getAxisLabelX, this.getAxisLabelY);
     }
 
-    public void DecreaseVisibleAmount() {
+    private void DecreaseVisibleAmount() {
         ShowGraph(this.valueList, this.graphVisual, this.maxVisibleValueAmount - 1, this.getAxisLabelX, this.getAxisLabelY);
     }
 
@@ -117,17 +146,11 @@ public class Window_Graph : MonoBehaviour {
         ShowGraph(this.valueList, graphVisual, this.maxVisibleValueAmount, this.getAxisLabelX, this.getAxisLabelY);
     }
 
-    public void ShowGraph(List<float> valueList, IGraphVisual graphVisual = null, int maxVisibleValueAmount = -1, Func<int, string> getAxisLabelX = null, Func<float, string> getAxisLabelY = null) {
-        if (valueList == null) {
-            Debug.LogError("valueList is null!");
-            return;
-        }
+    private void ShowGraph(List<float> valueList, IGraphVisual graphVisual, int maxVisibleValueAmount = -1, Func<int, string> getAxisLabelX = null, Func<float, string> getAxisLabelY = null) {
         this.valueList = valueList;
-
-        if (graphVisual == null) {
-            graphVisual = barChartVisual;
-        }
         this.graphVisual = graphVisual;
+        this.getAxisLabelX = getAxisLabelX;
+        this.getAxisLabelY = getAxisLabelY;
 
         if (maxVisibleValueAmount <= 0) {
             // Show all if no amount specified
@@ -142,30 +165,17 @@ public class Window_Graph : MonoBehaviour {
 
         // Test for label defaults
         if (getAxisLabelX == null) {
-            if (this.getAxisLabelX != null) {
-                getAxisLabelX = this.getAxisLabelX;
-            } else {
-                getAxisLabelX = delegate (int _i) { return _i.ToString(); };
-            }
+            getAxisLabelX = delegate (int _i) { return _i.ToString(); };
         }
         if (getAxisLabelY == null) {
-            if (this.getAxisLabelY != null) {
-                getAxisLabelY = this.getAxisLabelY;
-            } else {
-                getAxisLabelY = delegate (float _f) { return Math.Round(_f, 2).ToString(); };
-            }
+            getAxisLabelY = delegate (float _f) { return _f.ToString(); };
         }
-
-        Debug.Log(getAxisLabelX);
-        this.getAxisLabelX = getAxisLabelX;
-        this.getAxisLabelY = getAxisLabelY;
 
         // Clean up previous graph
         foreach (GameObject gameObject in gameObjectList) {
             Destroy(gameObject);
         }
         gameObjectList.Clear();
-        yLabelList.Clear();
 
         foreach (IGraphVisualObject graphVisualObject in graphVisualObjectList) {
             graphVisualObject.CleanUp();
@@ -178,11 +188,31 @@ public class Window_Graph : MonoBehaviour {
         float graphWidth = graphContainer.sizeDelta.x;
         float graphHeight = graphContainer.sizeDelta.y;
 
-        float yMinimum, yMaximum;
-        CalculateYScale(out yMinimum, out yMaximum);
+        // Identify y Min and Max values
+        float yMaximum = valueList[0];
+        float yMinimum = valueList[0];
+        
+        for (int i = Mathf.Max(valueList.Count - maxVisibleValueAmount, 0); i < valueList.Count; i++) {
+            float value = valueList[i];
+            if (value > yMaximum) {
+                yMaximum = value;
+            }
+            if (value < yMinimum) {
+                yMinimum = value;
+            }
+        }
+
+        float yDifference = yMaximum - yMinimum;
+        if (yDifference <= 0) {
+            yDifference = 5f;
+        }
+        yMaximum = yMaximum + (yDifference * 0.2f);
+        yMinimum = yMinimum - (yDifference * 0.2f);
+
+        yMinimum = 0f; // Start the graph at zero
 
         // Set the distance between each point on the graph 
-        xSize = graphWidth / (maxVisibleValueAmount + 1);
+        float xSize = graphWidth / (maxVisibleValueAmount + 1);
 
         // Cycle through all visible data points
         int xIndex = 0;
@@ -208,14 +238,13 @@ public class Window_Graph : MonoBehaviour {
             dashX.SetParent(dashContainer, false);
             dashX.gameObject.SetActive(true);
             dashX.anchoredPosition = new Vector2(xPosition, -3f);
-            dashX.sizeDelta = new Vector2(graphHeight, dashX.sizeDelta.y);
             gameObjectList.Add(dashX.gameObject);
 
             xIndex++;
         }
 
         // Set up separators on the y axis
-        int separatorCount = 10;
+        int separatorCount = 5;
         for (int i = 0; i <= separatorCount; i++) {
             // Duplicate the label template
             RectTransform labelY = Instantiate(labelTemplateY);
@@ -224,7 +253,6 @@ public class Window_Graph : MonoBehaviour {
             float normalizedValue = i * 1f / separatorCount;
             labelY.anchoredPosition = new Vector2(-7f, normalizedValue * graphHeight);
             labelY.GetComponent<Text>().text = getAxisLabelY(yMinimum + (normalizedValue * (yMaximum - yMinimum)));
-            yLabelList.Add(labelY);
             gameObjectList.Add(labelY.gameObject);
 
             // Duplicate the dash template
@@ -232,84 +260,7 @@ public class Window_Graph : MonoBehaviour {
             dashY.SetParent(dashContainer, false);
             dashY.gameObject.SetActive(true);
             dashY.anchoredPosition = new Vector2(-4f, normalizedValue * graphHeight);
-            dashY.sizeDelta = new Vector2(graphWidth, dashY.sizeDelta.y);
             gameObjectList.Add(dashY.gameObject);
-        }
-    }
-
-    public void UpdateLastIndexValue(int value) {
-        UpdateValue(valueList.Count - 1, value);
-    }
-
-    public void UpdateValue(int index, int value) {
-        float yMinimumBefore, yMaximumBefore;
-        CalculateYScale(out yMinimumBefore, out yMaximumBefore);
-
-        valueList[index] = value;
-
-        float graphWidth = graphContainer.sizeDelta.x;
-        float graphHeight = graphContainer.sizeDelta.y;
-        
-        float yMinimum, yMaximum;
-        CalculateYScale(out yMinimum, out yMaximum);
-
-        bool yScaleChanged = yMinimumBefore != yMinimum || yMaximumBefore != yMaximum;
-
-        if (!yScaleChanged) {
-            // Y Scale did not change, update only this value
-            int xIndex = index - Mathf.Max(valueList.Count - maxVisibleValueAmount, 0);
-            float xPosition = xSize + xIndex * xSize;
-            float yPosition = ((value - yMinimum) / (yMaximum - yMinimum)) * graphHeight;
-
-            // Add data point visual
-            string tooltipText = getAxisLabelY(value);
-            graphVisualObjectList[xIndex].SetGraphVisualObjectInfo(new Vector2(xPosition, yPosition), xSize, tooltipText);
-        } else {
-            // Y scale changed, update whole graph and y axis labels
-            // Cycle through all visible data points
-            int xIndex = 0;
-            for (int i = Mathf.Max(valueList.Count - maxVisibleValueAmount, 0); i < valueList.Count; i++) {
-                float xPosition = xSize + xIndex * xSize;
-                float yPosition = ((valueList[i] - yMinimum) / (yMaximum - yMinimum)) * graphHeight;
-
-                // Add data point visual
-                string tooltipText = getAxisLabelY(valueList[i]);
-                graphVisualObjectList[xIndex].SetGraphVisualObjectInfo(new Vector2(xPosition, yPosition), xSize, tooltipText);
-
-                xIndex++;
-            }
-
-            for (int i = 0; i < yLabelList.Count; i++) {
-                float normalizedValue = i * 1f / yLabelList.Count;
-                yLabelList[i].GetComponent<Text>().text = getAxisLabelY(yMinimum + (normalizedValue * (yMaximum - yMinimum)));
-            }
-        }
-    }
-
-    private void CalculateYScale(out float yMinimum, out float yMaximum) {
-        // Identify y Min and Max values
-        yMaximum = valueList[0];
-        yMinimum = valueList[0];
-        
-        for (int i = Mathf.Max(valueList.Count - maxVisibleValueAmount, 0); i < valueList.Count; i++) {
-            float value = valueList[i];
-            if (value > yMaximum) {
-                yMaximum = value;
-            }
-            if (value < yMinimum) {
-                yMinimum = value;
-            }
-        }
-
-        float yDifference = yMaximum - yMinimum;
-        if (yDifference <= 0) {
-            yDifference = 5f;
-        }
-        yMaximum = yMaximum + (yDifference * 0.2f);
-        yMinimum = yMinimum - (yDifference * 0.2f);
-
-        if (startYScaleAtZero) {
-            yMinimum = 0f; // Start the graph at zero
         }
     }
 
@@ -318,7 +269,7 @@ public class Window_Graph : MonoBehaviour {
     /*
      * Interface definition for showing visual for a data point
      * */
-    public interface IGraphVisual {
+    private interface IGraphVisual {
 
         IGraphVisualObject CreateGraphVisualObject(Vector2 graphPosition, float graphPositionWidth, string tooltipText);
         void CleanUp();
@@ -328,7 +279,7 @@ public class Window_Graph : MonoBehaviour {
     /*
      * Represents a single Visual Object in the graph
      * */
-    public interface IGraphVisualObject {
+    private interface IGraphVisualObject {
 
         void SetGraphVisualObjectInfo(Vector2 graphPosition, float graphPositionWidth, string tooltipText);
         void CleanUp();
@@ -344,13 +295,11 @@ public class Window_Graph : MonoBehaviour {
         private RectTransform graphContainer;
         private Color barColor;
         private float barWidthMultiplier;
-        private Window_Graph windowGraph;
 
-        public BarChartVisual(RectTransform graphContainer, Color barColor, float barWidthMultiplier, Window_Graph windowGraph) {
+        public BarChartVisual(RectTransform graphContainer, Color barColor, float barWidthMultiplier) {
             this.graphContainer = graphContainer;
             this.barColor = barColor;
             this.barWidthMultiplier = barWidthMultiplier;
-            this.windowGraph = windowGraph;
         }
 
         public void CleanUp() {
@@ -359,7 +308,7 @@ public class Window_Graph : MonoBehaviour {
         public IGraphVisualObject CreateGraphVisualObject(Vector2 graphPosition, float graphPositionWidth, string tooltipText) {
             GameObject barGameObject = CreateBar(graphPosition, graphPositionWidth);
 
-            BarChartVisualObject barChartVisualObject = new BarChartVisualObject(barGameObject, barWidthMultiplier, windowGraph);
+            BarChartVisualObject barChartVisualObject = new BarChartVisualObject(barGameObject, barWidthMultiplier);
             barChartVisualObject.SetGraphVisualObjectInfo(graphPosition, graphPositionWidth, tooltipText);
 
             return barChartVisualObject;
@@ -387,12 +336,10 @@ public class Window_Graph : MonoBehaviour {
 
             private GameObject barGameObject;
             private float barWidthMultiplier;
-            private Window_Graph windowGraph;
 
-            public BarChartVisualObject(GameObject barGameObject, float barWidthMultiplier, Window_Graph windowGraph) {
+            public BarChartVisualObject(GameObject barGameObject, float barWidthMultiplier) {
                 this.barGameObject = barGameObject;
                 this.barWidthMultiplier = barWidthMultiplier;
-                this.windowGraph = windowGraph;
             }
 
             public void SetGraphVisualObjectInfo(Vector2 graphPosition, float graphPositionWidth, string tooltipText) {
@@ -404,12 +351,12 @@ public class Window_Graph : MonoBehaviour {
 
                 // Show Tooltip on Mouse Over
                 barButtonUI.MouseOverOnceFunc = () => {
-                    windowGraph.ShowTooltip(tooltipText, graphPosition);
+                    ShowTooltip_Static(tooltipText, graphPosition);
                 };
 
                 // Hide Tooltip on Mouse Out
                 barButtonUI.MouseOutOnceFunc = () => {
-                    windowGraph.HideTooltip();
+                    HideTooltip_Static();
                 };
             }
 
@@ -433,14 +380,12 @@ public class Window_Graph : MonoBehaviour {
         private LineGraphVisualObject lastLineGraphVisualObject;
         private Color dotColor;
         private Color dotConnectionColor;
-        private Window_Graph windowGraph;
 
-        public LineGraphVisual(RectTransform graphContainer, Sprite dotSprite, Color dotColor, Color dotConnectionColor, Window_Graph windowGraph) {
+        public LineGraphVisual(RectTransform graphContainer, Sprite dotSprite, Color dotColor, Color dotConnectionColor) {
             this.graphContainer = graphContainer;
             this.dotSprite = dotSprite;
             this.dotColor = dotColor;
             this.dotConnectionColor = dotConnectionColor;
-            this.windowGraph = windowGraph;
             lastLineGraphVisualObject = null;
         }
 
@@ -458,7 +403,7 @@ public class Window_Graph : MonoBehaviour {
                 dotConnectionGameObject = CreateDotConnection(lastLineGraphVisualObject.GetGraphPosition(), dotGameObject.GetComponent<RectTransform>().anchoredPosition);
             }
             
-            LineGraphVisualObject lineGraphVisualObject = new LineGraphVisualObject(dotGameObject, dotConnectionGameObject, lastLineGraphVisualObject, windowGraph);
+            LineGraphVisualObject lineGraphVisualObject = new LineGraphVisualObject(dotGameObject, dotConnectionGameObject, lastLineGraphVisualObject);
             lineGraphVisualObject.SetGraphVisualObjectInfo(graphPosition, graphPositionWidth, tooltipText);
             
             lastLineGraphVisualObject = lineGraphVisualObject;
@@ -473,7 +418,7 @@ public class Window_Graph : MonoBehaviour {
             gameObject.GetComponent<Image>().color = dotColor;
             RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
             rectTransform.anchoredPosition = anchoredPosition;
-            rectTransform.sizeDelta = new Vector2(11, 11);
+            rectTransform.sizeDelta = new Vector2(50, 50);
             rectTransform.anchorMin = new Vector2(0, 0);
             rectTransform.anchorMax = new Vector2(0, 0);
             
@@ -507,13 +452,11 @@ public class Window_Graph : MonoBehaviour {
             private GameObject dotGameObject;
             private GameObject dotConnectionGameObject;
             private LineGraphVisualObject lastVisualObject;
-            private Window_Graph windowGraph;
 
-            public LineGraphVisualObject(GameObject dotGameObject, GameObject dotConnectionGameObject, LineGraphVisualObject lastVisualObject, Window_Graph windowGraph) {
+            public LineGraphVisualObject(GameObject dotGameObject, GameObject dotConnectionGameObject, LineGraphVisualObject lastVisualObject) {
                 this.dotGameObject = dotGameObject;
                 this.dotConnectionGameObject = dotConnectionGameObject;
                 this.lastVisualObject = lastVisualObject;
-                this.windowGraph = windowGraph;
 
                 if (lastVisualObject != null) {
                     lastVisualObject.OnChangedGraphVisualObjectInfo += LastVisualObject_OnChangedGraphVisualObjectInfo;
@@ -534,12 +477,12 @@ public class Window_Graph : MonoBehaviour {
 
                 // Show Tooltip on Mouse Over
                 dotButtonUI.MouseOverOnceFunc = () => {
-                    windowGraph.ShowTooltip(tooltipText, graphPosition);
+                    ShowTooltip_Static(tooltipText, graphPosition);
                 };
             
                 // Hide Tooltip on Mouse Out
                 dotButtonUI.MouseOutOnceFunc = () => {
-                    windowGraph.HideTooltip();
+                    HideTooltip_Static();
                 };
 
                 if (OnChangedGraphVisualObjectInfo != null) OnChangedGraphVisualObjectInfo(this, EventArgs.Empty);
@@ -567,7 +510,11 @@ public class Window_Graph : MonoBehaviour {
             }
 
         }
+        
+        
 
     }
+
+
 
 }
