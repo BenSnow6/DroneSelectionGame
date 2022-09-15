@@ -83,7 +83,7 @@ public class Highlight : MonoBehaviour
     }
     void showToolTip(Vector3Int tileLocalPos)
     {
-        float riskVar = gridInfo.GetPositionProperty(tileLocalPos, "Risk", 1.0f);
+        float riskVar = gridInfo.GetPositionProperty(tileLocalPos, "Risk", 0.0f);
         float riskNorm = riskVar/maxRisk;
         float tuningFactor =  riskNorm; // we want to map the colour space more evenly. It goes straight to red too early
         TooltipManager._instance.SetAndShowToolTip("Risk rating", riskNorm.ToString("F2"), new Color(255, 1-tuningFactor, 0,255));

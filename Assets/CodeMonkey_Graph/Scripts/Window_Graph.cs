@@ -66,8 +66,8 @@ public class Window_Graph : MonoBehaviour {
         lineGraphVisual = new LineGraphVisual(graphContainer, dotSprite, Color.green, new Color(1, 1, 1, .5f), this);
         barChartVisual = new BarChartVisual(graphContainer, Color.white, .8f, this);
 
-        valueList = new List<float> { 0.0011f, 1, 3, 4, 5 };
-        ShowGraph(valueList, lineGraphVisual, 5, (index) => index.ToString(), (float _f) =>  Math.Round(_f, 3).ToString());
+        valueList = new List<float> { 0, 0.5f, 0.75f };
+        ShowGraph(valueList, lineGraphVisual, 3, (index) => index.ToString(), (float _f) =>  Math.Round(_f, 3).ToString());
 
         HideTooltip();
     }
@@ -125,7 +125,7 @@ public class Window_Graph : MonoBehaviour {
         this.valueList = valueList;
 
         if (graphVisual == null) {
-            graphVisual = barChartVisual;
+            graphVisual = lineGraphVisual;
         }
         this.graphVisual = graphVisual;
 
@@ -156,7 +156,7 @@ public class Window_Graph : MonoBehaviour {
             }
         }
 
-        Debug.Log(getAxisLabelX);
+        // Debug.Log(getAxisLabelX);
         this.getAxisLabelX = getAxisLabelX;
         this.getAxisLabelY = getAxisLabelY;
 
@@ -473,7 +473,7 @@ public class Window_Graph : MonoBehaviour {
             gameObject.GetComponent<Image>().color = dotColor;
             RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
             rectTransform.anchoredPosition = anchoredPosition;
-            rectTransform.sizeDelta = new Vector2(11, 11);
+            rectTransform.sizeDelta = new Vector2(40, 40);
             rectTransform.anchorMin = new Vector2(0, 0);
             rectTransform.anchorMax = new Vector2(0, 0);
             

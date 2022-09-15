@@ -6,8 +6,11 @@ public class CommandHandler
 {
     public List<ICommand> commandList = new List<ICommand>();
     public List<Vector3Int> selectedLocations = new List<Vector3Int>();
+    public List<float> riskValues = new List<float>();
     public float accumulatedRisk = 0;
     public int index;
+    // For the risk graph
+    private Window_Graph windowGraph;
 
     public void AddCommand(ICommand command)
     {       
@@ -39,14 +42,23 @@ public class CommandHandler
 
     void addRisk(Vector3Int tileLocalPos)
     {
-        accumulatedRisk += commandList[index].gridInfo.GetPositionProperty(tileLocalPos, "Risk", 1.0f);
-        // Debug.Log($"Accumulated risk is {accumulatedRisk}");
+        accumulatedRisk += commandList[index].gridInfo.GetPositionProperty(tileLocalPos, "Risk", 0.0f);
+        riskValues.Add(accumulatedRisk);
+        ShowRiskGraph(riskValues);
     }
 
     void removeRisk(Vector3Int tileLocalPos)
     {
-        accumulatedRisk -= commandList[index-1].gridInfo.GetPositionProperty(tileLocalPos, "Risk", 1.0f);
-        // Debug.Log($"Accumulated risk is {accumulatedRisk}");
+        accumulatedRisk -= commandList[index-1].gridInfo.GetPositionProperty(tileLocalPos, "Risk", 0.0f);
+        riskValues.RemoveAt(index-1);
+        ShowRiskGraph(riskValues);
     }
+
+    public void ShowRiskGraph(List<float> riskValues)
+    {
+        windowGraph = Transform.FindObjectOfType<Window_Graph>();
+        windowGraph.ShowGraph(riskValues);
+    }
+    
 }
 
