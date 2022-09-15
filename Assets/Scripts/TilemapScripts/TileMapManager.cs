@@ -47,7 +47,7 @@ public class TileMapManager : MonoBehaviour
                     GridInfo.SetPositionProperty(localPlace,"x", x);
                     GridInfo.SetPositionProperty(localPlace,"y", y);
                     int riskIndex = numCols*(numRows-1-y)+x; // transformation from x,y index to corresponding position in csv file
-                    GridInfo.SetPositionProperty(localPlace, "Risk", 100*float.Parse(riskData[riskIndex])); // save risk value to grid
+                    GridInfo.SetPositionProperty(localPlace, "Risk", float.Parse(riskData[riskIndex])); // save risk value to grid
  
                 }
                 else
