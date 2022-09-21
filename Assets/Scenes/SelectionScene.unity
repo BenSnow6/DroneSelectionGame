@@ -149,7 +149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 15402364}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.02, y: -0.63, z: 0}
+  m_LocalPosition: {x: 1.35, y: -0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 653643317}
@@ -1215,6 +1215,7 @@ GameObject:
   - component: {fileID: 286569673}
   - component: {fileID: 286569675}
   - component: {fileID: 286569674}
+  - component: {fileID: 286569676}
   m_Layer: 0
   m_Name: Risk
   m_TagString: Untagged
@@ -1672,6 +1673,21 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &286569676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286569672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3209c70ecdaeb0446aec2d52b3d99c71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RiskGrid: {fileID: 286569675}
+  buttonOn: 0
+  alreadyShown: 0
 --- !u!1 &309580442
 GameObject:
   m_ObjectHideFlags: 0
@@ -3037,7 +3053,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 286569676}
+        m_TargetAssemblyTypeName: RiskToggle, Assembly-CSharp
+        m_MethodName: setButtonOn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &532629491
 GameObject:
@@ -3649,7 +3677,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   schoolMarker: {fileID: 9013041716298779057, guid: 8cd3eab7ed208b94ba831613d4e12c9b, type: 3}
   SchoolNameData: {fileID: 4900000, guid: ffac642c39c079348aca55d171edfde3, type: 3}
-  buttonToggled: 0
+  buttonOn: 1
+  alreadyShown: 0
 --- !u!114 &653643323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6087,8 +6116,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 653643322}
         m_TargetAssemblyTypeName: SchoolMarker, Assembly-CSharp
-        m_MethodName: setButtonToggled
-        m_Mode: 0
+        m_MethodName: setButtonOn
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

@@ -19,7 +19,6 @@ public class SchoolMarker : MonoBehaviour
     }
     void Update()
     {
-        Debug.Log($"buttonOn: {buttonOn} and alreadyShown: {alreadyShown}");
         if(buttonOn == true)
         {
             if(alreadyShown == false)
