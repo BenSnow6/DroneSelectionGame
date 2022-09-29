@@ -288,8 +288,8 @@ public class Window_Graph : MonoBehaviour {
 
     private void CalculateYScale(out float yMinimum, out float yMaximum) {
         // Identify y Min and Max values
-        yMaximum = valueList[0];
-        yMinimum = valueList[0];
+        yMaximum = 0.002f; //valueList[0];
+        yMinimum = 0.0f; //valueList[0];
         
         for (int i = Mathf.Max(valueList.Count - maxVisibleValueAmount, 0); i < valueList.Count; i++) {
             float value = valueList[i];
