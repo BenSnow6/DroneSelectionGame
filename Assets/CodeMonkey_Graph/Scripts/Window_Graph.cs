@@ -152,7 +152,7 @@ public class Window_Graph : MonoBehaviour {
             if (this.getAxisLabelY != null) {
                 getAxisLabelY = this.getAxisLabelY;
             } else {
-                getAxisLabelY = delegate (float _f) { return Math.Round(_f, 2).ToString(); };
+                getAxisLabelY = delegate (float _f) { return (Math.Round(_f, 2)*10).ToString(); };
             }
         }
 
@@ -223,7 +223,7 @@ public class Window_Graph : MonoBehaviour {
             labelY.gameObject.SetActive(true);
             float normalizedValue = i * 1f / separatorCount;
             labelY.anchoredPosition = new Vector2(-7f, normalizedValue * graphHeight);
-            labelY.GetComponent<Text>().text = getAxisLabelY(yMinimum + (normalizedValue * (yMaximum - yMinimum)));
+            labelY.GetComponent<Text>().text = getAxisLabelY((yMinimum + (normalizedValue * (yMaximum - yMinimum)))*1000*1/3);
             yLabelList.Add(labelY);
             gameObjectList.Add(labelY.gameObject);
 
@@ -288,7 +288,7 @@ public class Window_Graph : MonoBehaviour {
 
     private void CalculateYScale(out float yMinimum, out float yMaximum) {
         // Identify y Min and Max values
-        yMaximum = 0.002f; //valueList[0];
+        yMaximum = 0.0025f; //valueList[0];
         yMinimum = 0.0f; //valueList[0];
         
         for (int i = Mathf.Max(valueList.Count - maxVisibleValueAmount, 0); i < valueList.Count; i++) {
