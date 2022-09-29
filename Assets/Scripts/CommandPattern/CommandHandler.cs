@@ -90,6 +90,11 @@ public class CommandHandler
                 }
             }
         }
+        else
+        {
+            Image batteryLevelText = GameObject.Find("Full").GetComponent<Image>();
+            batteryLevelText.sprite = Resources.Load<Sprite>("Batteries/Full");
+        }
 
     }
     void removeEnergy(int energy)
@@ -108,6 +113,11 @@ public class CommandHandler
                 }
             }
 
+        }
+        else
+        {
+            Image batteryLevelText = GameObject.Find("Full").GetComponent<Image>();
+            batteryLevelText.sprite = Resources.Load<Sprite>("Batteries/Full");
         }
         Debug.Log($"removing energy, current level: {batteryLevel}");
     }
