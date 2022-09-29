@@ -15,7 +15,6 @@ public class RiskToggle : MonoBehaviour
     void Start()
     {
         renderer = gameObject.GetComponent<TilemapRenderer>();
-        Debug.Log($"renderer = {renderer}");
         buttonOn = false;
         alreadyShown = false;
     }
