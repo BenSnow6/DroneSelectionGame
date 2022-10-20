@@ -1,5 +1,5 @@
 {
-    "name": "DroneSelectionGame",
+    "name": "InputScheme",
     "maps": [
         {
             "name": "MouseInputs",
@@ -7,7 +7,7 @@
             "actions": [
                 {
                     "name": "Hover",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "2b5fbd25-21fa-45b2-b93b-b26590b6c653",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Touch",
+                    "type": "Value",
+                    "id": "ea4074ee-8330-40b7-a163-3a05c135fa1c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -91,7 +100,7 @@
                     "path": "<Pen>/press",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Touch",
+                    "groups": "Keyboard&Mouse",
                     "action": "ClickSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -137,6 +146,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "StartFlyover",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5000d71a-d1c3-4980-8c2d-31dbf667da40",
+                    "path": "<Touchscreen>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse;Touch;Gamepad;Joystick;XR",
+                    "action": "Touch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
