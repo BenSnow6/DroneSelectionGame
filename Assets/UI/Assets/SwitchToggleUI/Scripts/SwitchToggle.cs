@@ -18,7 +18,9 @@ public class SwitchToggle : MonoBehaviour {
 
    Vector2 handlePosition ;
 
-   void Awake ( ) {
+   void Awake()
+   {
+
       toggle = GetComponent <Toggle> ( ) ;
 
       handlePosition = uiHandleRectTransform.anchoredPosition ;
@@ -29,13 +31,14 @@ public class SwitchToggle : MonoBehaviour {
       backgroundDefaultColor = backgroundImage.color ;
       handleDefaultColor = handleImage.color ;
 
-      toggle.onValueChanged.AddListener (OnSwitch) ;
+      toggle.onValueChanged.AddListener (OnSwitch);
 
       if (toggle.isOn)
-         OnSwitch (true) ;
+         OnSwitch (true);
    }
 
-   void OnSwitch (bool on) {
+   void OnSwitch (bool on)
+   {
       //uiHandleRectTransform.anchoredPosition = on ? handlePosition * -1 : handlePosition ; // no anim
       uiHandleRectTransform.DOAnchorPos (on ? handlePosition * -1 : handlePosition, .4f).SetEase (Ease.InOutBack) ;
 
@@ -47,7 +50,8 @@ public class SwitchToggle : MonoBehaviour {
 
    }
 
-   void OnDestroy ( ) {
+   void OnDestroy ( )
+   {
       toggle.onValueChanged.RemoveListener (OnSwitch) ;
    }
 }

@@ -11,7 +11,7 @@ public class TestingQuestionDialog : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space))
         QuestionDialogUI.Instance.ShowQuestion("Are you sure you want to select this tile?", () => {
                 Application.Quit();
-                EditorApplication.ExitPlaymode();
+                // EditorApplication.ExitPlaymode(); # removed so build can take place
             }, () => {
                     // Do nothing
             });
