@@ -31,7 +31,7 @@ public class InputManager : MonoBehaviour
 
     private void StartTouch(InputAction.CallbackContext ctx)
     {
-        Debug.Log($"Touch Down at {ctx.ReadValue<Vector2>()}");
+        Debug.Log($"Touch Down at {ctx}");
         image.transform.position = ctx.ReadValue<Vector2>();
     }
 }

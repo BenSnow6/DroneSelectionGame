@@ -76,7 +76,7 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
                     ""name"": ""Touch"",
                     ""type"": ""Value"",
                     ""id"": ""ea4074ee-8330-40b7-a163-3a05c135fa1c"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -177,7 +177,7 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
                     ""path"": ""<Touchscreen>/position"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse;Touch;Gamepad;Joystick;XR"",
+                    ""groups"": ""Touch"",
                     ""action"": ""Touch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
