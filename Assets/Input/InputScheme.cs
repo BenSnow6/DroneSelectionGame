@@ -80,6 +80,15 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""TapHoldSelect"",
+                    ""type"": ""Value"",
+                    ""id"": ""b02fad7a-9b36-44cb-9d70-592d9cf60906"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -174,11 +183,22 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""5000d71a-d1c3-4980-8c2d-31dbf667da40"",
-                    ""path"": ""<Touchscreen>/position"",
+                    ""path"": ""<Touchscreen>/primaryTouch/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Touch"",
                     ""action"": ""Touch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cb9b0f2d-132f-4f58-a649-329c329e1c3d"",
+                    ""path"": ""<Touchscreen>/primaryTouch/startPosition"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Touch"",
+                    ""action"": ""TapHoldSelect"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -772,6 +792,7 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
         m_MouseInputs_SubmitRoute = m_MouseInputs.FindAction("SubmitRoute", throwIfNotFound: true);
         m_MouseInputs_StartFlyover = m_MouseInputs.FindAction("StartFlyover", throwIfNotFound: true);
         m_MouseInputs_Touch = m_MouseInputs.FindAction("Touch", throwIfNotFound: true);
+        m_MouseInputs_TapHoldSelect = m_MouseInputs.FindAction("TapHoldSelect", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -849,6 +870,7 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
     private readonly InputAction m_MouseInputs_SubmitRoute;
     private readonly InputAction m_MouseInputs_StartFlyover;
     private readonly InputAction m_MouseInputs_Touch;
+    private readonly InputAction m_MouseInputs_TapHoldSelect;
     public struct MouseInputsActions
     {
         private @InputScheme m_Wrapper;
@@ -859,6 +881,7 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
         public InputAction @SubmitRoute => m_Wrapper.m_MouseInputs_SubmitRoute;
         public InputAction @StartFlyover => m_Wrapper.m_MouseInputs_StartFlyover;
         public InputAction @Touch => m_Wrapper.m_MouseInputs_Touch;
+        public InputAction @TapHoldSelect => m_Wrapper.m_MouseInputs_TapHoldSelect;
         public InputActionMap Get() { return m_Wrapper.m_MouseInputs; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -886,6 +909,9 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
                 @Touch.started -= m_Wrapper.m_MouseInputsActionsCallbackInterface.OnTouch;
                 @Touch.performed -= m_Wrapper.m_MouseInputsActionsCallbackInterface.OnTouch;
                 @Touch.canceled -= m_Wrapper.m_MouseInputsActionsCallbackInterface.OnTouch;
+                @TapHoldSelect.started -= m_Wrapper.m_MouseInputsActionsCallbackInterface.OnTapHoldSelect;
+                @TapHoldSelect.performed -= m_Wrapper.m_MouseInputsActionsCallbackInterface.OnTapHoldSelect;
+                @TapHoldSelect.canceled -= m_Wrapper.m_MouseInputsActionsCallbackInterface.OnTapHoldSelect;
             }
             m_Wrapper.m_MouseInputsActionsCallbackInterface = instance;
             if (instance != null)
@@ -908,6 +934,9 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
                 @Touch.started += instance.OnTouch;
                 @Touch.performed += instance.OnTouch;
                 @Touch.canceled += instance.OnTouch;
+                @TapHoldSelect.started += instance.OnTapHoldSelect;
+                @TapHoldSelect.performed += instance.OnTapHoldSelect;
+                @TapHoldSelect.canceled += instance.OnTapHoldSelect;
             }
         }
     }
@@ -1070,6 +1099,7 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
         void OnSubmitRoute(InputAction.CallbackContext context);
         void OnStartFlyover(InputAction.CallbackContext context);
         void OnTouch(InputAction.CallbackContext context);
+        void OnTapHoldSelect(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

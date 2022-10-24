@@ -61,7 +61,7 @@ public class TooltipManager : MonoBehaviour
 
     public void HoverLocation(InputAction.CallbackContext context)
     {
-        Debug.Log($"Hovering at {context.ReadValue<Vector2>()}");
+        // Debug.Log($"Hovering at {context.ReadValue<Vector2>()}");
         movementInput = context.ReadValue<Vector2>();
         mousePos = new Vector3(movementInput.x, movementInput.y, 0);
         mouseLocation = Camera.main.ScreenToWorldPoint(mousePos);

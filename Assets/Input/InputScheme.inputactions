@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "TapHoldSelect",
+                    "type": "Value",
+                    "id": "b02fad7a-9b36-44cb-9d70-592d9cf60906",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -152,11 +161,22 @@
                 {
                     "name": "",
                     "id": "5000d71a-d1c3-4980-8c2d-31dbf667da40",
-                    "path": "<Touchscreen>/position",
+                    "path": "<Touchscreen>/primaryTouch/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "Touch",
                     "action": "Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cb9b0f2d-132f-4f58-a649-329c329e1c3d",
+                    "path": "<Touchscreen>/primaryTouch/startPosition",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Touch",
+                    "action": "TapHoldSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

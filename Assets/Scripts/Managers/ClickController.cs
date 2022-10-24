@@ -61,7 +61,6 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
         // Mouse position is mouseLocation
         // tileLocalPos is the tile position on the grid
         
-
         if(inGridBounds(tileLocalPos)){
             selectTile(tileLocalPos);
             removeTile(tileLocalPos, false);
@@ -73,8 +72,9 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
     {
         return 0 <= mousePosition.x && mousePosition.x <= 9 && 0 <= mousePosition.y && mousePosition.y <= 7;
     }
-    void selectTile(Vector3Int mousePosition)
+    public void selectTile(Vector3Int mousePosition)
     {
+        Debug.Log(clickSelect || startingCondition);
      if (clickSelect || startingCondition)
         {
             /// <summary>
@@ -205,7 +205,7 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
         Debug.Log("Clicked new input");
     }
 
-    Vector3Int TilePosition(Vector3 mousePos)
+    public Vector3Int TilePosition(Vector3 mousePos)
     {
         return new Vector3Int((int) Mathf.Floor(mousePos.x), (int) Mathf.Floor(mousePos.y), 0);
     }
@@ -241,5 +241,9 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
                 clickUndo = !clickUndo;
             }
     }
-    
+    public void TapSelect(InputAction.CallbackContext context)
+    {
+        Debug.Log($"Tap select is {clickSelect}");
+        clickSelect = !clickSelect;
+    }
 }
