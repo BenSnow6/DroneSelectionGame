@@ -2309,14 +2309,14 @@ RectTransform:
   m_GameObject: {fileID: 327757926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.77, y: 1.54, z: 1}
+  m_LocalScale: {x: 3, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 1909216616}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -176, y: 130.79996}
+  m_AnchoredPosition: {x: -297.85004, y: 124}
   m_SizeDelta: {x: 133.479, y: 52.3269}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &327757928
@@ -2345,7 +2345,7 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 4
-    m_MaxSize: 40
+    m_MaxSize: 50
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -3209,11 +3209,35 @@ MonoBehaviour:
     m_ActionId: e1e904cf-ff9a-4633-bf5f-1ad9fc9c0a19
     m_ActionName: MouseInputs/ClickUndo[/Mouse/rightButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 653643319}
+        m_TargetAssemblyTypeName: ClickController, Assembly-CSharp
+        m_MethodName: setInputTrue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 93421b30-5223-4b0e-a04f-35194616316a
     m_ActionName: MouseInputs/SubmitRoute[/Keyboard/s]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 731252499}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: StartFlyover
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 87a52d85-ad29-412d-a1f8-cc36d7aa9b74
     m_ActionName: MouseInputs/StartFlyover[/Keyboard/p]
   - m_PersistentCalls:
@@ -3430,15 +3454,15 @@ RectTransform:
   m_GameObject: {fileID: 543775933}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.77, y: 1.54, z: 1}
+  m_LocalScale: {x: 3, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 1909216616}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -175.67, y: -109.20001}
-  m_SizeDelta: {x: 134.139, y: 62.1552}
+  m_AnchoredPosition: {x: -212.85005, y: -141.57}
+  m_SizeDelta: {x: 211.81, y: 104.9415}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &543775935
 MonoBehaviour:
@@ -3462,12 +3486,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 26
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -4424,14 +4448,14 @@ RectTransform:
   m_GameObject: {fileID: 814052838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 200, y: 200, z: 22.29}
   m_Children: []
   m_Father: {fileID: 1988082954}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -309, y: -238.51}
+  m_AnchoredPosition: {x: 850, y: -340}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &814052840
@@ -6073,15 +6097,15 @@ RectTransform:
   m_GameObject: {fileID: 1423578951}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.77, y: 1.54, z: 1}
+  m_LocalScale: {x: 3, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 1909216616}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -176, y: 4.7365}
-  m_SizeDelta: {x: 133.479, y: 52.3269}
+  m_AnchoredPosition: {x: -267, y: 4.4000134}
+  m_SizeDelta: {x: 159.3, y: 52.3269}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1423578953
 MonoBehaviour:
@@ -6105,10 +6129,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 35
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -8619,7 +8643,7 @@ RectTransform:
   m_GameObject: {fileID: 1909216615}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.161, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.18, y: 0.5, z: 1}
   m_Children:
   - {fileID: 521171852}
   - {fileID: 327757927}
@@ -8632,8 +8656,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -379.85767, y: 139.34326}
-  m_SizeDelta: {x: -79.05534, y: -153.6013}
+  m_AnchoredPosition: {x: -376, y: 138}
+  m_SizeDelta: {x: 49.8184, y: -153.6013}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1909216617
 MonoBehaviour:
@@ -8892,7 +8916,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2007873943
 GameObject:

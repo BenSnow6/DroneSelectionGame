@@ -74,7 +74,6 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
     }
     public void selectTile(Vector3Int mousePosition)
     {
-        Debug.Log(clickSelect || startingCondition);
      if (clickSelect || startingCondition)
         {
             /// <summary>

@@ -9,6 +9,7 @@ public class CommandHandler
     public List<Vector3Int> selectedLocations = new List<Vector3Int>();
     public List<float> riskValues = new List<float>();
     public int batteryLevel = 12;
+    public int batteryMax = 12;
     public float accumulatedRisk = 0;
     public int index;
 
@@ -41,7 +42,7 @@ public class CommandHandler
     {
         if (commandList.Count == 0)
             return;
-        if (index > 0)
+        if (index > 1)
         {   
             commandList[index - 1].Undo();
             selectedLocations.RemoveAt(index - 1);
@@ -77,11 +78,11 @@ public class CommandHandler
     {
         batteryLevel += energy;
         Debug.Log($"adding energy, current level: {batteryLevel}");
-        if(batteryLevel < 7)
+        if(batteryLevel < 0.7*batteryMax)
         {
             Image batteryLevelText = GameObject.Find("Full").GetComponent<Image>();
             batteryLevelText.sprite = Resources.Load<Sprite>("Batteries/Half");
-            if (batteryLevel < 3)
+            if (batteryLevel < 0.3*batteryMax)
             {
                 batteryLevelText.sprite = Resources.Load<Sprite>("Batteries/Low");
                 if (batteryLevel <= 0)
@@ -100,11 +101,11 @@ public class CommandHandler
     void removeEnergy(int energy)
     {
         batteryLevel -= energy;
-        if(batteryLevel < 7)
+        if(batteryLevel < 0.7*batteryMax)
         {
             Image batteryLevelText = GameObject.Find("Full").GetComponent<Image>();
             batteryLevelText.sprite = Resources.Load<Sprite>("Batteries/Half");
-            if (batteryLevel < 3)
+            if (batteryLevel < 0.3*batteryMax)
             {
                 batteryLevelText.sprite = Resources.Load<Sprite>("Batteries/Low");
                 if (batteryLevel <= 0)
