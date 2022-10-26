@@ -45,6 +45,7 @@ public class CommandHandler
         if (index > 1)
         {   
             commandList[index - 1].Undo();
+            Debug.Log($"Last selected: {selectedLocations[index]} and index is {index}. Deleting {selectedLocations[index - 1]}");
             selectedLocations.RemoveAt(index - 1);
             removeRisk(commandList[index - 1].clickedLocation); // not sure if index is 1 or 0
             addEnergy(1);

@@ -47,4 +47,8 @@ public class GameManager : MonoBehaviour
             startFlyover = true;
         }
     }
+    public void StartFlyoverButton()
+    {
+        startFlyover = true;
+    }
 }

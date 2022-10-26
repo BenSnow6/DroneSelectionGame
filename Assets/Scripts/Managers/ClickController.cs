@@ -187,7 +187,7 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
 
     }
 
-    void submitRoute()
+    public void submitRoute()
     {
         if (clickedNewInput)
         {
@@ -215,7 +215,6 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
         mousePos = new Vector3(movementInput.x, movementInput.y, 0);
         mouseLocation = Camera.main.ScreenToWorldPoint(mousePos);
         tileLocalPos = TilePosition(mouseLocation);
-        // Debug.Log($"Mouse position is {mouseLocation}");
     }
 
     public void SelectClick(InputAction.CallbackContext context)
