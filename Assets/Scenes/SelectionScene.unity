@@ -4319,7 +4319,6 @@ GameObject:
   - component: {fileID: 736037967}
   - component: {fileID: 736037966}
   - component: {fileID: 736037965}
-  - component: {fileID: 736037964}
   - component: {fileID: 736037963}
   m_Layer: 0
   m_Name: SubmitRoute
@@ -4359,19 +4358,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17725368c98031345992601960600aaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &736037964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 736037961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da94637412504a4baeb40177b69e2ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   buttonPressed: 0
+  gameManager: {fileID: 731252499}
 --- !u!114 &736037965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4416,8 +4404,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 736037964}
-        m_TargetAssemblyTypeName: UndoButton, Assembly-CSharp
+      - m_Target: {fileID: 736037963}
+        m_TargetAssemblyTypeName: SubmitRouteButton, Assembly-CSharp
         m_MethodName: setPressed
         m_Mode: 6
         m_Arguments:
