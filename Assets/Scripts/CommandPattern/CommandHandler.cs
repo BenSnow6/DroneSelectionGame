@@ -43,9 +43,10 @@ public class CommandHandler
         if (commandList.Count == 0)
             return;
         if (index > 1)
-        {   
+        {
+            // not able to undo a given command...
             commandList[index - 1].Undo();
-            Debug.Log($"Last selected: {selectedLocations[index]} and index is {index}. Deleting {selectedLocations[index - 1]}");
+            Debug.Log($"Last selected: {selectedLocations[index-1]} and index is {index}. Deleting {selectedLocations[index - 1]}");
             selectedLocations.RemoveAt(index - 1);
             removeRisk(commandList[index - 1].clickedLocation); // not sure if index is 1 or 0
             addEnergy(1);
@@ -122,10 +123,6 @@ public class CommandHandler
             batteryLevelText.sprite = Resources.Load<Sprite>("Batteries/Full");
         }
         Debug.Log($"removing energy, current level: {batteryLevel}");
-    }
-    void showBatteryIcon()
-    {
-        // TODO
     }
 }
 

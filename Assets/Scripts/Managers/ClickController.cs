@@ -139,6 +139,7 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
         {
         if ((clickUndo || buttonPressed) && _selectionManager.commandHandler.commandList.Count > 1)
             {
+                Debug.Log($"index is {_selectionManager.commandHandler.index}");
                 _selectionManager.commandHandler.UndoCommand();
                 var lastSelectedPosition = _selectionManager.commandHandler.commandList.LastOrDefault();
                 Debug.Log($"Clicked location is undone {lastSelectedPosition.clickedLocation}");

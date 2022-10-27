@@ -20,6 +20,7 @@ public class UndoButton : MonoBehaviour
         {
             // Debug.Log("Undo Button Pressed");
             clickController.removeTile(new Vector3Int(1, 1, 0), true);
+            Debug.Log("Undo Button finishes");
             buttonPressed = false;
         }
     }

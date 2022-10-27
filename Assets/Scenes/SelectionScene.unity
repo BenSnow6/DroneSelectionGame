@@ -1015,7 +1015,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &265638174
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2316,7 +2316,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -297.85004, y: 124}
+  m_AnchoredPosition: {x: -274, y: 49}
   m_SizeDelta: {x: 133.479, y: 52.3269}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &327757928
@@ -3035,7 +3035,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 220, y: 130.79996}
+  m_AnchoredPosition: {x: 243.85005, y: 55.799957}
   m_SizeDelta: {x: 129.8, y: 40.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &521171853
@@ -3444,7 +3444,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &543775934
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6251,7 +6251,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -267, y: 4.4000134}
+  m_AnchoredPosition: {x: -239.99986, y: -51.199966}
   m_SizeDelta: {x: 159.3, y: 52.3269}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1423578953
@@ -6436,7 +6436,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 222, y: 10.8}
+  m_AnchoredPosition: {x: 249, y: -44.8}
   m_SizeDelta: {x: 129.8, y: 40.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1466825801
@@ -8803,8 +8803,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -376, y: 138}
-  m_SizeDelta: {x: 49.8184, y: -153.6013}
+  m_AnchoredPosition: {x: -357, y: 190}
+  m_SizeDelta: {x: 49.8184, y: -344.20062}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1909216617
 MonoBehaviour:
