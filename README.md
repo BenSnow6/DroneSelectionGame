@@ -15,7 +15,7 @@ Installing on the tablet can be done with the following steps:
 1. Open the file explorer on the tablet and navigate to the location where you saved the .apk file.
 2. Click on the .apk file and a pop up will appear asking if you want to install the app.
 
-![Image](ReleaseAssets/Install.jpg)
+![Image](ReleaseAssets/install.jpg)
 
 3. Click install and the app will be installed on the tablet.
 
