@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
+using UnityEngine.InputSystem;
 public class Highlight : MonoBehaviour
 {
     /// <summary>
     /// Takes the current mouse position and shows a highlight tile
     /// at the grid location it is hovering over.
     /// Shows a tooltip with the risk value for the highlighted tile at the same location.
+
+    public Vector2 movementInput;
+    public Vector3 mousePos;
+    public Vector3 mouseLocation;
+    public Vector3Int tileLocalPos;
 
 
     private Grid grid;
@@ -18,6 +23,7 @@ public class Highlight : MonoBehaviour
     [SerializeField] private Tilemap interactiveGrid = null;
     [SerializeField] private Tilemap backgroundGrid = null;
     [SerializeField] private Tile hoverTile = null;
+
 
 
 
@@ -37,36 +43,25 @@ public class Highlight : MonoBehaviour
     void Update()
     {
 
-        Vector3Int mousePos = GetMousePosition();
-        Vector3Int tileLocalPos = TilePosition(mousePos);
-        
-        if(inGridBounds(mousePos))
+        if (inGridBounds(TilePosition(mouseLocation)))
         {
+            tileLocalPos = TilePosition(mouseLocation);
             showHighlight(tileLocalPos, previousMousePos);
             showToolTip(tileLocalPos);
         }
         else
         {
-            TooltipManager._instance.HideToolTip(); // Remove tooltip
+            TooltipManager._instance.HideToolTip();
         }
     }
 
-    /// <summary>
-    /// Functions used to show highlight and tooltip
-    /// </summary>
 
-    Vector3Int GetMousePosition()
-    {
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        return grid.WorldToCell(mouseWorldPos);
-    }
-
-    Vector3Int TilePosition(Vector3Int mousePos)
+    Vector3Int TilePosition(Vector3 mousePos)
     {
         return new Vector3Int((int) Mathf.Floor(mousePos.x), (int) Mathf.Floor(mousePos.y), 0);
     }
 
-    bool inGridBounds(Vector3Int mousePos)
+    bool inGridBounds(Vector3 mousePos)
     {
         /// <summary>
         /// Input: mousePosition
@@ -88,9 +83,16 @@ public class Highlight : MonoBehaviour
     }
     void showToolTip(Vector3Int tileLocalPos)
     {
-        float riskVar = gridInfo.GetPositionProperty(tileLocalPos, "Risk", 1.0f);
+        float riskVar = gridInfo.GetPositionProperty(tileLocalPos, "Risk", 0.0f);
         float riskNorm = riskVar/maxRisk;
-        float tuningFactor =  riskNorm; // we wanna map the colour space more evenly. It goes straight to red too early
+        float tuningFactor =  riskNorm; // we want to map the colour space more evenly. It goes straight to red too early
         TooltipManager._instance.SetAndShowToolTip("Risk rating", riskNorm.ToString("F2"), new Color(255, 1-tuningFactor, 0,255));
+    }
+
+    public void HoverLocation(InputAction.CallbackContext context)
+    {
+        movementInput = context.ReadValue<Vector2>();
+        mousePos = new Vector3(movementInput.x, movementInput.y, 0);
+        mouseLocation = Camera.main.ScreenToWorldPoint(mousePos);
     }
 }

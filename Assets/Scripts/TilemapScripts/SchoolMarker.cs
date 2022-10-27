@@ -9,9 +9,43 @@ public class SchoolMarker : MonoBehaviour
     [SerializeField] GameObject schoolMarker;
     private Vector3 offset; // offset position of the tip of the marker prefab
     public TextAsset SchoolNameData; // csv file with location data
+    public bool buttonOn = false; // toggle to show/hide schools
+    public bool alreadyShown = false; // toggle to show/hide schools
 
-    // Start is called before the first frame update
     void Start()
+    {
+        buttonOn = false;
+        alreadyShown = false;
+    }
+    void Update()
+    {
+        if(buttonOn == true)
+        {
+            if(alreadyShown == false)
+            {
+                alreadyShown = true;
+                showSchools();
+            }
+        }
+        else
+        {
+            hideSchools();
+            alreadyShown = false;
+        }
+    }
+
+    void spawnSchool(Vector3 position, string schoolName)
+    {
+        GameObject schoolObject = Instantiate(schoolMarker, offset+position, Quaternion.identity) as GameObject;  // instatiate the object
+        schoolObject.transform.localScale = new Vector3(0.2f, 0.2f, 1.0f); // set size of the prefabs
+        schoolObject.tag = "School"; // set tag for the object
+        // LeanTween.moveX(schoolObject, schoolObject.transform.position.x, 5f).setEase(LeanTweenType.easeOutBounce);
+        // LeanTween.scale(schoolObject, new Vector3(0.24f, 0.24f, 2.0f), 2.0f).setEase(LeanTweenType.easeInBounce);
+        
+        // schoolObject.schoolnamestring = 
+    }
+
+    void showSchools()
     {
         float tipPosition_y = 0.256f-(256-222)/256; // 256-222 = 34 pixels from the bottom of the image
         Vector3 offset = new Vector3(0, tipPosition_y, 2.73958f); // location offset of the marker's tip
@@ -41,21 +75,24 @@ public class SchoolMarker : MonoBehaviour
         for every line in csv
             instantiate a school object
             set the schoolNameString to the name of the school
-         -1.6, 50.863096, -1.28, 51.02
+        -1.6, 50.863096, -1.28, 51.02
         */
-        
     }
 
-
-    void spawnSchool(Vector3 position, string schoolName)
+    void hideSchools()
     {
-        GameObject schoolObject = Instantiate(schoolMarker, offset+position, Quaternion.identity) as GameObject;  // instatiate the object
-        schoolObject.transform.localScale = new Vector3(0.2f, 0.2f, 1.0f); // set size of the prefabs
-        //LeanTween.moveX(schoolObject, schoolObject.transform.position.x, 5f).setEase(LeanTweenType.easeOutBounce);
-        //LeanTween.scale(schoolObject, new Vector3(0.125f, 0.125f, 1.0f), 2.0f).setEase(LeanTweenType.easeInBounce);
-        
-        // schoolObject.schoolnamestring = 
+        GameObject[] schoolObjects = GameObject.FindGameObjectsWithTag("School");
+        foreach (GameObject schoolObject in schoolObjects)
+        {
+            Destroy(schoolObject);
+        }
     }
+
+    public void setButtonOn(bool on)
+    {
+        buttonOn = !buttonOn;
+    }
+
 }
 
 

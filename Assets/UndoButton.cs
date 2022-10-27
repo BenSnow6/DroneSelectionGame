@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class UndoButton : MonoBehaviour
 {
     public bool buttonPressed;
@@ -19,15 +18,16 @@ public class UndoButton : MonoBehaviour
     {
         if (buttonPressed)
         {
-            Debug.Log("Undo Button Pressed");
+            // Debug.Log("Undo Button Pressed");
             clickController.removeTile(new Vector3Int(1, 1, 0), true);
+            Debug.Log("Undo Button finishes");
             buttonPressed = false;
         }
     }
     public void setPressed(bool pressed)
     {
         buttonPressed = pressed;
-        Debug.Log($"Button pressed is {buttonPressed}");
+        // Debug.Log($"Button pressed is {buttonPressed}");
     }
     public void printIt()
     {

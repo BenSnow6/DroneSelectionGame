@@ -1,17 +1,23 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+
+    public bool startFlyover = false;
     void Update()
     {
-        // Press the space key to start coroutine
-        if (Input.GetKeyDown(KeyCode.P))
+        // Commented out to ignore error, this seems to be used
+        
+        // Press the P key to start coroutine
+        if (startFlyover) // change with new input system
         {
             // Use a coroutine to load the Scene in the background
             StartCoroutine(LoadYourAsyncScene());
         }
+        startFlyover = false;
 
     }
 
@@ -29,5 +35,21 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
+    }
+
+    public void StartFlyover(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            // clickUndo = !clickUndo;
+        }
+        else if (context.canceled)
+        {
+            startFlyover = true;
+        }
+    }
+    public void StartFlyoverButton()
+    {
+        startFlyover = true;
     }
 }

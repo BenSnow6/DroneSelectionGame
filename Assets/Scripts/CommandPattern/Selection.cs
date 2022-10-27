@@ -70,7 +70,6 @@ public class Selection : ICommand
         /// This function removes the selection tile from the last selected position,
         /// removes the surrounding tiles fro  the last selected position,
         /// and then adds surrounding tiles to the last - 1 selected position.
-
         selectionGrid.SetTile(tileLocalPos, null);
         removeSurroundingTiles(tileLocalPos);
         placeSurroundingTiles(_selectionManager.commandHandler.selectedLocations[_selectionManager.commandHandler.index - 2]);

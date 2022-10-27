@@ -11,7 +11,6 @@ public class CameraFollow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -21,5 +20,9 @@ public class CameraFollow : MonoBehaviour
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
         transform.position = smoothedPosition;
         transform.LookAt(target);
+        // get the current time
+        float time = Time.time;
+        // set the camera offset (oscillate about the target)
+        offset.x += Mathf.Sin(time + Mathf.PI/2)/250;
     }
 }
