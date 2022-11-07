@@ -12,6 +12,7 @@ public class DroneMovement : MonoBehaviour
     [SerializeField] float moveSpeed = 1f;
     private int x_scale = 2245/10;
     private int z_scale = 1747/8;
+    private int flyHeight = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +30,7 @@ public class DroneMovement : MonoBehaviour
             }
             else
             {
-                scaledPath.Add(new Vector3Int(item.x*x_scale, 50, item.y*z_scale));
+                scaledPath.Add(new Vector3Int(item.x*x_scale, flyHeight, item.y*z_scale));
                 index ++;
             }
         }
