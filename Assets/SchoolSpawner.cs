@@ -24,8 +24,12 @@ public class SchoolSpawner : MonoBehaviour
     void spawnSchool(Vector3 position, string schoolName)
     {
         GameObject schoolObject = Instantiate(schoolMarker, offset+position, Quaternion.identity) as GameObject;  // instatiate the object
-        schoolObject.transform.localScale = new Vector3(0.2f, 0.2f, 1.0f); // set size of the prefabs
+        schoolObject.transform.localScale = new Vector3(300f, 300f, 300f); // set size of the prefabs
+        // set rotation of the prefabs
+        schoolObject.transform.Rotate(90, 0, 0);
         schoolObject.tag = "School"; // set tag for the object
+        // Set child text object to school name
+        schoolObject.transform.GetChild(0).GetComponent<TextMesh>().text = schoolName;
         // LeanTween.moveX(schoolObject, schoolObject.transform.position.x, 5f).setEase(LeanTweenType.easeOutBounce);
         // LeanTween.scale(schoolObject, new Vector3(0.24f, 0.24f, 2.0f), 2.0f).setEase(LeanTweenType.easeInBounce);
         
@@ -41,21 +45,23 @@ public class SchoolSpawner : MonoBehaviour
         string[] data = SchoolNameData.text.Split(new string[] {",", "\n"}, System.StringSplitOptions.None); //read the csv file
         for (int i = 0; i < data.Length; i++)
         {
-            float x_f = 0.0f;
-            float x_g = 10.0f;
+            float x_f = -1122.3f;
+            float x_g = 2224.6f;
             float x_d = -1.6f;
             float x_e = -1.28f;
-            float y_f = 0.1f;
-            float y_g = 8.0f;
+            float y_f = 0f;
+            float y_g = 2*873.35f;
             float y_d = 50.863096f;
             float y_e = 51.02f;
+
+            Debug.Log(data[3*i]);
 
             // Scale the data to the grid bounds
             float x_pos = (x_f-x_g)/(x_d-x_e)*(float.Parse(data[3*i+1])-x_d)+x_f;
 
             float y_pos = (y_f-y_g)/(y_d-y_e)*(float.Parse(data[3*i+2])-y_d)+y_f;
 
-            spawnSchool(new Vector3(x_pos, y_pos, 0), data[i*3]); // instantiate prefabs at each of the locations
+            spawnSchool(new Vector3(x_pos, 0, y_pos), data[i*3]); // instantiate prefabs at each of the locations
         }
         /*
         read in csv
