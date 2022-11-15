@@ -51,6 +51,10 @@ public class DroneMovement : MonoBehaviour
         /// </summary>
 
         transform.position = Vector3.MoveTowards(transform.position, scaledPath[pathIndex], moveSpeed * Time.deltaTime);
+        // Set rotation of the drone
+        transform.LookAt(scaledPath[pathIndex]);
+        transform.Rotate(270, 0, 270);
+
 
         if (transform.position == scaledPath[pathIndex])
         {
