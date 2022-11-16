@@ -34,6 +34,8 @@ public class DroneMovement : MonoBehaviour
                 index ++;
             }
         }
+        // Set the last point to the ground.
+        scaledPath.Add(new Vector3Int(scaledPath[scaledPath.Count-1].x, 0, scaledPath[scaledPath.Count-1].z));
         /// Set the location of the drone to be the first location in the path.
         transform.position = scaledPath[pathIndex];
     }
