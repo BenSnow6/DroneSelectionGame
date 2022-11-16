@@ -25,6 +25,17 @@ Installing on the tablet can be done with the following steps:
 
 5. Enjoy the game!
 
-![Image](ReleaseAssets/play.jpg)
+![Image](ReleaseAssets/Selection.png)
 
-P.s. The orange button is the submit route button, use this after you have selected a route that starts and ends on the flags to see the 3D flyover!
+The orange button is the submit route button, use this after you have selected a route that starts and ends on the flags to see the 3D flyover!
+
+6. Controls for the game:
+
+Zoom in and out with the scroll wheel.
+![Image](ReleaseAssets/ZoomBar.png)
+
+Move around the map with the joystick on the left.
+![Image](ReleaseAssets/Joystick.png)
+
+In the flyover scene you can return to the selection sequence with the yellow back button, close the game with the red X button, and toggle the camera view with the green camera button.
+![Image](ReleaseAssets/flyover.png)
