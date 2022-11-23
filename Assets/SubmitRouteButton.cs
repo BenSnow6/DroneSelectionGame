@@ -19,16 +19,17 @@ public class SubmitRouteButton : MonoBehaviour
     {
         if (buttonPressed)
         {
-            // Debug.Log("Undo Button Pressed");
+            Debug.Log("Submit Button Pressed");
             clickController.setInputTrue();
             gameManager.StartFlyoverButton();
             buttonPressed = false;
         }
+        Debug.Log("SubmitRouteButton Update");
     }
     public void setPressed(bool pressed)
     {
         buttonPressed = pressed;
-        // Debug.Log($"Button pressed is {buttonPressed}");
+        Debug.Log($"Button pressed is {buttonPressed}");
     }
     public void printIt()
     {

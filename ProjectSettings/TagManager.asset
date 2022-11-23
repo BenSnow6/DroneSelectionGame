@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TagGrid
   - School
+  - UI
   layers:
   - Default
   - TransparentFX

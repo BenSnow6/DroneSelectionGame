@@ -2,6 +2,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,21 +11,22 @@ public class GameManager : MonoBehaviour
     public bool startFlyover = false;
     private bool screenshotOnce = false;
     public MainManager mainManager;
+    public Tilemap[] tilemaps;
     void Update()
     {
         // Commented out to ignore error, this seems to be used
         
         // Press the P key to start coroutine
-        if (startFlyover) // change with new input system
-        {
-            // Use a coroutine to load the Scene in the background
-            StartCoroutine(LoadYourAsyncScene());
-        }
-        startFlyover = false;
+        // if (startFlyover) // change with new input system
+        // {
+        //     // Use a coroutine to load the Scene in the background
+        //     StartCoroutine(LoadYourAsyncScene());
+        // }
+        // startFlyover = false;
 
     }
 
-    IEnumerator LoadYourAsyncScene()
+    IEnumerator LoadFlyoverScene()
     {
         // The Application loads the Scene in the background as the current Scene runs.
         // This is particularly good for creating loading screens.
@@ -39,20 +42,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartFlyover(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            // clickUndo = !clickUndo;
-        }
-        else if (context.canceled)
-        {
-            startFlyover = true;
-        }
-    }
+    // public void StartFlyover(InputAction.CallbackContext context)
+    // {
+    //     if (context.started)
+    //     {
+    //         // clickUndo = !clickUndo;
+    //     }
+    //     else if (context.canceled)
+    //     {
+    //         startFlyover = true;
+    //     }
+    // }
     public void StartFlyoverButton()
     {
-        startFlyover = true;
+        // startFlyover = true;
+        StartCoroutine(LoadFlyoverScene());
     }
 
     private IEnumerator CoroutineScreenShot()
@@ -62,7 +66,7 @@ public class GameManager : MonoBehaviour
         int width = Screen.width;
         int height = Screen.height;
         Texture2D screenshotTexture = new Texture2D(width, height, TextureFormat.RGB24, false);
-        Rect rect = new Rect(0, 0, width, height);
+        Rect rect = new Rect(width/10, height/10, width*0.9f, height*0.9f);
         screenshotTexture.ReadPixels(rect, 0, 0);
         screenshotTexture.Apply();
         // pass screenshot to main manager
@@ -70,15 +74,11 @@ public class GameManager : MonoBehaviour
         // Save the screenshot as a png
         byte[] bytes = screenshotTexture.EncodeToPNG();
         System.IO.File.WriteAllBytes(Application.dataPath + "/Screenshot.png", bytes);
+        Debug.Log("Screenshot written");
     }
-    public void captureScreenshot(InputAction.CallbackContext context)
+    public void captureScreenshot()
     {
-        if(screenshotOnce == false)
-        {
-            screenshotOnce = true;
             Debug.Log("Screenshot taken");
             StartCoroutine(CoroutineScreenShot());
-        }
-
     }
 }
