@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class MainManager : MonoBehaviour
 
     public static MainManager Instance;
     public List<Vector3Int> clickedLocations;  // Save the locations of the clicked tiles to pass to flyover scene.
+    public Texture2D screenshot; // Save the screenshot to pass to flyover scene.
+    public Image screenshotDisplay; // Display the screenshot on the UI.
 
     private void Awake()
     {
@@ -23,6 +26,13 @@ public class MainManager : MonoBehaviour
         // Do not allow the MainManager to be destroyed.
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+    public void SetScreenshot(Texture2D screenshot)
+    {
+        this.screenshot = screenshot;
+        // Apply the screenshot to the UI.
+        screenshotDisplay.sprite = Sprite.Create(screenshot, new Rect(0, 0, screenshot.width, screenshot.height), new Vector2(0.5f, 0.5f));
+        Debug.Log("Screenshot set");
     }
 }
 

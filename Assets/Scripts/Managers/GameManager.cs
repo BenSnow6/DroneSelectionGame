@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
 
     public bool startFlyover = false;
+    private bool screenshotOnce = false;
+    public MainManager mainManager;
     void Update()
     {
         // Commented out to ignore error, this seems to be used
@@ -51,5 +53,32 @@ public class GameManager : MonoBehaviour
     public void StartFlyoverButton()
     {
         startFlyover = true;
+    }
+
+    private IEnumerator CoroutineScreenShot()
+    {
+        yield return new WaitForEndOfFrame();
+
+        int width = Screen.width;
+        int height = Screen.height;
+        Texture2D screenshotTexture = new Texture2D(width, height, TextureFormat.RGB24, false);
+        Rect rect = new Rect(0, 0, width, height);
+        screenshotTexture.ReadPixels(rect, 0, 0);
+        screenshotTexture.Apply();
+        // pass screenshot to main manager
+        mainManager.SetScreenshot(screenshotTexture);
+        // Save the screenshot as a png
+        byte[] bytes = screenshotTexture.EncodeToPNG();
+        System.IO.File.WriteAllBytes(Application.dataPath + "/Screenshot.png", bytes);
+    }
+    public void captureScreenshot(InputAction.CallbackContext context)
+    {
+        if(screenshotOnce == false)
+        {
+            screenshotOnce = true;
+            Debug.Log("Screenshot taken");
+            StartCoroutine(CoroutineScreenShot());
+        }
+
     }
 }

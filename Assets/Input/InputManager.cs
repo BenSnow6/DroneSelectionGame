@@ -8,6 +8,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] Highlight highlight;
     [SerializeField] TooltipManager tooltipManager;
     [SerializeField] ClickController clickController;
+    [SerializeField] GameManager gameManager;
     private InputScheme inputScheme;
 
     private void Awake()
@@ -29,8 +30,7 @@ public class InputManager : MonoBehaviour
 
     private void Start() {
         inputScheme.MouseInputs.Touch.performed += ctx => StartTouch(ctx);
-        inputScheme.MouseInputs.TapHoldSelect.performed += ctx => TapSelect(ctx);
-           
+        inputScheme.MouseInputs.TapHoldSelect.performed += ctx => TapSelect(ctx);           
     }
 
     private void StartTouch(InputAction.CallbackContext ctx)
@@ -45,8 +45,6 @@ public class InputManager : MonoBehaviour
         Vector3 mousePos = new Vector3(movementInput.x, movementInput.y, 0);
         Vector3 mouseLocation = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3Int tileLocalPos = clickController.TilePosition(mouseLocation);
-        Debug.Log($"Mouse position is {tileLocalPos}");
-        // Debug.Log($"Tile position is {ctx.ReadValue<Vector2>()}");
         clickController.TapSelect(ctx);
         clickController.HoverLocation(ctx);
     }

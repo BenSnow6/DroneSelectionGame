@@ -89,6 +89,15 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Screenshot"",
+                    ""type"": ""Button"",
+                    ""id"": ""e6d86fdb-eb5d-40c7-ac9b-a3b9e728781e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -199,6 +208,17 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Touch"",
                     ""action"": ""TapHoldSelect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7486b561-fb67-47ed-813e-dc20ab988e5b"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Screenshot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -793,6 +813,7 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
         m_MouseInputs_StartFlyover = m_MouseInputs.FindAction("StartFlyover", throwIfNotFound: true);
         m_MouseInputs_Touch = m_MouseInputs.FindAction("Touch", throwIfNotFound: true);
         m_MouseInputs_TapHoldSelect = m_MouseInputs.FindAction("TapHoldSelect", throwIfNotFound: true);
+        m_MouseInputs_Screenshot = m_MouseInputs.FindAction("Screenshot", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -871,6 +892,7 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
     private readonly InputAction m_MouseInputs_StartFlyover;
     private readonly InputAction m_MouseInputs_Touch;
     private readonly InputAction m_MouseInputs_TapHoldSelect;
+    private readonly InputAction m_MouseInputs_Screenshot;
     public struct MouseInputsActions
     {
         private @InputScheme m_Wrapper;
@@ -882,6 +904,7 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
         public InputAction @StartFlyover => m_Wrapper.m_MouseInputs_StartFlyover;
         public InputAction @Touch => m_Wrapper.m_MouseInputs_Touch;
         public InputAction @TapHoldSelect => m_Wrapper.m_MouseInputs_TapHoldSelect;
+        public InputAction @Screenshot => m_Wrapper.m_MouseInputs_Screenshot;
         public InputActionMap Get() { return m_Wrapper.m_MouseInputs; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -912,6 +935,9 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
                 @TapHoldSelect.started -= m_Wrapper.m_MouseInputsActionsCallbackInterface.OnTapHoldSelect;
                 @TapHoldSelect.performed -= m_Wrapper.m_MouseInputsActionsCallbackInterface.OnTapHoldSelect;
                 @TapHoldSelect.canceled -= m_Wrapper.m_MouseInputsActionsCallbackInterface.OnTapHoldSelect;
+                @Screenshot.started -= m_Wrapper.m_MouseInputsActionsCallbackInterface.OnScreenshot;
+                @Screenshot.performed -= m_Wrapper.m_MouseInputsActionsCallbackInterface.OnScreenshot;
+                @Screenshot.canceled -= m_Wrapper.m_MouseInputsActionsCallbackInterface.OnScreenshot;
             }
             m_Wrapper.m_MouseInputsActionsCallbackInterface = instance;
             if (instance != null)
@@ -937,6 +963,9 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
                 @TapHoldSelect.started += instance.OnTapHoldSelect;
                 @TapHoldSelect.performed += instance.OnTapHoldSelect;
                 @TapHoldSelect.canceled += instance.OnTapHoldSelect;
+                @Screenshot.started += instance.OnScreenshot;
+                @Screenshot.performed += instance.OnScreenshot;
+                @Screenshot.canceled += instance.OnScreenshot;
             }
         }
     }
@@ -1100,6 +1129,7 @@ public partial class @InputScheme : IInputActionCollection2, IDisposable
         void OnStartFlyover(InputAction.CallbackContext context);
         void OnTouch(InputAction.CallbackContext context);
         void OnTapHoldSelect(InputAction.CallbackContext context);
+        void OnScreenshot(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

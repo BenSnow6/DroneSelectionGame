@@ -12,7 +12,6 @@ public class SchoolSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log($"MAPSIZE {map.bounds.size}");
         showSchools();
         Instantiate(schoolMarker, offset+new Vector3(0,0,0), Quaternion.identity);
     }

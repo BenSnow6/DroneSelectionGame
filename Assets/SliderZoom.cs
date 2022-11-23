@@ -42,13 +42,11 @@ public class SliderZoom : MonoBehaviour
         float xMax = mapWidth - camWidth/2 - 1f;
         float yMin = camHeight / 2f - 0.5f;
         float yMax = mapHeight - camHeight / 2f;
-        Debug.Log($"xMin: {xMin}");
 
 
         Vector3 pos = mainCamera.transform.position;
         pos.x = Mathf.Clamp(pos.x, xMin, xMax);
         pos.y = Mathf.Clamp(pos.y, yMin, yMax);
         mainCamera.transform.position = pos;
-        Debug.Log($"pos: {pos}");
     }
 }

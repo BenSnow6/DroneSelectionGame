@@ -9,8 +9,6 @@ public class SubmitRouteButton : MonoBehaviour
     ClickController clickController;
     [SerializeField] GameManager gameManager;
 
-    // Update is called once per frame
-
     void Start()
         {
             Debug.Log("SubmitRouteButton Start");
