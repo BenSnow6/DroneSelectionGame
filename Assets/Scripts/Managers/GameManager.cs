@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         int width = Screen.width;
         int height = Screen.height;
         Texture2D screenshotTexture = new Texture2D(width, height, TextureFormat.RGB24, false);
-        Rect rect = new Rect(width/10, height/10, width*0.9f, height*0.9f);
+        Rect rect = new Rect(0, 0, width, height);
         screenshotTexture.ReadPixels(rect, 0, 0);
         screenshotTexture.Apply();
         // pass screenshot to main manager

@@ -11,7 +11,7 @@ public class Minimap : MonoBehaviour
     public Image minimapDisplay;
     void Start()
     {
-        minimapDisplay.sprite = Sprite.Create(screenshot, new Rect(screenshot.width/10, screenshot.height/10, screenshot.width*0.9f, screenshot.height*0.9f), new Vector2(0.5f, 0.5f));
+        minimapDisplay.sprite = Sprite.Create(screenshot, new Rect(0, 0, screenshot.width, screenshot.height), new Vector2(0.5f, 0.5f));
     }
 
     // Update is called once per frame
