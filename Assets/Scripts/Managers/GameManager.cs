@@ -4,34 +4,28 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
+using UnityEngine.Rendering;
 
 public class GameManager : MonoBehaviour
 {
 
     public bool startFlyover = false;
-    private bool screenshotOnce = false;
+    private bool takeScreenshot = false;
     public MainManager mainManager;
     public Tilemap[] tilemaps;
-    void Update()
+    private void OnEnable()
     {
-        // Commented out to ignore error, this seems to be used
-        
-        // Press the P key to start coroutine
-        // if (startFlyover) // change with new input system
-        // {
-        //     // Use a coroutine to load the Scene in the background
-        //     StartCoroutine(LoadYourAsyncScene());
-        // }
-        // startFlyover = false;
-
+        // Subscribe to the render pipeline event.
+        RenderPipelineManager.endCameraRendering += RenderPipelineManager_endCameraRendering;
+    }
+    private void OnDisable()
+    {
+        // Subscribe to the render pipeline event.
+        RenderPipelineManager.endCameraRendering -= RenderPipelineManager_endCameraRendering;
     }
 
     IEnumerator LoadFlyoverScene()
     {
-        // The Application loads the Scene in the background as the current Scene runs.
-        // This is particularly good for creating loading screens.
-        // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
-        // a sceneBuildIndex of 1 as shown in Build Settings.
         Debug.Log("Loading Scene");
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("FlyoverScene");
 
@@ -42,43 +36,46 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // public void StartFlyover(InputAction.CallbackContext context)
-    // {
-    //     if (context.started)
-    //     {
-    //         // clickUndo = !clickUndo;
-    //     }
-    //     else if (context.canceled)
-    //     {
-    //         startFlyover = true;
-    //     }
-    // }
+
     public void StartFlyoverButton()
     {
         // startFlyover = true;
         StartCoroutine(LoadFlyoverScene());
     }
-
-    private IEnumerator CoroutineScreenShot()
-    {
-        yield return new WaitForEndOfFrame();
-
-        int width = Screen.width;
-        int height = Screen.height;
-        Texture2D screenshotTexture = new Texture2D(width, height, TextureFormat.RGB24, false);
-        Rect rect = new Rect(0, 0, width, height);
-        screenshotTexture.ReadPixels(rect, 0, 0);
-        screenshotTexture.Apply();
-        // pass screenshot to main manager
-        mainManager.SetScreenshot(screenshotTexture);
-        // Save the screenshot as a png
-        byte[] bytes = screenshotTexture.EncodeToPNG();
-        System.IO.File.WriteAllBytes(Application.dataPath + "/Screenshot.png", bytes);
-        Debug.Log("Screenshot written");
-    }
     public void captureScreenshot()
     {
             Debug.Log("Screenshot taken");
-            StartCoroutine(CoroutineScreenShot());
+            // StartCoroutine(CoroutineScreenShot());
+            TurnOffTilemaps();
+            takeScreenshot = true;
     }
+
+    private void RenderPipelineManager_endCameraRendering(ScriptableRenderContext arg1, Camera arg2)
+    {
+        if (takeScreenshot)
+        {
+            takeScreenshot = false;
+            int width = Screen.width;
+            int height = Screen.height;
+            Texture2D screenshotTexture = new Texture2D(width, height, TextureFormat.RGB24, false);
+            Rect rect = new Rect(0, 0, width, height);
+            screenshotTexture.ReadPixels(rect, 0, 0);
+            screenshotTexture.Apply();
+            // pass screenshot to main manager
+            mainManager.SetScreenshot(screenshotTexture);
+            // Save the screenshot as a png
+            byte[] bytes = screenshotTexture.EncodeToPNG();
+            System.IO.File.WriteAllBytes(Application.dataPath + "/ScreenshotNoUI.png", bytes);
+            Debug.Log("Screenshot written");
+        }
+    }
+    
+    private void TurnOffTilemaps()
+    {
+        foreach (Tilemap tilemap in tilemaps)
+        {
+            tilemap.gameObject.SetActive(false);
+        }
+    }
+
 }

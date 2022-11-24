@@ -7,7 +7,6 @@ public class SwitchToggle : MonoBehaviour {
    [SerializeField] RectTransform uiHandleRectTransform ;
    [SerializeField] Color backgroundActiveColor ;
    [SerializeField] Color handleActiveColor ;
-   [SerializeField] private Tilemap interactiveGrid = null;
     private SpriteRenderer rend;
 
    Image backgroundImage, handleImage ;

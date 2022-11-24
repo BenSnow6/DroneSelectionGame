@@ -24,7 +24,6 @@ public class SubmitRouteButton : MonoBehaviour
             gameManager.StartFlyoverButton();
             buttonPressed = false;
         }
-        Debug.Log("SubmitRouteButton Update");
     }
     public void setPressed(bool pressed)
     {
