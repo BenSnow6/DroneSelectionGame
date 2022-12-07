@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     private bool takeScreenshot = false;
     public MainManager mainManager;
     public Tilemap[] tilemaps;
+    public Tilemap screenShotTilemap;
     private void OnEnable()
     {
         // Subscribe to the render pipeline event.
@@ -54,13 +55,22 @@ public class GameManager : MonoBehaviour
     {
         if (takeScreenshot)
         {
+            // Get the bounds of the tilemap and multiply it to get the size of the tilemap in world space
+            Vector3 size = screenShotTilemap.GetComponent<Renderer>().bounds.size;
+            // Debug.Log($"Size of screenShotTilemap: {size}");
+            // Get size of tiles in pixels
+            
+
+            // Debug.Log($"Size of screenShotTilemap: {screenShotTilemap.GetComponent<Renderer>().bounds}");
             takeScreenshot = false;
             int width = Screen.width;
             int height = Screen.height;
-            Texture2D screenshotTexture = new Texture2D(width, height, TextureFormat.RGB24, false);
-            Rect rect = new Rect(0, 0, width, height);
+            Debug.Log($"Height {height}, width {width}");
+            Texture2D screenshotTexture = new Texture2D(2140-420, 1455-80, TextureFormat.RGB24, false);
+            Rect rect = new Rect(420, 85, 1730, 1370);
             screenshotTexture.ReadPixels(rect, 0, 0);
             screenshotTexture.Apply();
+            Debug.Log($"{screenshotTexture.width} , {screenshotTexture.height} look @ me");
             // pass screenshot to main manager
             mainManager.SetScreenshot(screenshotTexture);
             // Save the screenshot as a png

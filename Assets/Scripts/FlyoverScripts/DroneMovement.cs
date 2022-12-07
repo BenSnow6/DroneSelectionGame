@@ -67,9 +67,7 @@ public class DroneMovement : MonoBehaviour
         float y = (transform.position.z / mapSize.y);
         DroneTracker.transform.position = new Vector3(50, 0, 0);
         // Set the local position of the drone tracker
-        DroneTracker.transform.localPosition = new Vector3(x * miniMapSize.x - miniMapSize.x/2f, y * miniMapSize.y-miniMapSize.y/2f, 0);
-        Debug.Log("Parent position: " + parentPosition);
-        Debug.Log($"x and y: {x}, {y}");
+        DroneTracker.transform.localPosition = new Vector3(x * miniMapSize.x - miniMapSize.x/2f + 7f, y * miniMapSize.y-miniMapSize.y/2f + 21f, 0);
     }
     private void UpdateIndex()
     {
