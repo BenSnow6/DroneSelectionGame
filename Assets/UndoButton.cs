@@ -28,6 +28,6 @@ public class UndoButton : MonoBehaviour
     }
     public void printIt()
     {
-        Debug.Log("Button pressed is " + buttonPressed);
+        // Debug.Log("Button pressed is " + buttonPressed);
     }
 }

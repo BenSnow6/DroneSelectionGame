@@ -72,13 +72,13 @@ public class GameManager : MonoBehaviour
             Rect rect = new Rect(420, 85, 1730, 1370);
             screenshotTexture.ReadPixels(rect, 0, 0);
             screenshotTexture.Apply();
-            Debug.Log($"{screenshotTexture.width} , {screenshotTexture.height} look @ me");
+            // Debug.Log($"{screenshotTexture.width} , {screenshotTexture.height} look @ me");
             // pass screenshot to main manager
             mainManager.SetScreenshot(screenshotTexture);
             // Save the screenshot as a png
             byte[] bytes = screenshotTexture.EncodeToPNG();
-            System.IO.File.WriteAllBytes(Application.dataPath + "/Resources/Screenshot.png", bytes);
-            Debug.Log("Screenshot written");
+            System.IO.File.WriteAllBytes(Application.persistentDataPath + "/Screenshot.png", bytes);
+            Debug.Log($"Screenshot is at {Application.persistentDataPath + "/Screenshot.png"}");
         }
     }
     
