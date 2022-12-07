@@ -30,7 +30,8 @@ public class InputManager : MonoBehaviour
 
     private void Start() {
         inputScheme.MouseInputs.Touch.performed += ctx => StartTouch(ctx);
-        inputScheme.MouseInputs.TapHoldSelect.performed += ctx => TapSelect(ctx);           
+        inputScheme.MouseInputs.TapHoldSelect.performed += ctx => TapSelect(ctx);
+        inputScheme.MouseInputs.ClickSelect.performed += ctx => TapSelectMouse(ctx);
     }
 
     private void StartTouch(InputAction.CallbackContext ctx)
@@ -47,5 +48,10 @@ public class InputManager : MonoBehaviour
         Vector3Int tileLocalPos = clickController.TilePosition(mouseLocation);
         clickController.TapSelect(ctx);
         clickController.HoverLocation(ctx);
+    }
+    private void TapSelectMouse(InputAction.CallbackContext ctx)
+    {
+        // clickController.TapSelect(ctx);
+        // clickController.HoverLocation(ctx);
     }
 }

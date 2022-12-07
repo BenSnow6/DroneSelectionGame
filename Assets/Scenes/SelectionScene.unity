@@ -1053,7 +1053,6 @@ MonoBehaviour:
   uiHandleRectTransform: {fileID: 535038097}
   backgroundActiveColor: {r: 1, g: 0.67358494, b: 0.9456973, a: 1}
   handleActiveColor: {r: 0.99942887, g: 0.20784312, b: 1, a: 1}
-  interactiveGrid: {fileID: 286569675}
 --- !u!114 &265638176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3298,7 +3297,6 @@ MonoBehaviour:
   uiHandleRectTransform: {fileID: 1133234767}
   backgroundActiveColor: {r: 1, g: 0.8843813, b: 0.5808823, a: 1}
   handleActiveColor: {r: 1, g: 0.48867428, b: 0.20588237, a: 1}
-  interactiveGrid: {fileID: 286569675}
 --- !u!114 &521171854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3443,10 +3441,34 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 653643319}
+        m_TargetAssemblyTypeName: ClickController, Assembly-CSharp
+        m_MethodName: HoverLocation
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2b5fbd25-21fa-45b2-b93b-b26590b6c653
     m_ActionName: MouseInputs/Hover[/Mouse/position]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 653643319}
+        m_TargetAssemblyTypeName: ClickController, Assembly-CSharp
+        m_MethodName: TapSelect
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: ca0576e6-e4e3-40dc-8e27-b578edf41f07
     m_ActionName: MouseInputs/ClickSelect[/Mouse/leftButton,/Simulated Touchscreen/press]
   - m_PersistentCalls:
@@ -7054,7 +7076,6 @@ MonoBehaviour:
   uiHandleRectTransform: {fileID: 309580443}
   backgroundActiveColor: {r: 0.5886792, g: 1, b: 0.9478737, a: 1}
   handleActiveColor: {r: 0.20784312, g: 0.83847326, b: 1, a: 1}
-  interactiveGrid: {fileID: 286569675}
 --- !u!114 &1466825802
 MonoBehaviour:
   m_ObjectHideFlags: 0

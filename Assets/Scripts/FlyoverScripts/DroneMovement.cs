@@ -9,7 +9,7 @@ public class DroneMovement : MonoBehaviour
     List<Vector3Int> selectedPath = MainManager.Instance.clickedLocations;
     List<Vector3> scaledPath = new List<Vector3>();
     int pathIndex = 0;
-    [SerializeField] float moveSpeed = 1f;
+    public float moveSpeed = 1f;
     private float x_scale = 0; // This is the width of the map divided by the number of tiles in the x direction (2244.6/10)
     private float z_scale = 0; // This is the length of the map divided by the number of tiles in the z direction (1746.7/8)
     private int flyHeight = 10;
@@ -46,6 +46,7 @@ public class DroneMovement : MonoBehaviour
      UpdateIndex();
      Debug.Log("Drone position: " + transform.position);
      Debug.Log("Drone tracker position: " + DroneTracker.transform.position);
+     Debug.Log($"Move speed: {moveSpeed}");
     }
 
     void Move3D()
@@ -114,5 +115,10 @@ public class DroneMovement : MonoBehaviour
         scaledPath.Add(new Vector3(scaledPath[scaledPath.Count-1].x, 0, scaledPath[scaledPath.Count-1].z));
         /// Set the location of the drone to be the first location in the path.
         transform.position = scaledPath[pathIndex];
+    }
+    public void applySliderValue(float value)
+    {
+        moveSpeed = value;
+        Debug.Log($"Move speed: {moveSpeed}");
     }
 }
