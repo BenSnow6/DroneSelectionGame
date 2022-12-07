@@ -31,5 +31,6 @@ public class ExitGame : MonoBehaviour
     {
         SceneManager.LoadScene("SelectionScene");
         Debug.Log("Game is restarting");
+        MainManager.Instance.DestroyScreenshot();
     }
 }

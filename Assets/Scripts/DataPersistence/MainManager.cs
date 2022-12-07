@@ -31,8 +31,14 @@ public class MainManager : MonoBehaviour
     {
         this.screenshot = screenshot;
         // Apply the screenshot to the UI.
-        screenshotDisplay.sprite = Sprite.Create(screenshot, new Rect(0, 0, screenshot.width, screenshot.height), new Vector2(0.5f, 0.5f));
+        //screenshotDisplay.sprite = Sprite.Create(screenshot, new Rect(0, 0, screenshot.width, screenshot.height), new Vector2(0.5f, 0.5f));
         Debug.Log("Screenshot set");
+    }
+    public void DestroyScreenshot()
+    {
+        // clear the screenshot
+        this.screenshot = null;
+        screenshotDisplay.sprite = null;
     }
 }
 

@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator LoadFlyoverScene()
     {
+        // Wait for 2 seconds
+        yield return new WaitForSeconds(2);
         Debug.Log("Loading Scene");
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("FlyoverScene");
 
@@ -75,7 +77,7 @@ public class GameManager : MonoBehaviour
             mainManager.SetScreenshot(screenshotTexture);
             // Save the screenshot as a png
             byte[] bytes = screenshotTexture.EncodeToPNG();
-            System.IO.File.WriteAllBytes(Application.dataPath + "/ScreenshotNoUI.png", bytes);
+            System.IO.File.WriteAllBytes(Application.dataPath + "/Resources/Screenshot.png", bytes);
             Debug.Log("Screenshot written");
         }
     }

@@ -474,7 +474,7 @@ MonoBehaviour:
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 1
   m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
+  m_UpdateMethod: 1
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
@@ -1088,7 +1088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce8931a27106d5e4587d998d62b632b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 20
   DroneTracker: {fileID: 1720661557}
   mapSizeFinder: {fileID: 47181158}
   miniMapCanvas: {fileID: 589985754}
@@ -3113,7 +3113,7 @@ MonoBehaviour:
   m_MinValue: 5
   m_MaxValue: 50
   m_WholeNumbers: 1
-  m_Value: 5
+  m_Value: 20
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
