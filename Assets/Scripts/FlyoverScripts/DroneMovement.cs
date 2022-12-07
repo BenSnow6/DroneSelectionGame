@@ -39,7 +39,7 @@ public class DroneMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
      Move3D();
      Move2D();
@@ -55,7 +55,7 @@ public class DroneMovement : MonoBehaviour
         /// Moves the drone along the path from one waypoint to the next.
         /// </summary>
 
-        transform.position = Vector3.MoveTowards(transform.position, scaledPath[pathIndex], moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, scaledPath[pathIndex], moveSpeed * 0.01f); //* Time.deltaTime);
         // Set rotation of the drone
         transform.LookAt(scaledPath[pathIndex]);
         transform.Rotate(270, 0, 270);
