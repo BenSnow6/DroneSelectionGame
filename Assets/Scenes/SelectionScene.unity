@@ -2518,6 +2518,14 @@ PrefabInstance:
       value: 256
       objectReference: {fileID: 0}
     - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -2547,11 +2555,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 250
+      value: 51.2
       objectReference: {fileID: 0}
     - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 250
+      value: 51.2
       objectReference: {fileID: 0}
     - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4071,11 +4079,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c0f194a6a7182498c008ab0f647e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Camera: {fileID: 963194227}
-  Rotate: 1
-  DecreaseCameraPanSpeed: 1
-  CameraUpperHeightBound: 10
-  CameraLowerHeightBound: 0
 --- !u!114 &653643327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4499,7 +4502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -4609,14 +4612,14 @@ RectTransform:
   m_GameObject: {fileID: 736037961}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 200, y: 200, z: 22.29}
+  m_LocalScale: {x: 50, y: 50, z: 22.29}
   m_Children: []
   m_Father: {fileID: 1988082954}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 850, y: -546}
+  m_AnchoredPosition: {x: 340, y: -100}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &736037963
@@ -4955,14 +4958,14 @@ RectTransform:
   m_GameObject: {fileID: 814052838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 200, y: 200, z: 22.29}
+  m_LocalScale: {x: 50, y: 50, z: 22.29}
   m_Children: []
   m_Father: {fileID: 1988082954}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 850, y: -340}
+  m_AnchoredPosition: {x: 280, y: -100}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &814052840
@@ -5098,7 +5101,7 @@ RectTransform:
   m_GameObject: {fileID: 839463564}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 2}
   m_Children:
   - {fileID: 746378824}
   - {fileID: 512892388}
@@ -5108,7 +5111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -444, y: 62.6}
+  m_AnchoredPosition: {x: -136, y: 35}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &839463566
@@ -5156,9 +5159,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1404726172}
   m_Direction: 1
   m_MinValue: 0.5
-  m_MaxValue: 4.5
+  m_MaxValue: 4
   m_WholeNumbers: 0
-  m_Value: 4.5
+  m_Value: 4
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -5243,7 +5246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
