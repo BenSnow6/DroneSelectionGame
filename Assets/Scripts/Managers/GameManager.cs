@@ -14,6 +14,17 @@ public class GameManager : MonoBehaviour
     public MainManager mainManager;
     public Tilemap[] tilemaps;
     public Tilemap screenShotTilemap;
+    private Vector3 camStartPos;
+    private float camStartZoom;
+
+    private void Start()
+    {
+        // Get the location and zoom of the main camera when the scene loads
+        // wait for 2 seconds to make sure the camera has been initialized
+        camStartPos = new Vector3(6.1f, 4.2f,-10f);
+        camStartZoom = 4.3f;
+        Debug.Log($"camStartPos: {camStartPos}");
+    }
     private void OnEnable()
     {
         // Subscribe to the render pipeline event.
@@ -57,6 +68,8 @@ public class GameManager : MonoBehaviour
     {
         if (takeScreenshot)
         {
+            // Set the camera back to the original position and zoom
+            //setCameraForScreenShot();
             // Get the bounds of the tilemap and multiply it to get the size of the tilemap in world space
             Vector3 size = screenShotTilemap.GetComponent<Renderer>().bounds.size;
             // Debug.Log($"Size of screenShotTilemap: {size}");
@@ -67,9 +80,11 @@ public class GameManager : MonoBehaviour
             takeScreenshot = false;
             int width = Screen.width;
             int height = Screen.height;
+            float a = 420/2560;
+            float b = 85/1600;
             Debug.Log($"Height {height}, width {width}");
-            Texture2D screenshotTexture = new Texture2D(2140-420, 1455-80, TextureFormat.RGB24, false);
-            Rect rect = new Rect(420, 85, 1730, 1370);
+            Texture2D screenshotTexture = new Texture2D((int) Mathf.Round(width*(1-2*a)),(int) Mathf.Round(height*(1-2*b)), TextureFormat.RGB24, false);
+            Rect rect = new Rect(a*width, b*height, width*(1-2*a), height*(1-2*b));
             screenshotTexture.ReadPixels(rect, 0, 0);
             screenshotTexture.Apply();
             // Debug.Log($"{screenshotTexture.width} , {screenshotTexture.height} look @ me");
@@ -89,5 +104,14 @@ public class GameManager : MonoBehaviour
             tilemap.gameObject.SetActive(false);
         }
     }
-
+    private void setCameraForScreenShot()
+    {
+        // Move camera to the position and zoom it was at when the scene started
+        Camera.main.transform.position = camStartPos;
+        Debug.Log($"camStartPos: {camStartPos}");
+        Camera.main.orthographicSize = camStartZoom;
+        Debug.Log($"camStartZoom: {camStartZoom}");
+        // Pause the game
+        Time.timeScale = 0;
+    }
 }

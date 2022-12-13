@@ -12,6 +12,7 @@ public class Minimap : MonoBehaviour
     public Image minimapDisplay;
     void Start()
     {
+        // Load the screenshot into the minimap
         minimapDisplay.sprite = LoadNewSprite(Application.persistentDataPath + "/Screenshot.png");
         // minimapDisplay.sprite = Sprite.Create(screenshot, new Rect(0, 0, screenshot.width, screenshot.height), new Vector2(0.5f, 0.5f));
     }
@@ -27,8 +28,13 @@ public class Minimap : MonoBehaviour
         // Load a PNG or JPG image from disk to a Texture2D, assign this texture to a new sprite and return its reference
  
         Texture2D SpriteTexture = LoadTexture(FilePath);
-        Sprite  NewSprite = Sprite.Create(SpriteTexture, new Rect(0, 0, SpriteTexture.width, SpriteTexture.height), new Vector2(0, 0), PixelsPerUnit, 0 , spriteType);
- 
+        int width = SpriteTexture.width;
+        int height = SpriteTexture.height;
+        float a = 420/2560f;
+        float b = 85/1600f;
+        Rect rect = new Rect(a*width, b*height, width*(1-2*a), height*(1-2*b));
+        Sprite  NewSprite = Sprite.Create(SpriteTexture, rect , new Vector2(0, 0), PixelsPerUnit, 0 , spriteType); // Default back to new Rect(0, 0, SpriteTexture.width, SpriteTexture.height)
+        Debug.Log($"sprite size {NewSprite.bounds}");
         return NewSprite;
     }
  
