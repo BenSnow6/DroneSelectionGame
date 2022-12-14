@@ -7,11 +7,21 @@ using System.IO;
 public class Minimap : MonoBehaviour
 {
     // Start is called before the first frame update
-    // Grab the screenshot from the main manager
-    Texture2D screenshot = new Texture2D(2,2); //MainManager.Instance.screenshot;
     public Image minimapDisplay;
+    private float widthFactor = 420/2560f;
+    private float heightFactor = 85/1600f;
     void Start()
     {
+        // Store screen width and height
+        int width = Screen.width;
+        int height = Screen.height;
+        Vector2Int upperRightCorner = new Vector2Int((int) (width*(1-widthFactor)), (int) (height*(1-heightFactor)));
+        Vector2Int lowerLeftCorner = new Vector2Int((int) (width*widthFactor), (int) (height*heightFactor));
+        Debug.Log($"Upper right corner: {upperRightCorner}, lower left corner: {lowerLeftCorner}");
+        Vector2Int size = upperRightCorner - lowerLeftCorner;
+        Debug.Log($"Size: {size}");
+        // Set the size of the minimap canvas
+        // minimapDisplay.rectTransform.sizeDelta = size/10;
         // Load the screenshot into the minimap
         minimapDisplay.sprite = LoadNewSprite(Application.persistentDataPath + "/Screenshot.png");
         // minimapDisplay.sprite = Sprite.Create(screenshot, new Rect(0, 0, screenshot.width, screenshot.height), new Vector2(0.5f, 0.5f));

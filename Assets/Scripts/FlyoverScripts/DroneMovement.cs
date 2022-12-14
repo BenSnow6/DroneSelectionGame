@@ -65,9 +65,9 @@ public class DroneMovement : MonoBehaviour
         // Move the drone tracker on the minimap
         float x = (transform.position.x / mapSize.x);
         float y = (transform.position.z / mapSize.y);
-        DroneTracker.transform.position = new Vector3(50, 0, 0);
+        // DroneTracker.transform.position = new Vector3(50, 0, 0);
         // Set the local position of the drone tracker
-        DroneTracker.transform.localPosition = new Vector3(x * miniMapSize.x - miniMapSize.x/2f + 7f, y * miniMapSize.y-miniMapSize.y/2f + 21f, 0);
+        DroneTracker.transform.localPosition = new Vector3(x * miniMapSize.x - miniMapSize.x/2f +8f, y * miniMapSize.y-miniMapSize.y/2f +10f, 0);
     }
     private void UpdateIndex()
     {
