@@ -41,8 +41,3 @@ public class MainManager : MonoBehaviour
         screenshotDisplay.sprite = null;
     }
 }
-
-
-/// Used with help from: https://learn.unity.com/tutorial/implement-data-persistence-between-scenes#
-
-/// This method is called a Singleton pattern. Only one instance of the MainManager can exist at a time.

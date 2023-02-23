@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 using System.Linq;
 using UnityEngine.InputSystem;
+using System.IO;
 
 
 public class ClickController : MonoBehaviour
@@ -195,6 +196,7 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
             Debug.Log("Route submitted");
             MainManager.Instance.clickedLocations = _selectionManager.commandHandler.selectedLocations;
             clickedNewInput = false;
+            SaveRoutes();
         }
     }
 
@@ -244,5 +246,22 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
     {
         Debug.Log($"Tap select is {clickSelect}");
         clickSelect = !clickSelect;
+    }
+
+    public void SaveRoutes()
+    {
+        // Get accumulatedRisk from selectionManager
+        float riskLevel = _selectionManager.commandHandler.accumulatedRisk;
+        Debug.Log($"Risk level is {riskLevel}");
+        // Get the current battery level from the selectionManager
+        float batteryLevel = _selectionManager.commandHandler.batteryLevel;
+        Debug.Log($"Battery level is {batteryLevel}");
+        // Save the route stats to a csv file
+        string path = "Assets/Resources/RouteStats.csv";
+        using (StreamWriter writer = new StreamWriter(path, true))
+        {
+            writer.WriteLine($"{riskLevel},{batteryLevel}");
+        }
+
     }
 }

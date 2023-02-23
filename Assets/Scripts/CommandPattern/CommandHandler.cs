@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class CommandHandler
 {
     public List<ICommand> commandList = new List<ICommand>();
     public List<Vector3Int> selectedLocations = new List<Vector3Int>();
     public List<float> riskValues = new List<float>();
-    public int batteryLevel = 17;
-    public int batteryMax = 17;
+    public int batteryLevel = 15;
+    public int batteryMax = 15;
     public float accumulatedRisk = 0;
     public int index;
 
@@ -124,5 +125,7 @@ public class CommandHandler
         }
         Debug.Log($"removing energy, current level: {batteryLevel}");
     }
+
+
 }
 

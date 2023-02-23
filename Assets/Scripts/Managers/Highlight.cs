@@ -94,5 +94,6 @@ public class Highlight : MonoBehaviour
         movementInput = context.ReadValue<Vector2>();
         mousePos = new Vector3(movementInput.x, movementInput.y, 0);
         mouseLocation = Camera.main.ScreenToWorldPoint(mousePos);
+        // Debug.Log($"mouse position {mousePos}");
     }
 }

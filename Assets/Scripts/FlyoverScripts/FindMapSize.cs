@@ -21,6 +21,8 @@ public class FindMapSize : MonoBehaviour
     Vector3 FindSize()
     {
         Vector3 size = GetComponent<Renderer>().bounds.size;
+        Debug.Log($"map size is: {size}");
         return new Vector2(size.x, size.z);
+        
     }
 }

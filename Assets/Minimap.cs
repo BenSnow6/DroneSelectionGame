@@ -40,9 +40,10 @@ public class Minimap : MonoBehaviour
         Texture2D SpriteTexture = LoadTexture(FilePath);
         int width = SpriteTexture.width;
         int height = SpriteTexture.height;
-        float a = 420/2560f;
-        float b = 85/1600f;
-        Rect rect = new Rect(a*width, b*height, width*(1-2*a), height*(1-2*b));
+        float a = 420/2560f;//572/3840f;//420/2560f;
+        float b = 85/1600f;//70/2160f;//85/1600f;
+        Rect rect = new Rect(a*width, b*height, width*(1-2*a), height*(1-2*b));//3090-572,2090-70);  //width*(1-2*a), height*(1-2*b));
+        Debug.Log($"Rect size is: {rect}, texture size is: width: {width}, height: {height}");
         Sprite  NewSprite = Sprite.Create(SpriteTexture, rect , new Vector2(0, 0), PixelsPerUnit, 0 , spriteType); // Default back to new Rect(0, 0, SpriteTexture.width, SpriteTexture.height)
         Debug.Log($"sprite size {NewSprite.bounds}");
         return NewSprite;
