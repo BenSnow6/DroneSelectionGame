@@ -7,12 +7,14 @@ public class MainManager : MonoBehaviour
 {
     /// <summary>
     /// Allows for data persistence to be used in the game.
+    /// To add data to be persisted, add a public variable and then assign its value in the ClickController - SubmitRoute() method.
     /// </summary>
 
     public static MainManager Instance;
     public List<Vector3Int> clickedLocations;  // Save the locations of the clicked tiles to pass to flyover scene.
     public Texture2D screenshot; // Save the screenshot to pass to flyover scene.
     public Image screenshotDisplay; // Display the screenshot on the UI.
+    public float accumulatedRisk; // Save the accumulated risk to pass to flyover scene.
 
     private void Awake()
     {

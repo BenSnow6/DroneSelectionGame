@@ -195,6 +195,7 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
         {
             Debug.Log("Route submitted");
             MainManager.Instance.clickedLocations = _selectionManager.commandHandler.selectedLocations;
+            MainManager.Instance.accumulatedRisk = _selectionManager.commandHandler.accumulatedRisk;
             clickedNewInput = false;
             SaveRoutes();
         }
