@@ -39,7 +39,7 @@ public class QuestionDialogUI : MonoBehaviour {
         });
     }
 
-    private void Hide() {
+    public void Hide() {
         gameObject.SetActive(false);
     }
     

@@ -1,35 +1,36 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class FeedbackDisplay : MonoBehaviour
 {
-    public GameObject popup;
-    public Text titleText;
-    public Text messageText;
-    public Button closeButton;
+    public GameObject panel;
     public float riskAccumulated = MainManager.Instance.accumulatedRisk;
+    public int batteryLevel = MainManager.Instance.BatteryLeft;
+    public Text riskText;
+    public  Text batteryText;
+    private void Start()
+    {
+        panel.SetActive(false);
+    }
 
 
-    public void ShowPopup(string title, string message)
+    public void TogglePanel()
     {
         // Set the title and message text
-        titleText.text = title;
-        messageText.text = message;
+        // titleText.text = title;
+        // messageText.text = message;
 
         // Show the popup
-        popup.SetActive(true);
+        panel.SetActive(!panel.activeSelf);
+        setText();
     }
 
-    public void ClosePopup()
+    public void setText()
     {
-        // Hide the popup
-        popup.SetActive(false);
-    }
-
-    void GetDataFromManager()
-    {
-        // Get the data from the MainManager
-        riskAccumulated = MainManager.Instance.accumulatedRisk; 
-        Debug.Log($"Risk level is {riskAccumulated}");
+        riskText.text = Math.Round(1000*MainManager.Instance.accumulatedRisk, 3).ToString("G3");
+        double batteryPercent = MainManager.Instance.BatteryLeft;
+        batteryText.text = (batteryPercent/15*100).ToString("0.00") + "%";
+        
     }
 }

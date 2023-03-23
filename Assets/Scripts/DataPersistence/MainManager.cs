@@ -15,6 +15,7 @@ public class MainManager : MonoBehaviour
     public Texture2D screenshot; // Save the screenshot to pass to flyover scene.
     public Image screenshotDisplay; // Display the screenshot on the UI.
     public float accumulatedRisk; // Save the accumulated risk to pass to flyover scene.
+    public int BatteryLeft; // Save the battery remaining after route selection
 
     private void Awake()
     {

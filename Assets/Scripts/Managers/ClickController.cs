@@ -6,6 +6,8 @@ using UnityEngine.UIElements;
 using System.Linq;
 using UnityEngine.InputSystem;
 using System.IO;
+using System;
+using System.Globalization;
 
 
 public class ClickController : MonoBehaviour
@@ -18,6 +20,7 @@ public Vector3 mouseLocation;
 public Vector3Int tileLocalPos;
 public bool clickSelect = false;
 public bool clickUndo = false;
+public int undoCounter = 0;
 private bool startingCondition = true;
 private Grid grid;
 private GridInformation gridInfo;
@@ -116,8 +119,9 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
                     }
                     else
                     {
-                        if(compareSurrounding(mousePosition))
+                        if(compareSurrounding(mousePosition) && compareAlreadySelected()) 
                         {
+                            
                             addSelectionCommand(mousePosition, previousMousePos, surroundingGrid, selectionGrid, selectionTile, surroundingTile, _selectionManager);
                         }
                         else
@@ -142,6 +146,7 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
             {
                 Debug.Log($"index is {_selectionManager.commandHandler.index}");
                 _selectionManager.commandHandler.UndoCommand();
+                undoCounter += 1;
                 var lastSelectedPosition = _selectionManager.commandHandler.commandList.LastOrDefault();
                 Debug.Log($"Clicked location is undone {lastSelectedPosition.clickedLocation}");
                 selectionGrid.SetTile(mousePosition, null);
@@ -196,6 +201,8 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
             Debug.Log("Route submitted");
             MainManager.Instance.clickedLocations = _selectionManager.commandHandler.selectedLocations;
             MainManager.Instance.accumulatedRisk = _selectionManager.commandHandler.accumulatedRisk;
+            MainManager.Instance.BatteryLeft = _selectionManager.commandHandler.batteryLevel;
+            
             clickedNewInput = false;
             SaveRoutes();
         }
@@ -258,11 +265,41 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
         float batteryLevel = _selectionManager.commandHandler.batteryLevel;
         Debug.Log($"Battery level is {batteryLevel}");
         // Save the route stats to a csv file
-        string path = "Assets/Resources/RouteStats.csv";
-        using (StreamWriter writer = new StreamWriter(path, true))
+        DateTime now = DateTime.Now;
+        string timestamp = now.ToString("yyMMdd_HHmmss");
+        string path = Application.persistentDataPath + "/RouteStats/";
+        if (!Directory.Exists(path))
         {
-            writer.WriteLine($"{riskLevel},{batteryLevel}");
+            Directory.CreateDirectory(path);
+        }
+        path += timestamp + ".csv"; //"Assets/Resources/RouteStats.csv";
+
+        using (StreamWriter writer = new StreamWriter(path))
+        {
+            writer.WriteLine($"{riskLevel}, {batteryLevel}, {undoCounter}");
+            CultureInfo culture = CultureInfo.InvariantCulture;
+            List<Vector3Int> Route = _selectionManager.commandHandler.selectedLocations;
+            foreach (Vector3Int vector in Route)
+            {
+                writer.WriteLine($"{vector.x.ToString(culture)}, {vector.y.ToString(culture)}");
+            }
         }
 
+    }
+
+    public bool compareAlreadySelected()
+    {
+        /// <summary>
+        /// Compare the current tile with the list of already selected tiles
+        /// </summary>
+        var alreadySelected = _selectionManager.commandHandler.selectedLocations;
+        if(alreadySelected.Contains(tileLocalPos))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 }

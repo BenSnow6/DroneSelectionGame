@@ -28,7 +28,7 @@ public class SaveRoutes : MonoBehaviour
     {
         // Get the accumulatedRisk amount from the SelectionManager
         // float risk = selectionManager.accumulatedRisk;
-        //Debug.Log($"Risk is {risk}");
+        // Debug.Log($"Risk is {risk}");
 
     }
 }

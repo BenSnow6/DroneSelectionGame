@@ -6,6 +6,7 @@ using System.IO;
 
 public class Minimap : MonoBehaviour
 {
+
     // Start is called before the first frame update
     public Image minimapDisplay;
     private float widthFactor = 420/2560f;

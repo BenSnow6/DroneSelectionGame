@@ -713,6 +713,8 @@ MonoBehaviour:
   clickedLocations: []
   screenshot: {fileID: 0}
   screenshotDisplay: {fileID: 0}
+  accumulatedRisk: 0
+  BatteryLeft: 0
 --- !u!114 &83176123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3953,6 +3955,7 @@ MonoBehaviour:
   tileLocalPos: {x: 0, y: 0, z: 0}
   clickSelect: 0
   clickUndo: 0
+  undoCounter: 0
   selectionGrid: {fileID: 319238413}
   backgroundGrid: {fileID: 1735222841}
   surroundingGrid: {fileID: 2053761528}
@@ -9636,7 +9639,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -215, y: 500}
+  m_AnchoredPosition: {x: -215, y: 550}
   m_SizeDelta: {x: 452.8662, y: 356.18732}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1952934517

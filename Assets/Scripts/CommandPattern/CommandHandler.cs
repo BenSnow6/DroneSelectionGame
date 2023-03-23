@@ -59,6 +59,7 @@ public class CommandHandler
     void addRisk(Vector3Int tileLocalPos)
     {
         accumulatedRisk += commandList[index].gridInfo.GetPositionProperty(tileLocalPos, "Risk", 0.0f);
+        Debug.Log($"total acc risk is{accumulatedRisk}");
         riskValues.Add(accumulatedRisk);
         ShowRiskGraph(riskValues);
     }

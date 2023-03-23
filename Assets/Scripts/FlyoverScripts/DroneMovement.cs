@@ -24,7 +24,9 @@ public class DroneMovement : MonoBehaviour
     private Vector3 parentPosition;
     private Vector2 mapSize;
     private Vector2 miniMapSize;
-
+    private bool showFinishedBox = true;
+    [SerializeField] public float x_offset_minimap = 2.5f;
+    [SerializeField] public float y_offset_minimap = 7.7f;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +37,6 @@ public class DroneMovement : MonoBehaviour
         x_scale = mapSize.x/10f; // Dividing by 10 because there are 10 tiles in the x direction in the selection scene
         z_scale = mapSize.y/8f; // It says y here because we're storing the z value in the y value of the Vector2
         miniMapSize = miniMapCanvas.GetComponent<RectTransform>().rect.size;
-
         generateRoute();
 
 
@@ -50,9 +51,11 @@ public class DroneMovement : MonoBehaviour
             Move2D();
             UpdateIndex();
         }
-        
         else
         {
+            if(showFinishedBox)
+            {
+                showFinishedBox = false;
                 GetComponent<Renderer>().enabled = false;
                 transform.localScale = new Vector3(0,0,0);
                 QuestionDialogUI.Instance.ShowQuestion("Mission complete! Return to selection scene?", () => {
@@ -61,10 +64,11 @@ public class DroneMovement : MonoBehaviour
             }, () => {
                     Exit();// Do nothing
             });
+            }
         }
-        Debug.Log("Drone position: " + transform.position);
-        Debug.Log("Drone tracker position: " + DroneTracker.transform.position);
-        Debug.Log($"Move speed: {moveSpeed}");
+        // Debug.Log("Drone position: " + transform.position);
+        // Debug.Log("Drone tracker position: " + DroneTracker.transform.position);
+        // Debug.Log($"Move speed: {moveSpeed}");
     }
 
     void Move3D()
@@ -85,7 +89,7 @@ public class DroneMovement : MonoBehaviour
         float y = (transform.position.z / mapSize.y);
         // DroneTracker.transform.position = new Vector3(50, 0, 0);
         // Set the local position of the drone tracker
-        DroneTracker.transform.localPosition = new Vector3(x * miniMapSize.x - miniMapSize.x/2f+3f, y * miniMapSize.y-miniMapSize.y/2f+7f, 0);
+        DroneTracker.transform.localPosition = new Vector3(x * miniMapSize.x - miniMapSize.x/2f+3f+x_offset_minimap, y * miniMapSize.y-miniMapSize.y/2f+8f+y_offset_minimap, 0);
 
     }
     private void UpdateIndex()
@@ -182,13 +186,14 @@ public class DroneMovement : MonoBehaviour
     }
     public void Exit()
     {
-        // save any game data here
-        #if UNITY_EDITOR
-            // Application.Quit() does not work in the editor so
-            // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
-            Application.Quit();
-        #endif
+        Debug.Log("Exiting this game");
+        // // save any game data here
+        // #if UNITY_EDITOR
+        //     // Application.Quit() does not work in the editor so
+        //     // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
+        //     UnityEditor.EditorApplication.isPlaying = false;
+        // #else
+        //     Application.Quit();
+        // #endif
     }
 }
