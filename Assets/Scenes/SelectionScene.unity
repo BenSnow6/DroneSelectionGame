@@ -4096,11 +4096,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c0f194a6a7182498c008ab0f647e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Camera: {fileID: 0}
-  Rotate: 0
-  DecreaseCameraPanSpeed: 1
-  CameraUpperHeightBound: 0
-  CameraLowerHeightBound: 0
 --- !u!114 &653643327
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -74,6 +74,18 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
 
     bool inGridBounds(Vector3Int mousePosition)
     {
+        // For making the grid cells smaller, set these to be the bounds of one of the tilemaps (Check how it's done in the TileMapManager)
+        // Need to cheange the Environment->Grid->Cell Size to be 0.5, 0.5 or smaller
+        // Need to then re-import the tiles and have their size per pixles to be smaller
+        // Each of the tilemaps will have to be shrunk too
+        // Risk overlay can stay the same size
+        // The background image can stay the same
+        // The selection image (high res) needs to be split into more squares, resolution can be the same (or increased if you wish)
+        // Check the tileLocalPos calculation because I think it will change and not give the correct position
+        // Reading the risk data will also need to be changed
+        //     - The risk map needs to be recalculated from the .ipynb file and saved as a new csv file 
+        //     - The gridinformation then needs to be updated in the TileMapManager
+        // The other tiles need to be re-imported with a different scale per pixel (hoverTile, selectionTile, surroundingTile, startTile, endTile)
         return 0 <= mousePosition.x && mousePosition.x <= 9 && 0 <= mousePosition.y && mousePosition.y <= 7;
     }
     public void selectTile(Vector3Int mousePosition)
