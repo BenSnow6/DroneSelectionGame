@@ -9173,7 +9173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d45c0a022b6924cb8ae55b09bbcfd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RiskMapData: {fileID: 4900000, guid: e977a4304fcb9ec4f8fb4f6365574443, type: 3}
+  RiskMapData: {fileID: 4900000, guid: e05164b58d261184f9e1d0deb9780823, type: 3}
 --- !u!1 &1757704698
 GameObject:
   m_ObjectHideFlags: 0

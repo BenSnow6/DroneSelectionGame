@@ -38,12 +38,12 @@ public class TileMapManager : MonoBehaviour
         riskData = ReadCSV();
 
         // loop over all tiles from min x to max x for each y from min y to max y
-        for (int x = _tilemap.cellBounds.xMin; x < _tilemap.cellBounds.xMax; x++){
-            for (int y = _tilemap.cellBounds.yMin; y < _tilemap.cellBounds.yMax; y++){
+        for (int x = 0; x < mainManager.x_grid_width; x++){// _tilemap.cellBounds.xMin; x < _tilemap.cellBounds.xMax; x++){
+            for (int y = 0; y< mainManager.y_grid_width; y++){// _tilemap.cellBounds.yMin; y < _tilemap.cellBounds.yMax; y++){
                 // Assign local position as index
                 Vector3Int localPlace = (new Vector3Int(x, y, 0));
 
-                if (_tilemap.HasTile(localPlace)){
+                if (1>0){// _tilemap.HasTile(localPlace)){
                     // Set properties to data dictionary
                     GridInfo.SetPositionProperty(localPlace,"x", x);
                     GridInfo.SetPositionProperty(localPlace,"y", y);

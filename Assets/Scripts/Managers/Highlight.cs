@@ -39,7 +39,7 @@ public class Highlight : MonoBehaviour
 
         grid = gameObject.GetComponent<Grid>();
         gridInfo = backgroundGrid.GetComponent<GridInformation>();
-        maxRisk = 0.000377f; // To be changed to the risk associated with driving a car this distance
+        maxRisk = 5.35E-04f; // Max for normal squares: 0.000377f; // To be changed to the risk associated with driving a car this distance
     }
 
     // Update is called once per frame
