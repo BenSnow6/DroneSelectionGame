@@ -11,7 +11,7 @@ public class SubmitRouteButton : MonoBehaviour
 
     void Start()
         {
-            Debug.Log("SubmitRouteButton Start");
+            // Debug.Log("SubmitRouteButton Start");
             grid = GameObject.FindGameObjectWithTag("TagGrid").GetComponent<Grid>();
             clickController = grid.GetComponent<ClickController>();
         }
@@ -19,7 +19,7 @@ public class SubmitRouteButton : MonoBehaviour
     {
         if (buttonPressed)
         {
-            Debug.Log("Submit Button Pressed");
+            // Debug.Log("Submit Button Pressed");
             clickController.setInputTrue();
             gameManager.StartFlyoverButton();
             buttonPressed = false;
@@ -28,10 +28,10 @@ public class SubmitRouteButton : MonoBehaviour
     public void setPressed(bool pressed)
     {
         buttonPressed = pressed;
-        Debug.Log($"Button pressed is {buttonPressed}");
+        // Debug.Log($"Button pressed is {buttonPressed}");
     }
     public void printIt()
     {
-        Debug.Log("Route Button pressed is " + buttonPressed);
+        // Debug.Log("Route Button pressed is " + buttonPressed);
     }
 }

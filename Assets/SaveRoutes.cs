@@ -19,7 +19,7 @@ public class SaveRoutes : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.N))
         {
             // Save the current route
-            Debug.Log("Saving route");
+            // Debug.Log("Saving route");
             SaveRoute();
         }
     }

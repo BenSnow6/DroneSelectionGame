@@ -14,6 +14,7 @@ public class TileMapManager : MonoBehaviour
     GridInformation GridInfo;
     public TextAsset RiskMapData;
     private string[] riskData;
+    MainManager mainManager = MainManager.Instance;
 
     SpriteRenderer sprite;
 

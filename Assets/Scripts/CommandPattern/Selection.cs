@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class Selection : ICommand
 {
+    MainManager mainManager = MainManager.Instance;
     public Vector3Int clickedLocation
     {
         /// <summary>
@@ -115,7 +116,7 @@ public class Selection : ICommand
         /// Outputs true/false
         /// Hardcoded grid bounds need to be changed for different sized grid
         /// </summary>
-        return 0 <= mousePos.x && mousePos.x <= 9 && 0 <= mousePos.y && mousePos.y <= 7;
+        return 0 <= mousePos.x && mousePos.x <= mainManager.x_grid_width && 0 <= mousePos.y && mousePos.y <= mainManager.y_grid_width;
     }
 
 }

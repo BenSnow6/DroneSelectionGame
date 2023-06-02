@@ -16,6 +16,8 @@ public class MainManager : MonoBehaviour
     public Image screenshotDisplay; // Display the screenshot on the UI.
     public float accumulatedRisk; // Save the accumulated risk to pass to flyover scene.
     public int BatteryLeft; // Save the battery remaining after route selection
+    public int x_grid_width = 19;
+    public int y_grid_width = 15;
 
     private void Awake()
     {

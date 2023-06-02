@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
+using System;
 public class Highlight : MonoBehaviour
 {
     /// <summary>
@@ -23,6 +24,8 @@ public class Highlight : MonoBehaviour
     [SerializeField] private Tilemap interactiveGrid = null;
     [SerializeField] private Tilemap backgroundGrid = null;
     [SerializeField] private Tile hoverTile = null;
+    MainManager mainManager = MainManager.Instance;
+
 
 
 
@@ -69,7 +72,7 @@ public class Highlight : MonoBehaviour
         /// Outputs true/false
         /// Hardcoded grid bounds need to be changed for different sized grid
         /// </summary>
-        return 0 <= mousePos.x && mousePos.x <= 9 && 0 <= mousePos.y && mousePos.y <= 7;
+        return 0 <= mousePos.x && mousePos.x <= mainManager.x_grid_width && 0 <= mousePos.y && mousePos.y <= mainManager.y_grid_width;
     }
 
     void showHighlight(Vector3Int mousePosition, Vector3Int previousMousePosition)
@@ -94,6 +97,7 @@ public class Highlight : MonoBehaviour
         movementInput = context.ReadValue<Vector2>();
         mousePos = new Vector3(movementInput.x, movementInput.y, 0);
         mouseLocation = Camera.main.ScreenToWorldPoint(mousePos);
-        // Debug.Log($"mouse position {mousePos}");
+        mouseLocation *= 2;
+        Debug.Log($"mouse position {mousePos}");
     }
 }

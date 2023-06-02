@@ -32,6 +32,7 @@ private GridInformation gridInfo;
 private Vector3Int previousMousePos = new Vector3Int();
 public bool clickedNewInput = false;
 private SelectionManager _selectionManager = null; // Instance of the selectionManager
+MainManager mainManager = MainManager.Instance;
 
 
 
@@ -86,7 +87,7 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
         //     - The risk map needs to be recalculated from the .ipynb file and saved as a new csv file 
         //     - The gridinformation then needs to be updated in the TileMapManager
         // The other tiles need to be re-imported with a different scale per pixel (hoverTile, selectionTile, surroundingTile, startTile, endTile)
-        return 0 <= mousePosition.x && mousePosition.x <= 9 && 0 <= mousePosition.y && mousePosition.y <= 7;
+        return 0 <= mousePosition.x && mousePosition.x <= mainManager.x_grid_width && 0 <= mousePosition.y && mousePosition.y <= mainManager.y_grid_width;
     }
     public void selectTile(Vector3Int mousePosition)
     {
@@ -229,6 +230,7 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
 
     public Vector3Int TilePosition(Vector3 mousePos)
     {
+        // Debug.Log($"tile position: {new Vector3Int((int) Mathf.Floor(mousePos.x), (int) Mathf.Floor(mousePos.y), 0)}");
         return new Vector3Int((int) Mathf.Floor(mousePos.x), (int) Mathf.Floor(mousePos.y), 0);
     }
 
@@ -237,6 +239,8 @@ private SelectionManager _selectionManager = null; // Instance of the selectionM
         movementInput = context.ReadValue<Vector2>();
         mousePos = new Vector3(movementInput.x, movementInput.y, 0);
         mouseLocation = Camera.main.ScreenToWorldPoint(mousePos);
+        // Debug.Log($"mouse loc is {mouseLocation}");
+        mouseLocation *= 2;
         tileLocalPos = TilePosition(mouseLocation);
     }
 

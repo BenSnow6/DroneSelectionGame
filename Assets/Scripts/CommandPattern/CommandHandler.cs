@@ -9,8 +9,8 @@ public class CommandHandler
     public List<ICommand> commandList = new List<ICommand>();
     public List<Vector3Int> selectedLocations = new List<Vector3Int>();
     public List<float> riskValues = new List<float>();
-    public int batteryLevel = 15;
-    public int batteryMax = 15;
+    public int batteryLevel = 28; // 15 for large squares
+    public int batteryMax = 28; // 15 for large squares
     public float accumulatedRisk = 0;
     public int index;
 
