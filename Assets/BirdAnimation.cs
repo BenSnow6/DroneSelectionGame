@@ -9,6 +9,7 @@ public class BirdAnimation : MonoBehaviour
     void Start()
     {
         // Animate the bird
+        // testing github
 
     }
 
