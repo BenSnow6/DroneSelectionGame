@@ -98,6 +98,6 @@ public class Highlight : MonoBehaviour
         mousePos = new Vector3(movementInput.x, movementInput.y, 0);
         mouseLocation = Camera.main.ScreenToWorldPoint(mousePos);
         mouseLocation *= 2;
-        Debug.Log($"mouse position {mousePos}");
+        // Debug.Log($"mouse position {mousePos}");
     }
 }

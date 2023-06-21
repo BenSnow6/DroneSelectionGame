@@ -11,5 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FlyoverScene.unity
     guid: 06ba196b3c8aec047a7c6a8208fba91a
+  - enabled: 0
+    path: Assets/Scenes/GeoSpatialCreator.unity
+    guid: a4771ba3557b7e242ab4304684cecc17
   m_configObjects:
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 94488f79f28f57a45b9749cfaa6367da, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: aab961dba4b936d43be607a46b0910b9, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 16c4dda256522cc4b8d90925902f03e9, type: 2}

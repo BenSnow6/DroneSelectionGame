@@ -34,8 +34,8 @@ public class DroneMovement : MonoBehaviour
         /// Scale the path to fit the grid.
         /// </summary>
         mapSize = mapSizeFinder.mapSize;
-        x_scale = mapSize.x/10f; // Dividing by 10 because there are 10 tiles in the x direction in the selection scene
-        z_scale = mapSize.y/8f; // It says y here because we're storing the z value in the y value of the Vector2
+        x_scale = mapSize.x/20f; // Dividing by 10 because there are 10 tiles in the x direction in the selection scene
+        z_scale = mapSize.y/16f; // It says y here because we're storing the z value in the y value of the Vector2
         miniMapSize = miniMapCanvas.GetComponent<RectTransform>().rect.size;
         generateRoute();
 
