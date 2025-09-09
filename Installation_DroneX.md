@@ -14,4 +14,9 @@
 
 4. Inside that folder are the game files.
 
+
 ![Games](/ReleaseAssets/Games.png)
+
+That's all!
+
+If you get any problems, please message me here: bensnows@gmail.com
